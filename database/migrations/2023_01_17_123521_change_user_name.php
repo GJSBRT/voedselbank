@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('name');
+            $table->dropColumn('current_team_id');
+            $table->dropColumn('profile_photo_path');
             $table->string('first_name');
             $table->string('last_name');
         });
