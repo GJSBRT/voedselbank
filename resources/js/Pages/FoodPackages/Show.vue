@@ -4,7 +4,7 @@ import Table from '../../Components/Table.vue';
 import TableData from '../../Components/TableData.vue';
 import Pagination from '../../Components/Pagination.vue';
 import PrimaryButton from '../../Components/PrimaryButton.vue';
-import CreatePackageButton from './CreatePackageButton.vue';
+import { Inertia } from '@inertiajs/inertia';
 
 defineProps({
     packages: Object,
@@ -13,21 +13,23 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Food Packages">
+    <AppLayout title="Voedsel Pakketten">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Food Packages
+                Voedsel Pakketten
             </h2>
 
             <div class="ml-auto">
-                <CreatePackageButton/>
+                <PrimaryButton @click="() => Inertia.visit(route('food-packages.new'))">
+                    Nieuw Pakket
+                </PrimaryButton>
             </div>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <Table :headers="['#', 'Klant', 'Aantal Producten', 'Opgehaald Op', 'Samengesteld Op']" >
-                    <tr class="hover:bg-gray-50 cursor-pointer" v-for="packageItem in packages.data" :key="packages.id">
+                    <tr @click="Inertia.visit(route('food-packages.view', packageItem.id))" class="hover:bg-gray-50 cursor-pointer" v-for="packageItem in packages.data" :key="packages.id">
                         <TableData>{{ packageItem.id }}</TableData>
                         <TableData>{{ packageItem.customer.first_name }}</TableData>
                         <TableData>{{ packageItem.items.length }}</TableData>
