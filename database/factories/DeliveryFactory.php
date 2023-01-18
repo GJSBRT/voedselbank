@@ -20,7 +20,7 @@ class DeliveryFactory extends Factory
         $date = fake()->dateTimeBetween('-1week', '+1week');
 
         return [
-            'supplier_id' => rand(1, 12),
+            'supplier_id' => rand(1, 10),
             'expected_at' => $date,
             'delivered_at' => $date > now()? null : $date,
             'notes' => fake()->text,
