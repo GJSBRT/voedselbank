@@ -43,6 +43,10 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
+                                
+                                <NavLink :href="route('food-package.index')" :active="route().current('food-package.index')">
+                                    Food Package
+                                </NavLink>
                             </div>
                         </div>
 
@@ -123,6 +127,10 @@ const logout = () => {
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </ResponsiveNavLink>
+                        
+                        <ResponsiveNavLink :href="route('food-package.index')" :active="route().current('food-package.index')">
+                            Food Package
                         </ResponsiveNavLink>
                     </div>
 
