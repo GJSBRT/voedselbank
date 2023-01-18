@@ -24,7 +24,7 @@ class FoodPackage extends Model
 
     public function items()
     {
-        return $this->hasMany(FoodPackageItem::class, 'id', 'food_package_id');
+        return $this->hasMany(FoodPackageItem::class);
     }
 
     public function addItem($id)

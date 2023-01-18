@@ -9,10 +9,6 @@ use Inertia\Inertia;
 //    'verified',
 //])->group(function () {
     Route::get('/', function () {
-
-        $role = \App\Models\FoodPackage::with('foodPackages')->find(2);
-
-        dd($role);
         return Inertia::render('Dashboard');
     })->name('dashboard');
 //});
