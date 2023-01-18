@@ -34,7 +34,7 @@ const submit = () => {
         </template>
 
         <div class="mb-4 text-sm text-gray-600">
-            Dit is een beveiliged gebied van de applicatie. Bevestig uw wachtwoord voordat u doorgaat.
+            Dit is een beveiligd gebied van de applicatie. Bevestig uw wachtwoord voordat u doorgaat.
         </div>
 
         <form @submit.prevent="submit">
