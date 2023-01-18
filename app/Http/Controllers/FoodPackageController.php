@@ -7,7 +7,8 @@ use Inertia\Inertia;
 
 class FoodPackageController extends Controller
 {
-    public function index() {
+    public function index() 
+    {
         $packages = FoodPackage::with(['customer', 'items'])->paginate();
         
         return Inertia::render('FoodPackages/Show', [
