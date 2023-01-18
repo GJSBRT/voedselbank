@@ -9,7 +9,8 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
 const form = useForm({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -24,7 +25,7 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head title="Registreren" />
 
     <AuthenticationCard>
         <template #logo>
@@ -32,22 +33,38 @@ const submit = () => {
         </template>
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-                <TextInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-                <InputError class="mt-2" :message="form.errors.name" />
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <InputLabel for="first_name" value="Voornaam" />
+                    <TextInput
+                        id="first_name"
+                        v-model="form.first_name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                        autocomplete="given-name"
+                    />
+                    <InputError class="mt-2" :message="form.errors.first_name" />
+                </div>
+
+                <div>
+                    <InputLabel for="last_name" value="Achternaam" />
+                    <TextInput
+                        id="last_name"
+                        v-model="form.last_name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                        autocomplete="family-name"
+                    />
+                    <InputError class="mt-2" :message="form.errors.last_name" />
+                </div>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email Adres" />
                 <TextInput
                     id="email"
                     v-model="form.email"
@@ -59,7 +76,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Wachtwoord" />
                 <TextInput
                     id="password"
                     v-model="form.password"
@@ -72,7 +89,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="Bevestig Wachtwoord" />
                 <TextInput
                     id="password_confirmation"
                     v-model="form.password_confirmation"
@@ -84,13 +101,13 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
-            <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
+            <div class="mt-4">
                 <InputLabel for="terms">
                     <div class="flex items-center">
                         <Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
 
                         <div class="ml-2">
-                            I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
+                            Ik ga akkoord met de <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Algemene voorwaarden</a> en de <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Privacy voorwaarden</a>
                         </div>
                     </div>
                     <InputError class="mt-2" :message="form.errors.terms" />
@@ -99,11 +116,11 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
+                    Al Geregistreerd?
                 </Link>
 
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
+                    Registreren
                 </PrimaryButton>
             </div>
         </form>
