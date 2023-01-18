@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('food_package', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained('customer');
-            $table->timestamp('retrieved_at')->nullable();
+            $table->timestamp('retrived_at')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

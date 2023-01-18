@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('supplier_id')->constrained('supplier');
             $table->text('notes')->nullable();
-            $table->timestamp('expected_at');
             $table->timestamp('delivered_at')->nullable();
             $table->timestamps();
         });
