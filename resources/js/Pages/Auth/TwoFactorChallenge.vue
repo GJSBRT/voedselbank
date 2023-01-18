@@ -38,7 +38,7 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Two-factor Confirmation" />
+    <Head title="Twee stap authenticatie" />
 
     <AuthenticationCard>
         <template #logo>
@@ -47,11 +47,11 @@ const submit = () => {
 
         <div class="mb-4 text-sm text-gray-600">
             <template v-if="! recovery">
-                Please confirm access to your account by entering the authentication code provided by your authenticator application.
+                Bevestig toegang tot uw account door een van uw authenticatiecodes in te voeren.
             </template>
 
             <template v-else>
-                Please confirm access to your account by entering one of your emergency recovery codes.
+                Bevestig toegang tot uw account door een van uw recovery codes in te voeren.
             </template>
         </div>
 
@@ -87,11 +87,11 @@ const submit = () => {
             <div class="flex items-center justify-end mt-4">
                 <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer" @click.prevent="toggleRecovery">
                     <template v-if="! recovery">
-                        Use a recovery code
+                        Gebruik een recovery code
                     </template>
 
                     <template v-else>
-                        Use an authentication code
+                        Gebruik een authenticatie code
                     </template>
                 </button>
 
