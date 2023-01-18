@@ -1,0 +1,34 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Role;
+use Carbon\Carbon;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class RoleSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Role::create([
+            'name' => 'directie',
+            'permissions' => json_encode(['*']),
+        ]);
+
+        Role::create([
+            'name' => 'magazijnmedewerker',
+            'permissions' => json_encode(['*']),
+        ]);
+
+        Role::create([
+            'name' => 'vrijwilliger',
+            'permissions' => json_encode(['*']),
+        ]);
+    }
+}
