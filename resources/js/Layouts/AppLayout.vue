@@ -11,6 +11,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 
 defineProps({
     title: String,
+    breadcrumbs: Array,
 });
 
 const showingNavigationDropdown = ref(false);
@@ -176,6 +177,9 @@ const logout = () => {
             <header v-if="$slots.header" class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
+                </div>
+                <div class="flex flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-yellow-500 text-sm">
+                    <Link v-for="breadcrumb in breadcrumbs" :href="breadcrumb.href" class="flex flex-row m-1">{{ breadcrumb.title }} > </Link>
                 </div>
             </header>
 

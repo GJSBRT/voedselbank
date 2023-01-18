@@ -1,8 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Table from '../../Components/Table.vue';
-import TableData from '../../Components/TableData.vue';
-import Pagination from '../../Components/Pagination.vue';
+import { Link } from '@inertiajs/inertia-vue3';
+
 
 defineProps({
     products: Object,
@@ -11,7 +10,20 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Food products">
+    <AppLayout title="Food products" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'producten',
+            href: route('product.index'),
+        },
+        {
+            title: 'producten toevoegen',
+            href: route('product.CreateProduct'),
+        }
+    ]" >
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Voeg producten toe

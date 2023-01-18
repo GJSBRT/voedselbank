@@ -11,7 +11,16 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Food Packages">
+    <AppLayout title="Food Packages" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'voedsel pakketten',
+            href: route('food-packages.index')
+        }
+    ]" >
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Food Packages
