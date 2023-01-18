@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         User::create(['first_name' => 'Gijsbert',
             'last_name' => 'Gemert',
             'role_id' => 1,
-            'email' => '97087855@st.deltion.nl',
+            'email' => 'gijsbert@dutchis.net',
             'password' => bcrypt('gijsbert'),
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
