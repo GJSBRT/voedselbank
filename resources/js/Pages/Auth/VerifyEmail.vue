@@ -19,7 +19,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 </script>
 
 <template>
-    <Head title="Email Verification" />
+    <Head title="Email Verificatie" />
 
     <AuthenticationCard>
         <template #logo>
@@ -27,17 +27,18 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
         </template>
 
         <div class="mb-4 text-sm text-gray-600">
-            Before continuing, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+            Bedankt voor het registreren! Voordat u verder gaat, zou u een verificatie link moeten ontvangen.
+            Als u de email niet heeft ontvangen, klik dan op de knop hieronder om een nieuwe link te ontvangen.
         </div>
 
         <div v-if="verificationLinkSent" class="mb-4 font-medium text-sm text-green-600">
-            A new verification link has been sent to the email address you provided in your profile settings.
+            Een nieuwe link is verstuurd naar uw email adres.
         </div>
 
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
                 <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Resend Verification Email
+                    Verstuur verificatie link
                 </PrimaryButton>
 
                 <div>
@@ -45,7 +46,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
                         :href="route('profile.show')"
                         class="underline text-sm text-gray-600 hover:text-gray-900"
                     >
-                        Edit Profile</Link>
+                        Bewerk Account</Link>
 
                     <Link
                         :href="route('logout')"
