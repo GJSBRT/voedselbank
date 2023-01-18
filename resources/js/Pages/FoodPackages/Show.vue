@@ -3,6 +3,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Table from '../../Components/Table.vue';
 import TableData from '../../Components/TableData.vue';
 import Pagination from '../../Components/Pagination.vue';
+import PrimaryButton from '../../Components/PrimaryButton.vue';
+import CreatePackageButton from './CreatePackageButton.vue';
 
 defineProps({
     packages: Object,
@@ -16,6 +18,10 @@ defineProps({
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Food Packages
             </h2>
+
+            <div class="ml-auto">
+                <CreatePackageButton/>
+            </div>
         </template>
 
         <div class="py-12">
@@ -29,7 +35,7 @@ defineProps({
                             <span v-if="packageItem.retrieved_at == null" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-md bg-red-100 text-red-800">
                                 Nog niet opgehaald
                             </span>
-                            <span v-else class="px-2 inline-flex text-xs leading-5">
+                            <span v-else>
                                 {{ new Date(packageItem.retrieved_at).toLocaleDateString() }}
                             </span>
                         </TableData>
