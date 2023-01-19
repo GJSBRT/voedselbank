@@ -10,4 +10,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     })->name('dashboard');
 
     Route::get('/food-packages', [FoodPackageController::class, 'index'])->name('food-package.index');
+    Route::get('/quantity-products', [QuantityProductsController::class, 'index'])->name('quantity-products.index');
 });
