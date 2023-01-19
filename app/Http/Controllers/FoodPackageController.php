@@ -10,7 +10,8 @@ use Inertia\Inertia;
 
 class FoodPackageController extends Controller
 {
-    public function index() {
+    public function index() 
+    {
         $packages = FoodPackage::with(['customer', 'items'])->orderBy('retrieved_at')->paginate();   
         
         return Inertia::render('FoodPackages/Show', [
@@ -18,11 +19,13 @@ class FoodPackageController extends Controller
         ]);
     }
     
-    public function new() {
+    public function new() 
+    {
         return Inertia::render('FoodPackages/New');
     }
     
-    public function view(int $foodPackageId) {
+    public function view(int $foodPackageId) 
+    {
         $foodPackage = FoodPackage::with(['customer'])->find($foodPackageId);
         $packageItems = FoodPackageItem::where('food_package_id', $foodPackageId)->get();
         $products = [];
@@ -39,7 +42,8 @@ class FoodPackageController extends Controller
         ]);
     }
 
-    public function create(Request $request) {
+    public function create(Request $request) 
+    {
         $notes = $request->input('notes');
         $customer = $request->input('customer');
         $products = $request->input('products');
@@ -67,7 +71,8 @@ class FoodPackageController extends Controller
         ]);
     }
 
-    public function update(Request $request, int $foodPackageId) {
+    public function update(Request $request, int $foodPackageId) 
+    {
         $foodPackage = FoodPackage::where('id', $foodPackageId)->firstOrFail();
         $notes = $request->input('notes') ?? null;
         $customer = $request->input('customer') ?? null;
