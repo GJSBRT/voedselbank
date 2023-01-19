@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Models\FoodPackage;
 use App\Models\FoodPackageItem;
@@ -29,8 +31,9 @@ class CustomerController extends Controller
     }
 
     //This function let's you create a customer
-    public function registerCustomer(Request $request)
+    public function registerCustomer(RegisterCustomerRequest $request)
     {
+
         $customer = Customer::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -51,6 +54,7 @@ class CustomerController extends Controller
             'customers' => $customers,
         ]);
     }
+
     //Function to confirm the delete of a customer
     public function confirmation(int $customerId)
     {
@@ -85,7 +89,7 @@ class CustomerController extends Controller
     }
 
     //Update customers in the same form as the register function
-    public function update(Request $request, int $customerId)
+    public function update(UpdateCustomerRequest $request, int $customerId)
     {
         //Updates every column of costumer
         $customer = Customer::where('id', $customerId,)->firstOrFail();
@@ -95,18 +99,14 @@ class CustomerController extends Controller
         $customer->address = $request->input('address');
         $customer->adult_amount = $request->input('adult_amount');
         $customer->child_amount = $request->input('child_amount');
-        $customer->baby_amount = $request->input('baby_amount') ;
+        $customer->baby_amount = $request->input('baby_amount');
         $customer->notes = $request->input('notes');
         $customer->save();
 
         //Let a banner appear to notify the user of the change
         $request->session()->flash('flash.banner', 'Klant gewijzigd');
 
-        $customers = Customer::paginate();
-        return Inertia::render("Customers/Show", [
-            'customers' => $customers,
-        ]);
-
+        return redirect()->route('customer.index');
 
 
     }
