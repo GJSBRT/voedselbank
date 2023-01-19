@@ -5,6 +5,16 @@ namespace App\Classes;
 use App\Models\User;
 
 class Role {
+
+    /**
+     * All permissions available
+     * 
+     * @var array
+     */
+    public static $permissions = [
+        '*', // All permissions
+        'food-package:read',
+    ];
     
     /**
      * Check if user has permission

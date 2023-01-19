@@ -45,6 +45,14 @@ const logout = () => {
                                 <NavLink :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                                     Food Package
                                 </NavLink>
+                                
+                                <NavLink :href="route('users.index')" :active="route().current('users.*')">
+                                    Medewerkers
+                                </NavLink>
+                                
+                                <NavLink :href="route('roles.index')" :active="route().current('roles.*')">
+                                    Rollen
+                                </NavLink>
                             </div>
                         </div>
 
@@ -129,6 +137,14 @@ const logout = () => {
                         
                         <ResponsiveNavLink :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                             Food Package
+                        </ResponsiveNavLink>
+                        
+                        <ResponsiveNavLink :href="route('users.index')" :active="route().current('users.*')">
+                            Medewerkers
+                        </ResponsiveNavLink>
+                        
+                        <ResponsiveNavLink :href="route('roles.index')" :active="route().current('roles.*')">
+                            Rollen
                         </ResponsiveNavLink>
                     </div>
 
