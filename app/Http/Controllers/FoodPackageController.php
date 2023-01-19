@@ -27,7 +27,7 @@ class FoodPackageController extends Controller
     public function view(int $foodPackageId) 
     {
         $foodPackage = FoodPackage::with(['customer'])->find($foodPackageId);
-        $packageItems = FoodPackageItem::where('food_package_id', $foodPackageId)->get();
+        $packageItems = $foodPackage->items();
         $products = [];
 
         foreach($packageItems as $packageItem) {
@@ -75,7 +75,7 @@ class FoodPackageController extends Controller
 
     public function update(Request $request, int $foodPackageId) 
     {
-        $foodPackage = FoodPackage::where('id', $foodPackageId)->firstOrFail();
+        $foodPackage = FoodPackage::find($foodPackageId)->firstOrFail();
         $notes = $request->input('notes') ?? null;
         $customer = $request->input('customer') ?? null;
         $items = $request->input('products') ?? null;
