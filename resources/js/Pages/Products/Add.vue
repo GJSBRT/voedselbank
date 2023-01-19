@@ -30,9 +30,12 @@ const AddProduct = () => {
 </script>
 
 <template>
-    <AppLayout title="Customer Overview">
-    <FormSection @submitted="updateProfileInformation" class="flex justify-center items-center">
+    <AppLayout title="Customer Overview" class="py-12">
+        <h2 class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col my-20 font-bold text-3xl">Maak een product aan</h2>
+    <FormSection @submitted="updateProfileInformation" class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col my-20">
+        <template>
 
+        </template>
         <template #form>
             <div class="col-span-6 sm:col-span-4 w-full flex-auto">
                 <InputLabel for="name" value="Product Naam" />
@@ -80,7 +83,6 @@ const AddProduct = () => {
                 />
                 <InputError :message="form.errors.quantity" class="mt-2" />
             </div>
-
         </template>
 
 

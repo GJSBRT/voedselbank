@@ -19,16 +19,6 @@ class ProductController extends Controller
             ]);
         }
 
-        // Get product by ID
-        public function getProduct($id)
-        {
-            $products = Product::find($id);
-            
-            return Inertia::render('Products/Show',[
-                'products' => $products
-            ]);
-        }
-
         // This is a get function for the products
         // This makes you able to navigate to the add page in vue
         public function Add()
@@ -39,16 +29,32 @@ class ProductController extends Controller
         // Create a new product
         public function CreateProduct(Request $request)
         {
+            try
+            {
+                
+                $request->validate([
+                    'name' => 'required|unique:posts',
+                    'ean_number' => 'required',
+                    'product_category_id' => 'required',
+                    'quantity' => 'required',
+                ]);
+
                 Product::create([
                     'name' => $request->input('name'),
                     'ean_number' => $request->input('ean_number'),
                     'product_category_id' => $request->input('product_category_id'),
                     'quantity' => $request->input('quantity'),  
                 ]);
+            }catch(\Exception $error)
+            {
+                return redirect()->route('product.Add')->dangerBanner('Dit product bestaat al');
+            }
+                
 
                 return redirect()->route('product.index')->banner('Product opgeslagen!');
         }
 
+        // Get the products find them by id and Make the edit page accesible in vue
         public function Edit(int $productId)
         {
             $products = Product::all()->find($productId);
@@ -72,7 +78,7 @@ class ProductController extends Controller
 
         }
 
-        // Delete a product
+        // Find a product by id and delete that product
         Public function DeleteProduct(Request $request, int $productId)
         {
 
