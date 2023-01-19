@@ -38,16 +38,16 @@ class ProductController extends Controller
         // Create a new product
         public function CreateProduct(Request $request)
         {
-            $products = new Product();
-            $products->name = $request->name;
-            $products->ean_number = $request->ean_number;
-            $products->product_category_id = $request->product_category;
-            $products->quantity = $request->quantity;
-            $products->save();
+                $products = Product::create([
+                    'name' => $request->input('name'),
+                    'ean_number' => $request->input('ean_number'),
+                    'product_catagory_id' => $request->input('product_category_id'),
+                    'quantity' => $request->input('quantity'),  
+                ]);
 
-            return Inertia::render('Products/Add',[
-                'products' => $products
-            ]);
+                return Inertia::render('Products/Add',[
+                    'products' => $products
+                ]);
         }
 
         // Edit a product
