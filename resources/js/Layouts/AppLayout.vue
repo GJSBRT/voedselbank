@@ -24,8 +24,6 @@ const logout = () => {
     <div>
         <Head :title="title" />
 
-        <Banner />
-
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
@@ -45,7 +43,7 @@ const logout = () => {
                                     Dashboard
                                 </NavLink>
                                 
-                                <NavLink :href="route('food-package.index')" :active="route().current('food-package.index')">
+                                <NavLink :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                                     Food Package
                                 </NavLink>
 
@@ -135,7 +133,7 @@ const logout = () => {
                             Dashboard
                         </ResponsiveNavLink>
                         
-                        <ResponsiveNavLink :href="route('food-package.index')" :active="route().current('food-package.index')">
+                        <ResponsiveNavLink :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                             Food Package
                         </ResponsiveNavLink>
                     </div>
@@ -175,13 +173,15 @@ const logout = () => {
 
             <!-- Page Heading -->
             <header v-if="$slots.header" class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex">
                     <slot name="header" />
                 </div>
                 <div class="flex flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-yellow-500 text-sm">
                     <Link v-for="breadcrumb in breadcrumbs" :href="breadcrumb.href" class="flex flex-row m-1">{{ breadcrumb.title }} > </Link>
                 </div>
             </header>
+
+            <Banner />
 
             <!-- Page Content -->
             <main>

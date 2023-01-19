@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\FoodPackage;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Inertia\Inertia;
+use App\Models\Product;
+use Spatie\Searchable\Search;
 
 class ProductController extends Controller
 {
@@ -89,4 +92,15 @@ class ProductController extends Controller
             
             return redirect()->route('product.index')->banner('Product Verwijderd!');
         }
-}
+
+        public function search(Request $request) 
+        {
+            $results = (new Search())
+                ->registerModel(Product::class, ['name', 'ean_number'])
+                ->search($request->input('query'));
+
+            return response()->json($results);
+        }
+
+
+
