@@ -13,10 +13,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::prefix('/food-packages')->group(function () {
         Route::get('/', [FoodPackageController::class, 'index'])->name('food-packages.index');
-        Route::get('/{foodPackageId}', [FoodPackageController::class, 'view'])->name('food-packages.view');
-        Route::patch('/{foodPackageId}', [FoodPackageController::class, 'update'])->name('food-packages.update');
         Route::get('/new', [FoodPackageController::class, 'new'])->name('food-packages.new');
         Route::post('/new', [FoodPackageController::class, 'create'])->name('food-packages.create');
+        Route::get('/{foodPackageId}', [FoodPackageController::class, 'view'])->name('food-packages.view');
+        Route::patch('/{foodPackageId}', [FoodPackageController::class, 'update'])->name('food-packages.update');
     });
 });
 
