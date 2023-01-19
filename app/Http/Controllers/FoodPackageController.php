@@ -48,6 +48,12 @@ class FoodPackageController extends Controller
         $customer = $request->input('customer');
         $products = $request->input('products');
 
+        $request->validate([
+            'notes' => 'string',
+            'customer' => 'required',
+            'products' => 'required',
+        ]);
+
         $foodPackage = FoodPackage::create([
             'customer_id' => $customer['id'],
             'notes' => $notes,
@@ -64,11 +70,7 @@ class FoodPackageController extends Controller
             $dbProduct->decrement('quantity', 1);
         }
 
-        $packages = FoodPackage::with(['customer', 'items'])->paginate(); 
-
-        return Inertia::render('FoodPackages/Show', [
-            'packages' => $packages,
-        ]);
+        return redirect()->route('food-packages.index')->banner('Pakket is successvol aangemaakt!');
     }
 
     public function update(Request $request, int $foodPackageId) 
@@ -77,6 +79,10 @@ class FoodPackageController extends Controller
         $notes = $request->input('notes') ?? null;
         $customer = $request->input('customer') ?? null;
         $items = $request->input('products') ?? null;
+
+        $request->validate([
+            'notes' => 'string',
+        ]);
 
         if ($notes) {
             $foodPackage->notes = $notes;
@@ -104,10 +110,6 @@ class FoodPackageController extends Controller
             $dbProduct->decrement('quantity', 1);
         }
 
-        $packages = FoodPackage::with(['customer', 'items'])->paginate(); 
-
-        return Inertia::render('FoodPackages/Show', [
-            'packages' => $packages,
-        ]);
+        return redirect()->route('food-packages.index')->banner('Pakket is successvol aangepast!');
     }
 }

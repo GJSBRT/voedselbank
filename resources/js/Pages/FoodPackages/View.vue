@@ -11,6 +11,7 @@ import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
 import { toRefs, ref } from 'vue';
 import BarcodeScanner from '../../Components/BarcodeScanner.vue'
+import TextInput from '../../Components/TextInput.vue';
 
 const props = defineProps({
     foodPackage: Object,
@@ -21,11 +22,19 @@ const props = defineProps({
 
 const { foodPackage, notes, customer, products } = toRefs(props);
 
+// Set the retrieved_at date to the current date and time if retrived_at is set.
+let now = null;
+if (foodPackage.value.retrieved_at) {
+    now = new Date(foodPackage.value.retrieved_at);
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+}
+
 const form = useForm({
     _method: 'PATCH',
     notes: notes.value,
     customer: customer.value,
     products: products.value,
+    retrieved_at: now ?  now.toISOString().slice(0,16) : '',
 });
 
 const setCustomerId = (customer) => {
@@ -97,9 +106,14 @@ async function onScan(scan) {
                                 <InputLabel for="customerId" value="Customer" />
                                 <CustomerSearch id="customerId" :callback="setCustomerId"/>
                             </div>
+                            
+                            <div class="col-span-6">
+                                <InputLabel for="retrivedAt" value="Opgehaald op" />
+                                <TextInput id="retrivedAt" v-model="form.retrieved_at" type="datetime-local" class="mt-1 block w-full"/>
+                            </div>
 
                             <div class="col-span-6 sm:col-span-4 w-full">
-                                <InputLabel for="notes" value="Notities" />
+                                <InputLabel for="notes" value="Notities"/>
                                 <TextField id="notes" v-model="form.notes" type="text" class="mt-1 block w-full"/>
                                 <InputError :message="form.errors.notes" class="mt-2" />
                             </div>
