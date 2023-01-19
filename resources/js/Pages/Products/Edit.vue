@@ -7,22 +7,25 @@ import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import { toRefs } from 'vue';
 
 
 const props = defineProps({
     products: Object,
 });
 
+const { products } = toRefs(props)
+
 const form = useForm({
-    _method: 'POST',
-    name: '',
-    ean_number: '',
-    product_category_id: 0,
-    quantity: 0
+    _method: 'PATCH',
+    name: products.value.name,
+    ean_number: products.value.ean_number,
+    product_category_id: products.value.product_category_id,
+    quantity: products.value.quantity
 });
 
 const AddProduct = () => {
-    form.post(route('product.CreateProduct'), {
+    form.post(route('product.EditProduct', products.value.id), {
         preserveScroll: true,
     });
 }

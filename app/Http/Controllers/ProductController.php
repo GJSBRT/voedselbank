@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FoodPackage;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Inertia\Inertia;
@@ -38,27 +39,54 @@ class ProductController extends Controller
         // Create a new product
         public function CreateProduct(Request $request)
         {
-                $products = Product::create([
+                Product::create([
                     'name' => $request->input('name'),
                     'ean_number' => $request->input('ean_number'),
-                    'product_catagory_id' => $request->input('product_category_id'),
+                    'product_category_id' => $request->input('product_category_id'),
                     'quantity' => $request->input('quantity'),  
                 ]);
 
-                return Inertia::render('Products/Add',[
-                    'products' => $products
-                ]);
+                return redirect()->route('product.index')->banner('Product opgeslagen!');
+        }
+
+        public function Edit(int $productId)
+        {
+            $products = Product::all()->find($productId);
+
+            return Inertia::render('Products/Edit',[
+                'products' => $products
+            ]);
         }
 
         // Edit a product
-        Public function EditProduct()
+        Public function EditProduct(Request $request, int $productId)
         {
+            $products = Product::where('id', $productId)->firstOrFail();
+            $products->name = $request->input('name');
+            $products->ean_number = $request->input('ean_number');
+            $products->product_category_id = $request->input('product_category_id');
+            $products->quantity = $request->input('quantity');
+            $products->save();
+
+            return redirect()->route('product.index')->banner('Product Veranderd!');
 
         }
 
         // Delete a product
-        Public function DeleteProduct()
+        Public function DeleteProduct(Request $request, int $productId)
         {
 
+            $product = Product::find($productId);
+
+            try
+            {
+                $product->delete();
+                
+            }catch(\Exception $error)
+            {
+                return redirect()->route('product.index')->dangerBanner('Product kan niet verwijderd worden, Dit product is verwerkt in een voedselpakket');
+            }
+            
+            return redirect()->route('product.index')->banner('Product Verwijderd!');
         }
 }
