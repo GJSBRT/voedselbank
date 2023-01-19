@@ -11,7 +11,7 @@ class QuantityProductsController extends Controller
     public function index() {
         $products = Product::with(['category'])->paginate();
         
-        return Inertia::render('Products/Show', [
+        return Inertia::render('QuantityProducts/Show', [
             'products' => $products,
         ]);
     }
