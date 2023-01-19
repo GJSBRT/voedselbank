@@ -80,10 +80,6 @@ const submit = () => {
                     Wachtwoord vergeten?
                 </Link>
 
-                <Link :href="route('register')" class="ml-2 underline text-sm text-gray-600 hover:text-gray-900">
-                    Registreren?
-                </Link>
-
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>

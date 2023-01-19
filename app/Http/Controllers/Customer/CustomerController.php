@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Searchable\Search;
 
 class CustomerController extends Controller
 {
@@ -101,5 +102,14 @@ class CustomerController extends Controller
         ]);
 
 
+    }
+
+    public function search(Request $request)
+    {
+        $results = (new Search())
+            ->registerModel(Customer::class, ['first_name', 'last_name'])
+            ->search($request->input('query'));
+
+        return response()->json($results);
     }
 }

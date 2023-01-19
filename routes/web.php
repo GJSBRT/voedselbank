@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FoodPackageController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \App\Http\Controllers\Customer\CustomerController;
@@ -10,7 +11,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/food-packages', [FoodPackageController::class, 'index'])->name('food-package.index');
+
+    Route::prefix('/food-packages')->group(function () {
+        Route::get('/', [FoodPackageController::class, 'index'])->name('food-packages.index');
+        Route::get('/new', [FoodPackageController::class, 'new'])->name('food-packages.new');
+        Route::post('/new', [FoodPackageController::class, 'create'])->name('food-packages.create');
+        Route::get('/{foodPackageId}', [FoodPackageController::class, 'view'])->name('food-packages.view');
+        Route::patch('/{foodPackageId}', [FoodPackageController::class, 'update'])->name('food-packages.update');
+    });
+
     Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/customers/new', [CustomerController::class, 'add'])->name('customer.add');
     Route::post('/customers/new', [CustomerController::class, 'registerCustomer'])->name('customer.registercustomer');
@@ -19,3 +28,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/customers/{customerId}/delete', [CustomerController::class, 'confirmation'])->name('customer.confirmation');
     Route::delete('/customers/{customerId}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
 });
+
+
+Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/customers', [CustomerController::class, 'search']);
+    Route::get('/products', [ProductController::class, 'search']);
+});
+

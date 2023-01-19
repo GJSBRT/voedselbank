@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Customer extends Model
+class Customer extends Model implements Searchable
 {
     use HasFactory;
 
@@ -26,5 +28,10 @@ class Customer extends Model
     public function foodPackages()
     {
         return $this->hasMany(FoodPackage::class);
+    }
+    
+    public function getSearchResult(): SearchResult
+    {       
+        return new SearchResult($this, "{$this->first_name} {$this->last_name}");
     }
 }
