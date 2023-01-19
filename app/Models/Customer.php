@@ -18,7 +18,7 @@ class Customer extends Model
         'email',
         'address',
         'adult_amount',
-        'children_amount',
+        'child_amount',
         'baby_amount',
         'notes',
     ];

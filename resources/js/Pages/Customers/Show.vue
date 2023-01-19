@@ -3,40 +3,46 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Table from '../../Components/Table.vue';
 import TableData from '../../Components/TableData.vue';
 import Pagination from '../../Components/Pagination.vue';
+import {Link} from "@inertiajs/inertia-vue3";
+import { Inertia } from '@inertiajs/inertia';
+
 
 defineProps({
-    Customers: Object,
+    customers: Object,
 });
 
 </script>
 
 <template>
-    <AppLayout title="Food Packages">
+    <AppLayout title="Customer Overview">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Food Packages
+                Klanten overzicht
             </h2>
+            <br>
+            <div class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow w-44">
+                <Link :href="route('customer.add')">
+                Maak een klant aan
+                </Link>
+            </div>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow sm:rounded-lg">
-                    <Table :headers="['#', 'Klant', 'Aantal Producten', 'Opgehaald op']" >
-                        <tr class="hover:bg-gray-50 cursor-pointer" v-for="packageItem in packages.data" :key="packages.id">
-                            <TableData>{{ packageItem.id }}</TableData>
-                            <TableData>{{ packageItem.customer.first_name }}</TableData>
-                            <TableData>{{ packageItem.items.length }}</TableData>
-                            <TableData>
-                                <span v-if="packageItem.retrieved_at == null" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-md bg-red-100 text-red-800">
-                                    Nog niet opgehaald
-                                </span>
-                                <span v-else class="px-2 inline-flex text-xs leading-5">
-                                    {{new Date(packageItem.retrieved_at).toLocaleDateString()}}
-                                </span>
-                            </TableData>
+                <div class="bg-white overflow-hidden shadow sm:rounded-lg ">
+                    <Table :headers="['Naam', 'Achternaam', 'Volwassenen', 'Kinderen', 'Babies', 'Telefoonnummer', '', '']" >
+                        <tr class="hover:bg-gray-50 cursor-pointer" v-for="customerData in customers.data" :key="customerData.id">
+                            <TableData>{{ customerData.first_name }}</TableData>
+                            <TableData>{{ customerData.last_name }}</TableData>
+                            <TableData>{{ customerData.adult_amount }}</TableData>
+                            <TableData>{{ customerData.child_amount }}</TableData>
+                            <TableData>{{ customerData.baby_amount }}</TableData>
+                            <TableData>{{ customerData.phone_number }}</TableData>
+                            <table-data @click="Inertia.visit(route('customer.view', customerData.id))"  class="font-bold" >Wijzig </table-data>
+                            <table-data  @click="Inertia.visit(route('customer.confirmation', customerData.id))" class="font-bold"> Verwijderen</table-data>
                         </tr>
                     </Table>
-                    <Pagination class="mt-6" :links="packages.links" />
+                    <Pagination class="mt-6" :links="customers.links" />
                 </div>
             </div>
         </div>
