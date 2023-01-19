@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\FoodPackage;
+use App\Models\FoodPackageItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Searchable\Search;
@@ -42,12 +44,14 @@ class CustomerController extends Controller
         ]);
 
         //Sends you back to the customers list
+        $request->session()->flash('flash.banner', 'Klant toegevoegd');
+
         $customers = Customer::paginate();
         return Inertia::render("Customers/Show", [
             'customers' => $customers,
         ]);
     }
-
+    //Function to confirm the delete of a customer
     public function confirmation(int $customerId)
     {
         $costumer = Customer::all()->find($customerId);
@@ -58,17 +62,17 @@ class CustomerController extends Controller
 
     }
 
+    //Function to delete a customer
     public function delete(int $customerId)
     {
-        $costumer = Customer::all()->find($customerId);
-
-        $costumer->delete();
-
-        $customers = Customer::paginate();
-        return Inertia::render("Customers/Show", [
-            'customers' => $customers,
+        //search the customer you want to delete
+        $customer = Customer::all()->find($customerId);
+        $customer->update([
+            'first_name' => 'Deleted',
+            'last_name' => 'Deleted',
         ]);
 
+        return redirect()->route('customer.index')->banner('Klant is succesvol verwijderd');
     }
 
     public function view(int $customerId)
@@ -83,6 +87,7 @@ class CustomerController extends Controller
     //Update customers in the same form as the register function
     public function update(Request $request, int $customerId)
     {
+        //Updates every column of costumer
         $customer = Customer::where('id', $customerId,)->firstOrFail();
         $customer->first_name = $request->input('first_name');
         $customer->last_name = $request->input('last_name');
@@ -94,12 +99,14 @@ class CustomerController extends Controller
         $customer->notes = $request->input('notes');
         $customer->save();
 
-
+        //Let a banner appear to notify the user of the change
+        $request->session()->flash('flash.banner', 'Klant gewijzigd');
 
         $customers = Customer::paginate();
         return Inertia::render("Customers/Show", [
             'customers' => $customers,
         ]);
+
 
 
     }

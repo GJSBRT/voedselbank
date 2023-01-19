@@ -5,11 +5,18 @@ import TableData from '../../Components/TableData.vue';
 import Pagination from '../../Components/Pagination.vue';
 import {Link} from "@inertiajs/inertia-vue3";
 import { Inertia } from '@inertiajs/inertia';
+import PrimaryButton from "../../Components/PrimaryButton.vue";
+import { ref} from "vue";
+import ConfirmationModal from '../../Components/ConfirmationModal.vue';
+import DangerButton from '../../Components/DangerButton.vue';
+import SecondaryButton from '../../Components/SecondaryButton.vue';
 
 
 defineProps({
     customers: Object,
 });
+
+const  confirmDelete = ref(null);
 
 </script>
 
@@ -19,13 +26,14 @@ defineProps({
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Klanten overzicht
             </h2>
-            <br>
-            <div class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow w-44">
-                <Link :href="route('customer.add')">
-                Maak een klant aan
-                </Link>
-            </div>
         </template>
+        <div class="mx-auto mt-6 ml-6">
+        <primary-button>
+            <Link :href="route('customer.add')">
+                Maak een klant aan
+            </Link>
+        </primary-button>
+        </div>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -39,12 +47,31 @@ defineProps({
                             <TableData>{{ customerData.baby_amount }}</TableData>
                             <TableData>{{ customerData.phone_number }}</TableData>
                             <table-data @click="Inertia.visit(route('customer.view', customerData.id))"  class="font-bold" >Wijzig </table-data>
-                            <table-data  @click="Inertia.visit(route('customer.confirmation', customerData.id))" class="font-bold"> Verwijderen</table-data>
+                            <table-data  @click="confirmDelete=customerData.id" class="font-bold"> Verwijderen</table-data>
                         </tr>
                     </Table>
                     <Pagination class="mt-6" :links="customers.links" />
                 </div>
             </div>
         </div>
+        <ConfirmationModal :show="confirmDelete" @close="confirmDelete = null">
+            <template #title>
+                Verwijder Product
+            </template>
+
+            <template #content>
+                Weet je het zeker dat je deze klant wil verwijderen? De klant zal permanent verwijderd worden.
+            </template>
+
+            <template #footer>
+                <SecondaryButton @click.native="confirmDelete = null">
+                    Nee
+                </SecondaryButton>
+                <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
+                <DangerButton class="ml-2" @click.native="Inertia.delete(route('customer.delete', confirmDelete)); confirmDelete = null">
+                    Verwijder Product
+                </DangerButton>
+            </template>
+        </ConfirmationModal>
     </AppLayout>
 </template>

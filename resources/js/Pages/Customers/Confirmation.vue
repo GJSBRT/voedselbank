@@ -5,7 +5,7 @@ import SecondaryButton from '../../Components/SecondaryButton.vue';
 </script>
 
 <template>
-<ConfirmationModal :show="confirmingUserDeletion" @close="confirmingUserDeletion = false">
+<ConfirmationModal>
 <template #title>
     Verwijder klant
 </template>
@@ -15,11 +15,11 @@ import SecondaryButton from '../../Components/SecondaryButton.vue';
 </template>
 
 <template #footer>
-    <SecondaryButton @click.native="confirmingUserDeletion = false">
+    <SecondaryButton>
         Annuleren
     </SecondaryButton>
 
-    <DangerButton class="ml-2" @click.native="deleteUser" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+    <DangerButton class="ml-2"  :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
         Verwijder klant
     </DangerButton>
 </template>
