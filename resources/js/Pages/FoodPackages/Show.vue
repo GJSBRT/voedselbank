@@ -1,9 +1,9 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Table from '../../Components/Table.vue';
-import TableData from '../../Components/TableData.vue';
-import Pagination from '../../Components/Pagination.vue';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
+import Table from '@/Components/Table.vue';
+import TableData from '@/Components/TableData.vue';
+import Pagination from '@/Components/Pagination.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { hasPermission } from '../../../utils/permissions';
 
@@ -43,7 +43,7 @@ defineProps({
                             </span>
                         </TableData>
                         <TableData>{{ new Date(packageItem.created_at).toLocaleDateString() }}</TableData>
-                    </tr>   
+                    </tr>
                 </Table>
                 <Pagination class="mt-6" :links="packages.links" />
             </div>

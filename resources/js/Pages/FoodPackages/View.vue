@@ -4,14 +4,14 @@ import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
-import TextField from '../../Components/TextField.vue';
-import CustomerSearch from '../../Components/Search/CustomerSearch.vue';
-import ProductSearch from '../../Components/Search/ProductSearch.vue';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
-import SecondaryButton from '../../Components/SecondaryButton.vue';
+import TextField from '@/Components/TextField.vue';
+import CustomerSearch from '@/Components/Search/CustomerSearch.vue';
+import ProductSearch from '@/Components/Search/ProductSearch.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { toRefs, ref } from 'vue';
-import BarcodeScanner from '../../Components/BarcodeScanner.vue'
-import TextInput from '../../Components/TextInput.vue';
+import BarcodeScanner from '@/Components/BarcodeScanner.vue'
+import TextInput from '@/Components/TextInput.vue';
 
 const props = defineProps({
     foodPackage: Object,
@@ -62,7 +62,7 @@ const toggleScanner = () => {
     showScanner.value = !showScanner.value;
 }
 
-// Gets the scan result, lookup the product and add it to the form 
+// Gets the scan result, lookup the product and add it to the form
 async function onScan(scan) {
     if (scanResult.value != scan.text) {
         axios.get('/search/products', { params: { query: scan.text } })
@@ -106,7 +106,7 @@ async function onScan(scan) {
                                 <InputLabel for="customerId" value="Klant" />
                                 <CustomerSearch id="customerId" :callback="setCustomerId"/>
                             </div>
-                            
+
                             <div class="col-span-6">
                                 <InputLabel for="retrivedAt" value="Opgehaald op" />
                                 <TextInput id="retrivedAt" v-model="form.retrieved_at" type="datetime-local" class="mt-1 block w-full"/>
@@ -120,7 +120,7 @@ async function onScan(scan) {
                         </template>
                     </FormSection>
                 </div>
-                
+
                 <div class="sm:mt-10 mt-2">
                     <FormSection>
                         <template #title>
@@ -140,14 +140,14 @@ async function onScan(scan) {
                                     </div>
                                     <PrimaryButton class="ml-2 w-12" style="padding: 0px" @click="toggleScanner">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="m-2" fill="currentColor"
-                                            viewBox="0 0 16 16">
+                                             viewBox="0 0 16 16">
                                             <path
                                                 d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z" />
                                         </svg>
                                     </PrimaryButton>
                                 </div>
                             </div>
-                            
+
                             <div class="col-span-6">
                                 <div v-if="scanResult" class="p-2 rounded-md shadow bg-blue-300 border-2 border-blue-500 text-blue-500 mb-2">{{ scanResult }}</div>
                                 <BarcodeScanner v-if="showScanner" :callback="onScan" />
@@ -165,7 +165,7 @@ async function onScan(scan) {
                                             <div class="w-full mt-1 border-gray-300 text-gray-500 border rounded-md shadow-sm p-2">
                                                 {{ product.name }}
                                             </div>
-                                            
+
                                             <SecondaryButton @click="() => removeProduct(index)" class="ml-2 w-12 bg-red-500" style="padding: 0px">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="m-2" fill="white" viewBox="0 0 16 16">
                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -196,7 +196,7 @@ async function onScan(scan) {
                                     <label class="text-md font-semibold">Klant:</label>
                                     <label class="ml-auto">{{ form.customer ? (form.customer.first_name + ' ' + form.customer.last_name) : 'Geen klant gekozen' }}</label>
                                 </div>
-                                
+
                                 <div class="flex">
                                     <label class="text-md font-semibold">Aantal Producten:</label>
                                     <label class="ml-auto">{{ form.products.length }}</label>

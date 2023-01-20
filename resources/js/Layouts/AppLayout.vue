@@ -42,9 +42,17 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                
+
+                                <NavLink :href="route('suppliers.index')" :active="route().current('suppliers.*')">
+                                    Leveranciers
+                                </NavLink>
+
+                                <NavLink :href="route('deliveries.index')" :active="route().current('deliveries.*')">
+                                    Leveringen
+                                </NavLink>
+
                                 <NavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
-                                    Food Package
+                                    Voedsel Pakketten
                                 </NavLink>
                                 
                                 <NavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
@@ -80,7 +88,7 @@ const logout = () => {
                                         </div>
 
                                         <DropdownLink :href="route('profile.show')">
-                                            Profile
+                                            Account
                                         </DropdownLink>
 
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
@@ -92,7 +100,7 @@ const logout = () => {
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <DropdownLink as="button">
-                                                Log Out
+                                                Uitloggen
                                             </DropdownLink>
                                         </form>
                                     </template>
@@ -135,9 +143,17 @@ const logout = () => {
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                        
+
                         <ResponsiveNavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
-                            Food Package
+                            Voedselpakketten
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('suppliers.index')" :active="route().current('supplier.*')">
+                            Leveranciers
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('deliveries.index')" :active="route().current('delivery.*')">
+                            Leveringen
                         </ResponsiveNavLink>
                         
                         <ResponsiveNavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
