@@ -42,8 +42,16 @@ const logout = () => {
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('food-packages.index')" :active="route().current('food-packages.index')">
-                                    Food Package
+                                <NavLink :href="route('food-packages.index')" :active="route().current('food-packages.*')">
+                                    Voedselpakketten
+                                </NavLink>
+
+                                <NavLink :href="route('suppliers.index')" :active="route().current('suppliers.*')">
+                                    Leveranciers
+                                </NavLink>
+
+                                <NavLink :href="route('deliveries.index')" :active="route().current('deliveries.*')">
+                                    Leveringen
                                 </NavLink>
 
                                 <NavLink :href="route('customer.index')" :active="route().current('customer.index')">
@@ -75,7 +83,7 @@ const logout = () => {
                                         </div>
 
                                         <DropdownLink :href="route('profile.show')">
-                                            Profile
+                                            Account
                                         </DropdownLink>
 
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
@@ -87,7 +95,7 @@ const logout = () => {
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <DropdownLink as="button">
-                                                Log Out
+                                                Uitloggen
                                             </DropdownLink>
                                         </form>
                                     </template>
@@ -132,7 +140,15 @@ const logout = () => {
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink :href="route('food-packages.index')" :active="route().current('food-packages.index')">
-                            Food Package
+                            Voedselpakketten
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('suppliers.index')" :active="route().current('supplier.*')">
+                            Leveranciers
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('deliveries.index')" :active="route().current('delivery.*')">
+                            Leveringen
                         </ResponsiveNavLink>
                     </div>
 

@@ -14,6 +14,7 @@ class Delivery extends Model
     protected $fillable = [
         'supplier_id',
         'delivered_at',
+        'expected_at',
         'notes',
     ];
 
