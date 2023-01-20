@@ -5,7 +5,6 @@ use App\Http\Controllers\FoodPackageController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -63,5 +62,3 @@ Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_ses
     Route::get('/products', [ProductController::class, 'search']);
     Route::get('/roles', [RoleController::class, 'search']);
 });
-
-Route::get('/permissions', [PermissionController::class, 'permissions']);
