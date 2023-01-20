@@ -18,7 +18,7 @@ let show_delivered = ref(props.show_delivered);
 
 function setShowDelivered(){
     show_delivered = !show_delivered;
-    Inertia.get(route('deliveries.index'), { 'page': props.page, 'show-delivered': show_delivered}, {
+    Inertia.get(route('deliveries.index'), { 'page': !props.page? '1' : props.page, 'show-delivered': show_delivered }, {
         preserveState: true,
         replace: true
     });
