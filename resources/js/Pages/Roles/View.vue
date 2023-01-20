@@ -17,11 +17,9 @@ const { role, available_permissions } = toRefs(props);
 
 const form = useForm({
     _method: 'PATCH',
-    role: role.value,
+    name: role.value.name,
     permissions: JSON.parse(role.value.permissions),
 });
-
-console.log(form.permissions)
 
 const handleSubmit = () => {
     form.post(route('roles.update', role.value.id), {
@@ -34,7 +32,7 @@ const handleSubmit = () => {
     <AppLayout title="Rol Bewerken">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Rol {{ form.role.name }}
+                Rol {{ form.name }}
             </h2>
         </template>
 
@@ -53,7 +51,7 @@ const handleSubmit = () => {
                         <template #form>
                             <div class="col-span-6">
                                 <InputLabel for="name" value="Naam" />
-                                <TextInput id="name" v-model="form.role.name" type="text" class="mt-1 block w-full" />
+                                <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" />
                             </div>
                             
                             <div v-if="available_permissions.length > 0" class="col-span-6">

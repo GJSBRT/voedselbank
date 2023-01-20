@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FoodPackageController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -38,8 +39,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
 });
 
-
 Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/customers', [CustomerController::class, 'search']);
     Route::get('/products', [ProductController::class, 'search']);
+    Route::get('/roles', [RoleController::class, 'search']);
 });
+
+Route::get('/permissions', [PermissionController::class, 'permissions']);

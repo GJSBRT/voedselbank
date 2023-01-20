@@ -2,29 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function index() 
+    public function index(Request $request) 
     {
+        $permission = Role::checkPermission($request->user(), 'users:read');
+        if ($permission) { return $permission; }
+
         $users = User::paginate();   
         
         return Inertia::render('Users/Show', [
             'users' => $users,
-        ]);
+        ]); 
     }
     
-    public function new() 
+    public function new(Request $request) 
     {
+        $permission = Role::checkPermission($request->user(), 'users:write');
+        if ($permission) { return $permission; }
+        
         return Inertia::render('Users/New');
     }
     
-    public function view(int $userId) 
+    public function view(Request $request, int $userId) 
     {
-        $user = User::find($userId);
+        $permission = Role::checkPermission($request->user(), 'users:read');
+        if ($permission) { return $permission; }
+        
+        $user = User::with('role')->find($userId);
 
         return Inertia::render('Users/View', [
             'user' => $user,
@@ -34,6 +44,9 @@ class UserController extends Controller
 
     public function create(Request $request) 
     {
+        $permission = Role::checkPermission($request->user(), 'users:create');
+        if ($permission) { return $permission; }
+        
         $firstName = $request->input('first_name');
         $lastName = $request->input('last_name');
         $email = $request->input('email');
@@ -58,6 +71,9 @@ class UserController extends Controller
 
     public function update(Request $request, int $userId) 
     {
+        $permission = Role::checkPermission($request->user(), 'users:update');
+        if ($permission) { return $permission; }
+        
         $user = User::find($userId);
         $newUser = $request->input('user') ?? null;
         $twoFactorEnabled = $request->input('two_factor_enabled') ?? null;

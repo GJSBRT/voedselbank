@@ -7,6 +7,7 @@ import PrimaryButton from '../../Components/PrimaryButton.vue';
 import { toRefs } from 'vue';
 import TextInput from '../../Components/TextInput.vue';
 import Checkbox from '../../Components/Checkbox.vue';
+import RoleSearch from '../../Components/Search/RoleSearch.vue';
 
 const props = defineProps({
     user: Object,
@@ -25,6 +26,10 @@ const handleSubmit = () => {
     form.post(route('users.update', user.value.id), {
         preserveScroll: true,
     });
+}
+
+const setRole = (role) => {
+    form.user.role_id = role.id
 }
 </script>
 
@@ -64,6 +69,11 @@ const handleSubmit = () => {
                             <div class="col-span-6">
                                 <InputLabel for="email" value="Email" />
                                 <TextInput id="email" v-model="form.user.email" type="text" class="mt-1 block w-full"/>
+                            </div>
+                            
+                            <div class="col-span-6">
+                                <InputLabel for="role" value="Rol" />
+                                <RoleSearch id="role" :callback="setRole" :value="user.role.name"/>
                             </div>
 
                             <div class="col-span-6">

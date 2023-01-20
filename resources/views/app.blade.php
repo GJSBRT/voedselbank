@@ -13,6 +13,12 @@
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
+        
+        @if(!is_null(Auth::user()))
+            <script>
+                window.Permissions = {!! json_encode(Auth::user()->formatPermissions()) !!};
+            </script>
+        @endif
     </head>
     <body class="font-sans antialiased">
         @inertia

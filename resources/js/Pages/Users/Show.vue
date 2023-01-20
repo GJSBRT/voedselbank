@@ -5,6 +5,7 @@ import TableData from '../../Components/TableData.vue';
 import Pagination from '../../Components/Pagination.vue';
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
+import { hasPermission } from '../../../utils/permissions';
 
 defineProps({
     users: Object,
@@ -20,7 +21,7 @@ defineProps({
             </h2>
 
             <div class="ml-auto">
-                <PrimaryButton @click="() => Inertia.visit(route('users.new'))">
+                <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('users.new'))">
                     Nieuwe Medewerker
                 </PrimaryButton>
             </div>

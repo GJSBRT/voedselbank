@@ -5,6 +5,7 @@ import TableData from '../../Components/TableData.vue';
 import Pagination from '../../Components/Pagination.vue';
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
+import { hasPermission } from '../../../utils/permissions';
 
 defineProps({
     roles: Object,
@@ -20,7 +21,7 @@ defineProps({
             </h2>
 
             <div class="ml-auto">
-                <PrimaryButton @click="() => Inertia.visit(route('roles.new'))">
+                <PrimaryButton v-if="hasPermission('roles:create')" @click="() => Inertia.visit(route('roles.new'))">
                     Nieuwe Rol
                 </PrimaryButton>
             </div>
@@ -32,7 +33,7 @@ defineProps({
                     <tr @click="Inertia.visit(route('roles.view', role.id))" class="hover:bg-gray-50 cursor-pointer" v-for="role in roles.data" :key="role.id">
                         <TableData>{{ role.id }}</TableData>
                         <TableData>{{ role.name }}</TableData>
-                        <TableData>{{ role.permissions.length }}</TableData>
+                        <TableData>{{ JSON.parse(role.permissions).length }}</TableData>
                     </tr>   
                 </Table>
                 <Pagination class="mt-6" :links="roles.links" />
