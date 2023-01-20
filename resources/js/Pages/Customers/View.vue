@@ -4,10 +4,13 @@ import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import {useForm} from '@inertiajs/inertia-vue3';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
-import SecondaryButton from '../../Components/SecondaryButton.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import {toRefs} from 'vue';
+import ConfirmationModal from '@/Components/ConfirmationModal.vue';
+import DangerButton from '@/Components/DangerButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import {Inertia} from "@inertiajs/inertia";
+import {ref, toRefs} from 'vue';
 
 const props = defineProps({
     customer: Object,
@@ -33,6 +36,14 @@ const handleSubmit = () => {
         preserveScroll: true,
     });
 }
+
+const confirmingDelete = ref(false);
+
+const confirmDelete = () => {
+    confirmingDelete.value = true;
+}
+
+
 
 </script>
 
@@ -65,7 +76,6 @@ const handleSubmit = () => {
                     <InputError :message="form.errors.last_name" class="mt-2"/>
                 </div>
 
-                <!-- Email -->
                 <div class="col-span-6 sm:col-span-4">
                     <InputLabel for="email" value="Email Adres"/>
                     <TextInput
@@ -150,7 +160,31 @@ const handleSubmit = () => {
                 <PrimaryButton @click="handleSubmit">
                     Opslaan
                 </PrimaryButton>
+                <DangerButton @click="confirmDelete" class="ml-4 ">
+                    Verwijderen
+                </DangerButton>
             </template>
         </FormSection>
+
+        <ConfirmationModal :show="confirmingDelete" @close="confirmingDelete = false">
+            <template #title>
+                Verwijder klant
+            </template>
+
+            <template #content>
+                Weet je het zeker dat je deze klant wil verwijderen? De klant zal permanent verwijderd worden.
+            </template>
+
+            <template #footer>
+                <SecondaryButton @click.native="confirmingDelete = false">
+                    Nee
+                </SecondaryButton>
+                <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
+                <DangerButton class="ml-2"
+                              @click.native="Inertia.delete(route('customer.delete', customer.id));">
+                    Verwijder Klant
+                </DangerButton>
+            </template>
+        </ConfirmationModal>
     </AppLayout>
 </template>
