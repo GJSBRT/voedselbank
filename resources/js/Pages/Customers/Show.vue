@@ -7,9 +7,6 @@ import {Link} from "@inertiajs/inertia-vue3";
 import {Inertia} from '@inertiajs/inertia';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import {ref} from "vue";
-import ConfirmationModal from '@/Components/ConfirmationModal.vue';
-import DangerButton from '@/Components/DangerButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 
 
 defineProps({
@@ -40,9 +37,10 @@ const confirmDelete = ref(null);
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg ">
                     <Table
-                        :headers="['Naam', 'Achternaam', 'Volwassenen', 'Kinderen', 'Babies', 'Telefoonnummer']">
+                        :headers="['#','Naam', 'Achternaam', 'Volwassenen', 'Kinderen', 'Babies', 'Telefoonnummer']">
                         <tr @click="Inertia.visit(route('customer.view', customerData.id))" class="hover:bg-gray-50 cursor-pointer" v-for="customerData in customers.data"
                             :key="customerData.id">
+                            <TableData>{{ customerData.id }}</TableData>
                             <TableData>{{ customerData.first_name }}</TableData>
                             <TableData>{{ customerData.last_name }}</TableData>
                             <TableData>{{ customerData.adult_amount }}</TableData>
