@@ -14,7 +14,7 @@ class DeliveryController extends Controller
     {
         $page = substr($request->query('page'), 0, 1);
 
-        $showDelivered = $request->query('show-delivered') ?? false;
+        $showDelivered = $request->query('show-delivered') ?? true;
 
         $delivered = Delivery::with('supplier')
             ->whereNotNull('delivered_at')
