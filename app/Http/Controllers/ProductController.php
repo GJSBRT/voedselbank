@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\EditProductRequest;
 use App\Models\FoodPackage;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Inertia\Inertia;
-use App\Models\Product;
 use Spatie\Searchable\Search;
 
 class ProductController extends Controller
@@ -24,34 +24,27 @@ class ProductController extends Controller
 
         // This is a get function for the products
         // This makes you able to navigate to the add page in vue
-        public function Add()
+        public function add()
         {
             return Inertia::render('Products/Add');
         }
 
         // Create a new product
-        public function CreateProduct(Request $request)
+        public function createProduct(CreateProductRequest $request)
         {
-            try
-            {
-                
-                $request->validate([
-                    'name' => 'required|unique:posts',
-                    'ean_number' => 'required',
-                    'product_category_id' => 'required',
-                    'quantity' => 'required',
-                ]);
-
+            // try
+            // {
                 Product::create([
                     'name' => $request->input('name'),
                     'ean_number' => $request->input('ean_number'),
                     'product_category_id' => $request->input('product_category_id'),
                     'quantity' => $request->input('quantity'),  
                 ]);
-            }catch(\Exception $error)
-            {
-                return redirect()->route('product.Add')->dangerBanner('Dit product bestaat al');
-            }
+            // }
+            // catch(\Exception $error)
+            // {
+            //     return redirect()->route('product.Add')->dangerBanner('Dit product bestaat al');
+            // }
                 
 
                 return redirect()->route('product.index')->banner('Product opgeslagen!');
@@ -68,7 +61,7 @@ class ProductController extends Controller
         }
 
         // Edit a product
-        Public function EditProduct(Request $request, int $productId)
+        Public function editProduct(EditProductRequest $request, int $productId)
         {
             $products = Product::where('id', $productId)->firstOrFail();
             $products->name = $request->input('name');
@@ -82,7 +75,7 @@ class ProductController extends Controller
         }
 
         // Find a product by id and delete that product
-        Public function DeleteProduct(Request $request, int $productId)
+        Public function deleteProduct(Request $request, int $productId)
         {
 
             $product = Product::find($productId);
@@ -110,3 +103,4 @@ class ProductController extends Controller
 
 
 
+    }

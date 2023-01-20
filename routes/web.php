@@ -10,15 +10,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-Route::get('/food-packages', [FoodPackageController::class, 'index'])->name('food-package.index');
 
   Route::prefix('/products')->group(function () {
-    Route::get('/products', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/products/new', [ProductController::class, 'Add'])->name('product.Add');
-    Route::post('/products/new', [ProductController::class, 'CreateProduct'])->name('product.CreateProduct');
-    Route::get('/products/{productId}', [ProductController::class, 'Edit'])->name('product.Edit');
-    Route::patch('/products/{productId}', [ProductController::class, 'EditProduct'])->name('product.EditProduct');
-    Route::delete('/products/{productId}', [ProductController::class, 'DeleteProduct'])->name('product.DeleteProduct');
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/new', [ProductController::class, 'add'])->name('product.add');
+    Route::post('/new', [ProductController::class, 'createProduct'])->name('product.createProduct');
+    Route::get('/{productId}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::patch('/{productId}', [ProductController::class, 'editProduct'])->name('product.editProduct');
+    Route::delete('/{productId}', [ProductController::class, 'deleteProduct'])->name('product.deleteProduct');
   });
 
     Route::prefix('/food-packages')->group(function () {

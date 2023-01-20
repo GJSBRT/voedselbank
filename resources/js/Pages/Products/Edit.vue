@@ -5,9 +5,13 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '../../Components/PrimaryButton.vue';
+import DangerButton from '../../Components/DangerButton.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { toRefs } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+import { ref } from 'vue';
+import ConfirmationModal from '../../Components/ConfirmationModal.vue';
 
 
 const props = defineProps({
@@ -25,15 +29,19 @@ const form = useForm({
 });
 
 const AddProduct = () => {
-    form.post(route('product.EditProduct', products.value.id), {
+    form.post(route('product.editProduct', products.value.id), {
         preserveScroll: true,
     });
 }
 
+const confirmingDelete = ref(false);
+
+
+
 </script>
 
 <template>
-    <AppLayout title="Customer Overview">
+    <AppLayout title="Producten Overzicht">
     <FormSection @submitted="updateProfileInformation" class="flex justify-center items-center">
 
         <template #form>
@@ -50,7 +58,7 @@ const AddProduct = () => {
             </div>
 
             <div class="col-span-6 sm:col-span-4 w-full">
-                <InputLabel for="ean_number" value="Ean Nummer" />
+                <InputLabel for="ean_number" value="EAN Nummer" />
                 <TextInput
                     id="ean_number"
                     v-model="form.ean_number"
@@ -91,7 +99,32 @@ const AddProduct = () => {
             <PrimaryButton @click="AddProduct">
                 Opslaan
             </PrimaryButton>
+
+            <DangerButton @click="confirmingDelete = true">
+                Verwijder
+            </DangerButton>
         </template>
     </FormSection>
+
+    <ConfirmationModal :show="confirmingDelete" @close="confirmingDelete = false">
+        <template #title>
+            Verwijder Product
+        </template>
+
+        <template #content>
+            Weet je het zeker dat je dit product wilt verwijderen? Dit product zal permanent verwijderd worden.
+        </template>
+
+        <template #footer>
+            <SecondaryButton @click.native="confirmingDelete = false">
+                Nee
+            </SecondaryButton>
+            <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
+            <DangerButton class="ml-2" @click.native="Inertia.delete(route('product.deleteProduct', products.id)); confirmingDelete = false">
+                Verwijder Product
+            </DangerButton>
+        </template>
+    </ConfirmationModal>
+
         </AppLayout>
 </template>

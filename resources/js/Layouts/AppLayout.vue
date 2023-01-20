@@ -136,6 +136,10 @@ const logout = () => {
                         <ResponsiveNavLink :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                             Food Package
                         </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('product.index')" :active="route().current('product.index')">
+                            Producten
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->

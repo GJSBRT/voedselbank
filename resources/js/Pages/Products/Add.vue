@@ -22,7 +22,7 @@ const form = useForm({
 });
 
 const AddProduct = () => {
-    form.post(route('product.CreateProduct'), {
+    form.post(route('product.createProduct'), {
         preserveScroll: true,
     });
 }
@@ -30,7 +30,7 @@ const AddProduct = () => {
 </script>
 
 <template>
-    <AppLayout title="Customer Overview" class="py-12">
+    <AppLayout title="Producten Overzicht" class="py-12">
         <h2 class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col my-20 font-bold text-3xl">Maak een product aan</h2>
     <FormSection @submitted="updateProfileInformation" class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col my-20">
         <template>
@@ -50,7 +50,7 @@ const AddProduct = () => {
             </div>
 
             <div class="col-span-6 sm:col-span-4 w-full">
-                <InputLabel for="ean_number" value="Ean Nummer" />
+                <InputLabel for="ean_number" value="EAN Nummer" />
                 <TextInput
                     id="ean_number"
                     v-model="form.ean_number"
