@@ -49,10 +49,7 @@ class CustomerController extends Controller
         //Sends you back to the customers list
         $request->session()->flash('flash.banner', 'Klant toegevoegd');
 
-        $customers = Customer::paginate();
-        return Inertia::render("Customers/Show", [
-            'customers' => $customers,
-        ]);
+        return redirect()->route('customer.index');
     }
 
     //Function to confirm the delete of a customer

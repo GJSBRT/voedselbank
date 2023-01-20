@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \App\Http\Controllers\Customer\CustomerController;
+use \App\Http\Controllers\Category\CategoryController;
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/', function () {
@@ -20,14 +21,22 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::patch('/{foodPackageId}', [FoodPackageController::class, 'update'])->name('food-packages.update');
     });
 
-    Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
-    Route::get('/customers/new', [CustomerController::class, 'add'])->name('customer.add');
-    Route::post('/customers/new', [CustomerController::class, 'registerCustomer'])->name('customer.registercustomer');
-    Route::get('/customers/{customerId}', [CustomerController::class, 'view'])->name('customer.view');
-    Route::patch('/customers/{customerId}', [CustomerController::class, 'update'])->name('customer.update');
-    Route::get('/customers/{customerId}/delete', [CustomerController::class, 'confirmation'])->name('customer.confirmation');
-    Route::delete('/customers/{customerId}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
-});
+    Route::prefix('/customers')->group(function () {
+        Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
+        Route::get('/new', [CustomerController::class, 'add'])->name('customer.add');
+        Route::post('/new', [CustomerController::class, 'registerCustomer'])->name('customer.registercustomer');
+        Route::get('/{customerId}', [CustomerController::class, 'view'])->name('customer.view');
+        Route::patch('/{customerId}', [CustomerController::class, 'update'])->name('customer.update');
+        Route::get('/{customerId}/delete', [CustomerController::class, 'confirmation'])->name('customer.confirmation');
+        Route::delete('/{customerId}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
+    });
+
+    Route::prefix('/category')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+    });
+
+
+    });
 
 
 Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
