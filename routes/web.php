@@ -3,7 +3,6 @@
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FoodPackageController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,7 +12,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-
 
     Route::prefix('/food-packages')->group(function () {
         Route::get('/', [FoodPackageController::class, 'index'])->name('food-packages.index');
@@ -30,7 +28,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::patch('/customers/{customerId}', [CustomerController::class, 'update'])->name('customer.update');
     Route::get('/customers/{customerId}/delete', [CustomerController::class, 'confirmation'])->name('customer.confirmation');
     Route::delete('/customers/{customerId}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
-});
+    Route::get('/customers/{customerId}/export', [CustomerController::class, 'export'])->name('customer.export');
 
     Route::prefix('/suppliers')->group(function () {
         Route::get('/', [SupplierController::class, 'index'])->name('suppliers.index');
@@ -40,6 +38,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/{id}', [SupplierController::class, 'view'])->name('suppliers.view');
         Route::patch('/{id}', [SupplierController::class, 'update'])->name('suppliers.update');
     });
+
     Route::prefix('/deliveries')->group(function () {
         Route::get('/', [DeliveryController::class, 'index'])->name('deliveries.index');
         Route::get('/new', [DeliveryController::class, 'new'])->name('deliveries.new');

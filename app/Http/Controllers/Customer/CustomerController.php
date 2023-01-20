@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Models\FoodPackage;
 use App\Models\FoodPackageItem;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Searchable\Search;
@@ -118,5 +119,15 @@ class CustomerController extends Controller
             ->search($request->input('query'));
 
         return response()->json($results);
+    }
+
+    public function export($id)
+    {
+        $customer = Customer::find($id);
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->loadView('pdf/pdf', compact('customer'));
+        return $pdf->stream('account_gegevens_' . $customer->first_name . '_' . $customer->id . '.pdf');
     }
 }

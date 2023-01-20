@@ -8,6 +8,7 @@ import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import {toRefs} from 'vue';
+import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps({
     customer: Object,
@@ -34,12 +35,26 @@ const handleSubmit = () => {
     });
 }
 
+const exportPdf = () => {
+    axios({
+        url: '/customers/' + customer.value.id + '/export',
+        method: 'GET',
+        responseType: 'blob', // important
+    }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'account_gegevens_' + customer.value.first_name  + '_' + customer.value.id + '.pdf');
+        document.body.appendChild(link);
+        link.click();
+    });
+}
+
 </script>
 
 <template>
     <AppLayout title="Customer Overview">
         <FormSection @submitted="updateProfileInformation" class="flex justify-center items-center">
-
             <template #form>
                 <div class="col-span-6 sm:col-span-4 w-full flex-auto">
                     <InputLabel for="first_name" value="Voornaam"/>
@@ -145,8 +160,10 @@ const handleSubmit = () => {
                 </div>
             </template>
 
-
             <template #actions>
+                <SecondaryButton class="mr-4" @click="exportPdf">
+                    Exporteer naar pdf
+                </SecondaryButton>
                 <PrimaryButton @click="handleSubmit">
                     Opslaan
                 </PrimaryButton>
