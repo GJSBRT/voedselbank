@@ -14,18 +14,21 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { hasPermission } from '@/utils';
 import axios from 'axios';
 import { Inertia } from '@inertiajs/inertia';
+import InputError from '@/Components/InputError.vue';
 
 const props = defineProps({
     user: Object,
     two_factor_enabled: Boolean,
+    suspended: Boolean
 });
 
-const { user, two_factor_enabled } = toRefs(props);
+const { user, two_factor_enabled, suspended } = toRefs(props);
 
 const form = useForm({
     _method: 'PATCH',
     user: user.value,
     two_factor_enabled: two_factor_enabled.value,
+    suspended: suspended.value
 });
 
 const handleSubmit = () => {
@@ -102,30 +105,41 @@ const deleteUser = () => {
                                 <div>
                                     <InputLabel for="first_name" value="Voornaam" />
                                     <TextInput id="first_name" v-model="form.user.first_name" type="text" class="mt-1 block w-full"/>
+                                    <InputError :message="form.errors.first_name" class="mt-2"/>
                                 </div>
 
                                 <div>
                                     <InputLabel for="last_name" value="Achternaam" />
                                     <TextInput id="last_name" v-model="form.user.last_name" type="text" class="mt-1 block w-full"/>
+                                    <InputError :message="form.errors.last_name" class="mt-2"/>
                                 </div>
                             </div>
 
                             <div class="col-span-6">
                                 <InputLabel for="email" value="Email" />
                                 <TextInput id="email" v-model="form.user.email" type="text" class="mt-1 block w-full"/>
-                            </div>
-                            
-                            <div class="col-span-6">
-                                <InputLabel for="role" value="Rol" />
-                                <RoleSearch id="role" :callback="setRole" :value="user.role.name"/>
+                                <InputError :message="form.errors.email" class="mt-2"/>
                             </div>
 
                             <div class="col-span-6">
-                                <Checkbox v-model:checked="form.two_factor_enabled" :value="null" :disabled="user.two_factor_confirmed_at == null"/>
-                                <span class="ml-2 text-sm text-gray-600">Twee Factor Authentictie</span>
+                                <InputLabel for="role" value="Rol" />
+                                <RoleSearch id="role" :callback="setRole" :value="user.role.name"/>
+                                <InputError :message="form.errors.role" class="mt-2"/>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 col-span-6">
+                                <div>
+                                    <Checkbox v-model:checked="form.two_factor_enabled" :value="null" :disabled="user.two_factor_confirmed_at == null"/>
+                                    <span class="ml-2 text-sm text-gray-600">Twee Factor Authentictie</span>
+                                </div>
+
+                                <div>
+                                    <Checkbox v-model:checked="form.suspended" :value="form.suspended"/>
+                                    <span class="ml-2 text-sm text-gray-600">Geblokkeerd</span>
+                                </div>
                             </div>
                         </template>
-                        
+
                         <template #actions>
                             <DangerButton v-if="hasPermission('users:delete')" class="mr-2" @click.native="confirmingUserDeletion = true">
                                 Medewerker Verwijderen

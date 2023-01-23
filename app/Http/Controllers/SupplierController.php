@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Role;
+use App\Http\Requests\CreateSupplierRequest;
+use App\Http\Requests\UpdateSupplierRequest;
+use App\Models\Delivery;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -60,7 +63,7 @@ class SupplierController extends Controller
         return Inertia::render('Suppliers/New');
     }
 
-    public function create(Request $request)
+    public function create(CreateSupplierRequest $request)
     {
         $permission = Role::checkPermission($request->user(), 'suppliers:create');
         if ($permission) { return $permission; }
@@ -109,7 +112,7 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, UpdateSupplierRequest $request)
     {
         $permission = Role::checkPermission($request->user(), 'suppliers:update');
         if ($permission) { return $permission; }
