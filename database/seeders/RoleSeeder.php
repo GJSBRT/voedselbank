@@ -24,14 +24,10 @@ class RoleSeeder extends Seeder
             'id' => 2,
             'name' => 'magazijnmedewerker',
             'permissions' => json_encode([
-                'suppliers:read',
-                'suppliers:create',
-                'suppliers:delete',
-                'suppliers:update',
-                'deliveries:read',
-                'deliveries:create',
-                'deliveries:delete',
-                'deliveries:update',
+                'products:read',
+                'products:create',
+                'products:delete',
+                'products:update',
             ]),
         ]);
 
@@ -43,6 +39,8 @@ class RoleSeeder extends Seeder
                 'food-packages:write',
                 'food-packages:delete',
                 'food-packages:update',
+                'products:read',
+                'products:update',
             ]),
         ]);
     }
