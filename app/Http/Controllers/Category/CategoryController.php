@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $category = ProductCategory::paginate();
+        $category = ProductCategory::where('name', '!=', 'deleted')->paginate();
         return Inertia::render("ProductCategory/Show", [
             'category' => $category,
         ]);
@@ -57,10 +57,14 @@ class CategoryController extends Controller
 
     public function delete(int $categoryId)
     {
-        $category = ProductCategory::all()->find($categoryId);
+        //search the customer you want to delete
+        //Because of customer preference there will be a soft delete
+        $customer = ProductCategory::all()->find($categoryId);
+        $customer->update([
+            'name' => 'deleted',
+        ]);
 
-        //What needs to be deleted? All data that is bound by category or same as customer?
+        return redirect()->route('category.index')->banner('Categorie is succesvol verwijderd');
 
-        return redirect()->route('customer.index')->banner('Klant is succesvol verwijderd');
     }
 }
