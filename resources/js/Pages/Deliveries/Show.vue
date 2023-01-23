@@ -26,7 +26,16 @@ function setShowDelivered(){
 </script>
 
 <template>
-    <AppLayout title="Leveringen">
+    <AppLayout title="Leveringen" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Leveringen Overzicht',
+            href: route('deliveries.index'),
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Leveringen

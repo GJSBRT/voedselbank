@@ -44,7 +44,7 @@ class ProductController extends Controller
         }
 
         // Get the products find them by id and Make the edit page accesible in vue
-        public function edit(int $productId)
+        public function view(int $productId)
         {
             $products = Product::all()->find($productId);
 

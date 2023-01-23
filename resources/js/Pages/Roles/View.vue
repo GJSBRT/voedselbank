@@ -29,7 +29,20 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Rol Bewerken">
+    <AppLayout title="Rol Bewerken" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Rollen Overzicht',
+            href: route('roles.index'),
+        },
+        {
+            title: 'Rollen bewerken',
+            href: '#',
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Rol {{ form.name }}

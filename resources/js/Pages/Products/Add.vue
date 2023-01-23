@@ -92,10 +92,12 @@ const AddProduct = () => {
                             </div>
 
                         </template>
-                        <template #actions>
-                            <PrimaryButton @click="AddProduct">
-                                Opslaan
-                            </PrimaryButton>
+                        <template #actions >
+                            <div class="col-span-6 sm:col-span-4 w-full">
+                                <PrimaryButton @click="AddProduct" class="col-span-6 sm:col-span-4 float-left">
+                                  Opslaan
+                                </PrimaryButton>
+                            </div>
                         </template>
                     </FormSection>
                 </div>

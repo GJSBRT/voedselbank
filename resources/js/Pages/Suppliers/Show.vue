@@ -13,7 +13,16 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Leveranciers">
+    <AppLayout title="Leveranciers" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Leveranciers Overzicht',
+            href: route('suppliers.index'),
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Leveranciers

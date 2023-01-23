@@ -52,7 +52,20 @@ function destroy(id) {
 </script>
 
 <template>
-    <AppLayout title="Supplier details">
+    <AppLayout title="Supplier details" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Leveranciers Overzicht',
+            href: route('suppliers.index'),
+        },
+        {
+            title: 'leveranciers Bewerken',
+            href: '#',
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Details van de leverancier {{ supplier.company_name }}

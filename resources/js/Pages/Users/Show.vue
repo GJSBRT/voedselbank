@@ -14,7 +14,16 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Voedsel Pakketten">
+    <AppLayout title="Mederwerkers Overzicht" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Medewerkers Overzicht',
+            href: route('users.index'),
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Medewerker Beheer

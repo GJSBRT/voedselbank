@@ -35,7 +35,20 @@ const setRole = (role) => {
 </script>
 
 <template>
-    <AppLayout title="Nieuwe Medewerker">
+    <AppLayout title="Nieuwe Medewerker" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Medewerkers Overzicht',
+            href: route('users.index'),
+        },
+        {
+            title: 'Medewerkers Toevoegen',
+            href: '#',
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Nieuwe Medewerker

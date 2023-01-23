@@ -82,7 +82,20 @@ async function onScan(scan) {
 </script>
 
 <template>
-    <AppLayout title="Food Packages">
+    <AppLayout title="Food Packages" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Voedselpakketten Overzicht',
+            href: route('food-packages.index'),
+        },
+        {
+            title: 'Voedselpakketten Wijzigen',
+            href: '#',
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Voedsel Pakket #{{ foodPackage.id }} voor {{ form.customer.first_name }} {{ form.customer.last_name }}

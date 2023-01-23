@@ -18,7 +18,16 @@ const confirmDelete = ref(null);
 </script>
 
 <template>
-    <AppLayout title="Klanten overzicht">
+    <AppLayout title="Klanten overzicht" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Klanten Overzicht',
+            href: route('customers.index'),
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Klanten overzicht

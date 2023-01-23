@@ -21,7 +21,7 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'voedsel pakketten',
+            title: 'Voedselpakketten Overzicht',
             href: route('food-packages.index')
         }
     ]">

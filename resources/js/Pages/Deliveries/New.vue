@@ -29,7 +29,20 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Supplier details">
+    <AppLayout title="Supplier details" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Leveringen Overzicht',
+            href: route('deliveries.index'),
+        },
+        {
+            title: 'Leveringen Toevoegen',
+            href: '#',
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Plan een nieuwe levering in

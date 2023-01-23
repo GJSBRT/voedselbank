@@ -11,7 +11,16 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Quantity Products">
+    <AppLayout title="Quantity Products" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Producten Voorraad Overzicht',
+            href: route('deliveries.index'),
+        },
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Voorraad Producten
