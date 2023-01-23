@@ -39,10 +39,10 @@ defineProps({
                                 Nog niet opgehaald
                             </span>
                             <span v-else>
-                                {{ new Date(packageItem.retrieved_at).toLocaleDateString() }}
+                                {{ new Date(packageItem.retrieved_at).toLocaleString() }}
                             </span>
                         </TableData>
-                        <TableData>{{ new Date(packageItem.created_at).toLocaleDateString() }}</TableData>
+                        <TableData>{{ new Date(packageItem.created_at).toLocaleString() }}</TableData>
                     </tr>
                 </Table>
                 <Pagination class="mt-6" :links="packages.links" />

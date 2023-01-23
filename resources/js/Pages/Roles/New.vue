@@ -4,28 +4,34 @@ import FormSection from '@/Components/FormSection.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { toRefs } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
+import Checkbox from '@/Components/Checkbox.vue';
+
+const props = defineProps({
+    available_permissions: Array,
+});
+
+const { available_permissions } = toRefs(props);
 
 const form = useForm({
     _method: 'POST',
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
+    name: '',
+    permissions: [],
 });
 
 const handleSubmit = () => {
-    form.post(route('users.create'), {
+    form.post(route('roles.create'), {
         preserveScroll: true,
     });
 }
 </script>
 
 <template>
-    <AppLayout title="Nieuwe Rol">
+    <AppLayout title="Rol Bewerken">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Nieuwe Medewerker
+                Nieuwe Rol
             </h2>
         </template>
 
@@ -34,40 +40,36 @@ const handleSubmit = () => {
                 <div>
                     <FormSection>
                         <template #title>
-                            Medewerker Informatie
+                            Rol
                         </template>
 
                         <template #description>
-                            Bewerk hier de informatie van de medewerker.
+                            Creëer hier je nieuwe rol.
                         </template>
 
                         <template #form>
-                            <div class="col-span-6 grid grid-cols-2 gap-4">
-                                <div>
-                                    <InputLabel for="first_name" value="Voornaam" />
-                                    <TextInput id="first_name" v-model="form.first_name" type="text" class="mt-1 block w-full"/>
-                                </div>
-
-                                <div>
-                                    <InputLabel for="last_name" value="Achternaam" />
-                                    <TextInput id="last_name" v-model="form.last_name" type="text" class="mt-1 block w-full"/>
-                                </div>
-                            </div>
-
                             <div class="col-span-6">
-                                <InputLabel for="email" value="Email" />
-                                <TextInput id="email" v-model="form.email" type="email" class="mt-1 block w-full"/>
+                                <InputLabel for="name" value="Naam" />
+                                <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" />
                             </div>
+                            
+                            <div v-if="available_permissions.length > 0" class="col-span-6">
+                                <InputLabel for="permissions" value="Permissions" />
 
-                            <div class="col-span-6">
-                                <InputLabel for="password" value="Wachtwoord" />
-                                <TextInput id="password" v-model="form.password" type="password" class="mt-1 block w-full"/>
+                                <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div v-for="permission in available_permissions" :key="permission">
+                                        <label class="flex items-center">
+                                            <Checkbox v-model:checked="form.permissions" :value="permission" />
+                                            <span class="ml-2 text-sm text-gray-600">{{ permission }}</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </template>
-                        
+
                         <template #actions>
                             <PrimaryButton @click="handleSubmit">
-                                Medewerker Toevoegen
+                                Rol Aanmaken
                             </PrimaryButton>
                         </template>
                     </FormSection>

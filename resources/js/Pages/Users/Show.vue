@@ -29,9 +29,8 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Table :headers="['#', 'Naam', 'Email', '2FA Ingeschakeld Op', 'Aangemaakt Op']" >
+                <Table :headers="['Naam', 'Email', '2FA Ingeschakeld Op', 'Aangemaakt Op']" >
                     <tr @click="Inertia.visit(route('users.view', user.id))" class="hover:bg-gray-50 cursor-pointer" v-for="user in users.data" :key="user.id">
-                        <TableData>{{ user.id }}</TableData>
                         <TableData>{{ user.first_name }} {{ user.last_name }}</TableData>
                         <TableData>{{ user.email }}</TableData>
                         <TableData>
