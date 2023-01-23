@@ -14,8 +14,6 @@ const props = defineProps({
 
 const { products, packageCount } = toRefs(props)
 
-console.log(packageCount.value)
-
 </script>
 
 <template>

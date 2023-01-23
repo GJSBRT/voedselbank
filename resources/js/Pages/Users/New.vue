@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import RoleSearch from '../../Components/Search/RoleSearch.vue';
+import RoleSearch from '@/Components/Search/RoleSearch.vue';
 
 const form = useForm({
     _method: 'POST',
