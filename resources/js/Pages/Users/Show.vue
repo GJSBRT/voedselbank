@@ -1,11 +1,11 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Table from '../../Components/Table.vue';
-import TableData from '../../Components/TableData.vue';
-import Pagination from '../../Components/Pagination.vue';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
+import Table from '@/Components/Table.vue';
+import TableData from '@/Components/TableData.vue';
+import Pagination from '@/Components/Pagination.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
-import { hasPermission } from '../../../utils/permissions';
+import { hasPermission } from '@/utils';
 
 defineProps({
     users: Object,

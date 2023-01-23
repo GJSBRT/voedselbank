@@ -97,4 +97,15 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->banner('Mederwerker is successvol aangepast!');
     }
+    
+    public function delete(Request $request, int $userId) 
+    {
+        $permission = Role::checkPermission($request->user(), 'users:delete');
+        if ($permission) { return $permission; }
+        
+        $user = User::find($userId);
+        $user->delete();
+
+        return redirect()->route('users.index')->banner('Mederwerker is successvol verwijdered!');
+    }
 }

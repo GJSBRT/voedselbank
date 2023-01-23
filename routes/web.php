@@ -46,6 +46,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::post('/new', [UserController::class, 'create'])->name('users.create');
         Route::get('/{userId}', [UserController::class, 'view'])->name('users.view');
         Route::patch('/{userId}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/{userId}', [UserController::class, 'delete'])->name('users.delete');
     });
     
     Route::prefix('/roles')->group(function () {
