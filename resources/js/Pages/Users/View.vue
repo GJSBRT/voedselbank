@@ -34,6 +34,18 @@ const handleSubmit = () => {
     });
 }
 
+const suspend = () => {
+    form.post(route('users.suspend', user.value.id), {
+        preserveScroll: true,
+    });
+}
+
+const unsuspend = () => {
+    form.post(route('users.unsuspend', user.value.id), {
+        preserveScroll: true,
+    });
+}
+
 const setRole = (role) => {
     form.user.role_id = role.id
 }
@@ -114,7 +126,7 @@ const deleteUser = () => {
                                 <InputLabel for="email" value="Email" />
                                 <TextInput id="email" v-model="form.user.email" type="text" class="mt-1 block w-full"/>
                             </div>
-                            
+
                             <div class="col-span-6">
                                 <InputLabel for="role" value="Rol" />
                                 <RoleSearch id="role" :callback="setRole" :value="user.role.name"/>
@@ -125,8 +137,16 @@ const deleteUser = () => {
                                 <span class="ml-2 text-sm text-gray-600">Twee Factor Authentictie</span>
                             </div>
                         </template>
-                        
+
                         <template #actions>
+                            <SecondaryButton v-if="hasPermission('users:update') && user.suspended_at === null" class="mr-2" @click.native="suspend">
+                                Medewerker blokkeren
+                            </SecondaryButton>
+
+                            <SecondaryButton v-if="hasPermission('users:update') && user.suspended_at !== null" class="mr-2" @click.native="unsuspend">
+                                Medewerker deblokkeren
+                            </SecondaryButton>
+
                             <DangerButton v-if="hasPermission('users:delete')" class="mr-2" @click.native="confirmingUserDeletion = true">
                                 Medewerker Verwijderen
                             </DangerButton>

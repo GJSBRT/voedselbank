@@ -55,6 +55,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/new', [UserController::class, 'new'])->name('users.new');
         Route::post('/new', [UserController::class, 'create'])->name('users.create');
         Route::get('/{userId}', [UserController::class, 'view'])->name('users.view');
+        Route::patch('/suspend/{userId}', [UserController::class, 'suspend'])->name('users.suspend');
+        Route::patch('/unsuspend/{userId}', [UserController::class, 'unsuspend'])->name('users.unsuspend');
         Route::patch('/{userId}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/{userId}', [UserController::class, 'delete'])->name('users.delete');
     });
