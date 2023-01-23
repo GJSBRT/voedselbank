@@ -14,10 +14,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
   Route::prefix('/products')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
     Route::get('/new', [ProductController::class, 'add'])->name('product.add');
-    Route::post('/new', [ProductController::class, 'createProduct'])->name('product.createProduct');
+    Route::post('/new', [ProductController::class, 'create-product'])->name('product.create-product');
     Route::get('/{productId}', [ProductController::class, 'edit'])->name('product.edit');
-    Route::patch('/{productId}', [ProductController::class, 'editProduct'])->name('product.editProduct');
-    Route::delete('/{productId}', [ProductController::class, 'deleteProduct'])->name('product.deleteProduct');
+    Route::patch('/{productId}', [ProductController::class, 'edit-product'])->name('product.edit-product');
+    Route::delete('/{productId}', [ProductController::class, 'delete-product'])->name('product.delete-product');
   });
 
     Route::prefix('/food-packages')->group(function () {

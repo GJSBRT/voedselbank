@@ -4,8 +4,8 @@ import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
-import SecondaryButton from '../../Components/SecondaryButton.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
 

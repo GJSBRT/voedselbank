@@ -4,14 +4,14 @@ import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
-import DangerButton from '../../Components/DangerButton.vue';
-import SecondaryButton from '../../Components/SecondaryButton.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DangerButton from '@/Components/DangerButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { toRefs } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { ref } from 'vue';
-import ConfirmationModal from '../../Components/ConfirmationModal.vue';
+import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 
 
 const props = defineProps({
@@ -120,7 +120,7 @@ const confirmingDelete = ref(false);
                 Nee
             </SecondaryButton>
             <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
-            <DangerButton class="ml-2" @click.native="Inertia.delete(route('product.deleteProduct', products.id)); confirmingDelete = false">
+            <DangerButton class="ml-2" @click.native="Inertia.delete(route('product.delete-product', products.id)); confirmingDelete = false">
                 Verwijder Product
             </DangerButton>
         </template>

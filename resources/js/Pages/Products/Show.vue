@@ -1,15 +1,15 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Table from '../../Components/Table.vue';
-import TableData from '../../Components/TableData.vue';
-import Pagination from '../../Components/Pagination.vue';
+import Table from '@/Components/Table.vue';
+import TableData from '@/Components/TableData.vue';
+import Pagination from '@//Components/Pagination.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 import { ref } from 'vue';
-import ConfirmationModal from '../../Components/ConfirmationModal.vue';
-import DangerButton from '../../Components/DangerButton.vue';
-import SecondaryButton from '../../Components/SecondaryButton.vue';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
+import ConfirmationModal from '@/Components/ConfirmationModal.vue';
+import DangerButton from '@/Components/DangerButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 // haal de products op
 defineProps({
@@ -36,8 +36,9 @@ defineProps({
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Producten
             </h2>
-            
-            <PrimaryButton class="flex text-white p-2 rounded" @click="Inertia.visit(route('product.createProduct'))">Toevoegen</PrimaryButton>
+            <div class="ml-auto">
+                <PrimaryButton class="flex text-white p-2 rounded" @click="Inertia.visit(route('product.create-product'))">Toevoegen</PrimaryButton>
+            </div>
         </template>
 
         <div class="py-12">
