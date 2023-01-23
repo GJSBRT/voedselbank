@@ -32,7 +32,7 @@ class CreateProductRequest extends FormRequest
             'name' => 'required|max:191',
             'ean_number' => 'required|numeric|digits:13',
             'product_category_id' => 'required|numeric|max:20|min:1',
-            'quantity' => 'required|numeric|max:11|min:1',
+            'quantity' => 'required|numeric|min:1',
         ];
     }
 
@@ -54,7 +54,6 @@ class CreateProductRequest extends FormRequest
 
             'quantity.required' => 'Voor dit veld is een hoeveelheid voorraad verplicht!',
             'quantity.numeric' => 'Dit veld kan alleen nummers bevatten!',
-            'quantity.max' => 'Het maximaal aantal hoeveelheid nummers dat ingevoerd kan worden is verschreden ( maximaal 11 nummers lang )',
             'quantity.min' => 'Het minimaal aantal hoeveelheid nummers dat ingevoerd kan worden is verschreden ( minmaal 1 nummer lang )',
 
 

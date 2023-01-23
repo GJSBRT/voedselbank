@@ -30,28 +30,21 @@ class ProductController extends Controller
         }
 
         // Create a new product
-        public function createProduct(CreateProductRequest $request)
+        public function create(CreateProductRequest $request)
         {
-            // try
-            // {
+  
                 Product::create([
                     'name' => $request->input('name'),
                     'ean_number' => $request->input('ean_number'),
                     'product_category_id' => $request->input('product_category_id'),
                     'quantity' => $request->input('quantity'),  
-                ]);
-            // }
-            // catch(\Exception $error)
-            // {
-            //     return redirect()->route('product.Add')->dangerBanner('Dit product bestaat al');
-            // }
-                
+                ]);                
 
                 return redirect()->route('product.index')->banner('Product opgeslagen!');
         }
 
         // Get the products find them by id and Make the edit page accesible in vue
-        public function Edit(int $productId)
+        public function edit(int $productId)
         {
             $products = Product::all()->find($productId);
 
@@ -61,7 +54,7 @@ class ProductController extends Controller
         }
 
         // Edit a product
-        Public function editProduct(EditProductRequest $request, int $productId)
+        Public function update(EditProductRequest $request, int $productId)
         {
             $products = Product::where('id', $productId)->firstOrFail();
             $products->name = $request->input('name');
@@ -75,7 +68,7 @@ class ProductController extends Controller
         }
 
         // Find a product by id and delete that product
-        Public function deleteProduct(Request $request, int $productId)
+        Public function delete(Request $request, int $productId)
         {
 
             $product = Product::find($productId);
