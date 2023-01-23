@@ -20,7 +20,7 @@ class Customer extends Model implements Searchable
         'email',
         'address',
         'adult_amount',
-        'children_amount',
+        'child_amount',
         'baby_amount',
         'notes',
     ];

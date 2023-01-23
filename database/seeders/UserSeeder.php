@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -27,7 +26,7 @@ class UserSeeder extends Seeder
         ]);
 
         User::create(['first_name' => 'Gijsbert',
-            'last_name' => 'Gemert',
+            'last_name' => 'van Gemert',
             'role_id' => 1,
             'email' => 'gijsbert@dutchis.net',
             'password' => bcrypt('gijsbert'),
