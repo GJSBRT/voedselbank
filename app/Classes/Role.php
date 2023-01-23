@@ -8,7 +8,7 @@ class Role {
 
     /**
      * All permissions available
-     * 
+     *
      * @var array
      */
     public static $permissions = [
@@ -33,11 +33,15 @@ class Role {
         'deliveries:create',
         'deliveries:delete',
         'deliveries:update',
-    ];
-    
+        'customers:read',
+        'customers:create',
+        'customers:delete',
+        'customers:update',
+        ];
+
     /**
      * Check if user has permission
-     * 
+     *
      * @param User $user
      * @param string $permission
      * @return redirect
