@@ -18,6 +18,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/quantity-products', [QuantityProductsController::class, 'index'])->name('quantity-products.index');
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 
+  Route::prefix('/products')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/new', [ProductController::class, 'add'])->name('product.add');
+    Route::post('/new', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/{productId}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::patch('/{productId}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/{productId}', [ProductController::class, 'delete'])->name('product.delete');
+  });
+
     Route::prefix('/food-packages')->group(function () {
         Route::get('/', [FoodPackageController::class, 'index'])->name('food-packages.index');
         Route::get('/new', [FoodPackageController::class, 'new'])->name('food-packages.new');
@@ -75,5 +84,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/customers', [CustomerController::class, 'search']);
     Route::get('/products', [ProductController::class, 'search']);
+});
     Route::get('/roles', [RoleController::class, 'search']);
 });
+
