@@ -8,7 +8,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { hasPermission } from '../../utils/permissions';
+import { HasPermission } from '@/utils';
 
 defineProps({
     title: String,
@@ -51,15 +51,15 @@ const logout = () => {
                                     Leveringen
                                 </NavLink>
 
-                                <NavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
+                                <NavLink v-if="HasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                                     Voedsel Pakketten
                                 </NavLink>
                                 
-                                <NavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
+                                <NavLink v-if="HasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
                                     Medewerkers
                                 </NavLink>
                                 
-                                <NavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
+                                <NavLink v-if="HasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                                     Rollen
                                 </NavLink>
                             </div>
@@ -144,7 +144,7 @@ const logout = () => {
                             Dashboard
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
+                        <ResponsiveNavLink v-if="HasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                             Voedselpakketten
                         </ResponsiveNavLink>
 
@@ -156,11 +156,11 @@ const logout = () => {
                             Leveringen
                         </ResponsiveNavLink>
                         
-                        <ResponsiveNavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
+                        <ResponsiveNavLink v-if="HasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
                             Medewerkers
                         </ResponsiveNavLink>
                         
-                        <ResponsiveNavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
+                        <ResponsiveNavLink v-if="HasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                             Rollen
                         </ResponsiveNavLink>
                     </div>
