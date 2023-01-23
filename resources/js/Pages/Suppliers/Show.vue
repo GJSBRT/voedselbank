@@ -24,9 +24,7 @@ defineProps({
         }
     ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Leveranciers
-            </h2>
+            
 
             <div class="ml-auto">
                 <PrimaryButton @click="() => Inertia.visit(route('suppliers.new'))">

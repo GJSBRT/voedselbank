@@ -27,9 +27,7 @@ defineProps({
     ]">
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Voedsel Pakketten
-            </h2>
+            
 
             <div class="ml-auto">
                 <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('food-packages.new'))">

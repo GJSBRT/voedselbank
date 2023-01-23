@@ -29,9 +29,7 @@ const confirmDelete = ref(null);
         }
     ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Klanten overzicht
-            </h2>
+            
 
             <div class="ml-auto">
                 <primary-button @click="() => Inertia.visit(route('customers.new'))">

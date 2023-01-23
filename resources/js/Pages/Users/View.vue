@@ -93,9 +93,7 @@ const deleteUser = () => {
         }
     ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ form.user.first_name }} {{ form.user.last_name }}
-            </h2>
+            
         </template>
 
         <div class="py-12">
