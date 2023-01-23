@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Searchable\Search;
@@ -88,5 +88,15 @@ class CustomerController extends Controller
             ->search($request->input('query'));
 
         return response()->json($results);
+    }
+
+    public function export($customerId)
+    {
+        $customer = Customer::where('id', $customerId)->firstOrFail();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->loadView('pdf/pdf', compact('customer'));
+        return $pdf->stream('account_gegevens_' . $customer->first_name . '_' . $customer->id . '.pdf');
     }
 }
