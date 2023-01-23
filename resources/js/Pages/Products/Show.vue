@@ -37,7 +37,7 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <TableSearch route="products.index" class="my-5" />
+                <TableSearch route="products.index" placeholder="Zoeken op naam of ean nummer" class="my-5" />
 
                 <Table :headers="['ID', 'Naam', 'EAN nummer', 'Product Categorie', 'Voorraad']" >
                     <tr @click="Inertia.visit(route('products.view', productItem.id ))" class="hover:bg-gray-50 cursor-pointer" v-for="productItem in products.data" :key="products.id">

@@ -22,20 +22,17 @@ class SupplierController extends Controller
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
                     $query
-                        ->orWhere('id', 'LIKE', "%{$value}%")
                         ->orWhere('company_name', 'LIKE', "%{$value}%")
                         ->orWhere('phone_number', 'LIKE', "%{$value}%")
-                        ->orWhere('contact_name', 'LIKE', "%{$value}%")
-                        ->orWhere('email', 'LIKE', "%{$value}%");
+                        ->orWhere('contact_name', 'LIKE', "%{$value}%");
                 });
             });
         });
 
         $suppliers = QueryBuilder::for(Supplier::class)
             ->with('nextDeliveries')
-            ->defaultSort('created_at')
-            ->allowedSorts(['id','company_name', 'phone_number', 'contact_name','email'])
-            ->allowedFilters(['id','company_name', 'phone_number', 'contact_name','email', $globalSearch])
+            ->allowedSorts(['company_name', 'phone_number', 'contact_name'])
+            ->allowedFilters(['company_name', 'phone_number', 'contact_name', $globalSearch])
             ->paginate()
             ->withQueryString();
 

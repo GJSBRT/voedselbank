@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="text" placeholder="Zoeken" v-model="query" class="w-full border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 rounded-md shadow-sm">
+        <input type="text" :placeholder="placeholder" v-model="query" class="w-full border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 rounded-md shadow-sm">
     </div>
 </template>
 
@@ -24,7 +24,8 @@ export default {
         }
     },
     props: {
-        route: String
+        route: String,
+        placeholder: String
     }
 }
 </script>

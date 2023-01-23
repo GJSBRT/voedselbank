@@ -52,7 +52,7 @@ const logout = () => {
                                     Leveringen
                                 </NavLink>
 
-                                <NavLink :href="route('product.index')" :active="route().current('product.*')">
+                                <NavLink :href="route('products.index')" :active="route().current('product.*')">
                                     Producten
                                 </NavLink>
 

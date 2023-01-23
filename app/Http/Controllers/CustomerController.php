@@ -23,7 +23,6 @@ class CustomerController extends Controller
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
                     $query
-                        ->orWhere('id', 'LIKE', "%{$value}%")
                         ->orWhere('first_name', 'LIKE', "%{$value}%")
                         ->orWhere('last_name', 'LIKE', "%{$value}%")
                         ->orWhere('phone_number', 'LIKE', "%{$value}%");
@@ -32,9 +31,8 @@ class CustomerController extends Controller
         });
 
         $customers = QueryBuilder::for(Customer::class)
-            ->defaultSort('created_at')
-            ->allowedSorts(['id','first_name', 'last_name', 'phone_number'])
-            ->allowedFilters(['id','first_name', 'last_name', 'phone_number', $globalSearch])
+            ->allowedSorts(['first_name', 'last_name', 'phone_number'])
+            ->allowedFilters(['first_name', 'last_name', 'phone_number', $globalSearch])
             ->where('first_name', '!=', 'deleted')
             ->paginate()
             ->withQueryString();

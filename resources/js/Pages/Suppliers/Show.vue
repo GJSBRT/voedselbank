@@ -29,7 +29,7 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <TableSearch route="suppliers.index" class="my-5" />
+                <TableSearch route="suppliers.index" placeholder="Zoeken op bedrijfsnaam, telefoonnummer of contactpersoon" class="my-5" />
 
                 <Table :headers="['#', 'Bedrijfsnaam', 'Telefoonnummer', 'Contact persoon', 'Volgende levering']">
                     <tr class="hover:bg-gray-50 cursor-pointer" v-for="supplier in suppliers.data" :key="suppliers.id"

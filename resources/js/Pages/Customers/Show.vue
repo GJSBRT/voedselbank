@@ -32,7 +32,7 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <TableSearch route="customers.index" class="my-5" />
+                <TableSearch route="customers.index" placeholder="Zoeken op voornaam, achternaam of telefoonnummer" class="my-5" />
 
                     <Table
                         :headers="['#','Naam', 'Achternaam', 'Volwassenen', 'Kinderen', 'Babies', 'Telefoonnummer']">

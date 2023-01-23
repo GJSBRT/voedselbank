@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Classes\Role;
 use App\Http\Requests\CreateUserRequest;
+use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Inertia\Inertia;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
 {
@@ -16,7 +20,21 @@ class UserController extends Controller
         $permission = Role::checkPermission($request->user(), 'users:read');
         if ($permission) { return $permission; }
 
-        $users = User::paginate();
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
+                    $query
+                        ->orWhere('first_name', 'LIKE', "%{$value}%")
+                        ->orWhere('email', 'LIKE', "%{$value}%");
+                });
+            });
+        });
+
+        $users = QueryBuilder::for(User::class)
+            ->allowedSorts(['first_name', 'email'])
+            ->allowedFilters(['first_name', 'email', $globalSearch])
+            ->paginate()
+            ->withQueryString();
 
         return Inertia::render('Users/Show', [
             'users' => $users,

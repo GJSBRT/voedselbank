@@ -17,7 +17,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::get('/food-packages', [FoodPackageController::class, 'index'])->name('food-package.index');
     Route::get('/quantity-products', [QuantityProductsController::class, 'index'])->name('quantity-products.index');
-    Route::get('/products', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
   Route::prefix('/products')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('products.index');

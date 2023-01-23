@@ -6,6 +6,7 @@ import Pagination from '@/Components/Pagination.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { hasPermission } from '@/utils';
+import TableSearch from "@/Components/Search/TableSearch.vue";
 
 defineProps({
     users: Object,
@@ -29,6 +30,8 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <TableSearch route="users.index" placeholder="Zoeken op voornaam of email" class="my-5" />
+
                 <Table :headers="['#', 'Naam', 'Email', '2FA Ingeschakeld Op', 'Geblokkeerd op', 'Aangemaakt Op']" >
                     <tr @click="Inertia.visit(route('users.view', user.id))" class="hover:bg-gray-50 cursor-pointer" v-for="user in users.data" :key="user.id">
                         <TableData>{{ user.id }}</TableData>

@@ -23,7 +23,6 @@ class ProductController extends Controller
                 $query->where(function ($query) use ($value) {
                     Collection::wrap($value)->each(function ($value) use ($query) {
                         $query
-                            ->orWhere('id', 'LIKE', "%{$value}%")
                             ->orWhere('name', 'LIKE', "%{$value}%")
                             ->orWhere('ean_number', 'LIKE', "%{$value}%");
                     });
@@ -32,13 +31,10 @@ class ProductController extends Controller
 
             $products = QueryBuilder::for(Product::class)
                 ->with('category')
-                ->defaultSort('created_at')
-                ->allowedSorts(['id','name', 'ean_number'])
-                ->allowedFilters(['id','name', 'ean_number', $globalSearch])
+                ->allowedSorts(['name', 'ean_number'])
+                ->allowedFilters(['name', 'ean_number', $globalSearch])
                 ->paginate()
                 ->withQueryString();
-
-//            $products = Product::with('category')->paginate();
 
             return Inertia::render('Products/Show',[
                 'products' => $products
