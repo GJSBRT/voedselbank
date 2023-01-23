@@ -19,14 +19,16 @@ import InputError from '@/Components/InputError.vue';
 const props = defineProps({
     user: Object,
     two_factor_enabled: Boolean,
+    suspended: Boolean
 });
 
-const { user, two_factor_enabled } = toRefs(props);
+const { user, two_factor_enabled, suspended } = toRefs(props);
 
 const form = useForm({
     _method: 'PATCH',
     user: user.value,
     two_factor_enabled: two_factor_enabled.value,
+    suspended: suspended.value
 });
 
 const handleSubmit = () => {
@@ -125,9 +127,16 @@ const deleteUser = () => {
                                 <InputError :message="form.errors.role" class="mt-2"/>
                             </div>
 
-                            <div class="col-span-6">
-                                <Checkbox v-model:checked="form.two_factor_enabled" :value="null" :disabled="user.two_factor_confirmed_at == null"/>
-                                <span class="ml-2 text-sm text-gray-600">Twee Factor Authentictie</span>
+                            <div class="grid grid-cols-2 gap-4 col-span-6">
+                                <div>
+                                    <Checkbox v-model:checked="form.two_factor_enabled" :value="null" :disabled="user.two_factor_confirmed_at == null"/>
+                                    <span class="ml-2 text-sm text-gray-600">Twee Factor Authentictie</span>
+                                </div>
+
+                                <div>
+                                    <Checkbox v-model:checked="form.suspended" :value="form.suspended"/>
+                                    <span class="ml-2 text-sm text-gray-600">Geblokkeerd</span>
+                                </div>
                             </div>
                         </template>
 

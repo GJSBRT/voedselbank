@@ -55,6 +55,36 @@ class UserSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
+        User::create(['first_name' => 'Quinten',
+            'last_name' => 'Hofmeijer',
+            'role_id' => 1,
+            'email' => 'q.hofmeijer@outlook.com',
+            'password' => bcrypt('quinten'),
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+
+        User::create(['first_name' => 'Quinten',
+            'last_name' => 'Hofmeijer',
+            'role_id' => 2,
+            'email' => 'magazijnmedewerker@voedselbank.com',
+            'password' => bcrypt('magazijnmedewerker'),
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+
+        User::create(['first_name' => 'Quinten',
+            'last_name' => 'Hofmeijer',
+            'role_id' => 3,
+            'email' => 'vrijwilliger@voedselbank.com',
+            'password' => bcrypt('vrijwilliger'),
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+
         User::factory(10)->create();
     }
 }
