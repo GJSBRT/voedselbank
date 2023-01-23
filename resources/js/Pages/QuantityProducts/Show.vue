@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Quantity Products" :breadcrumbs="[
+    <AppLayout title="Voorraad Producten" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),
@@ -27,7 +27,7 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Table :headers="['ID', 'Naam', 'Voorraad']" >
+                <Table :headers="['ID', 'Product', 'Voorraad']" >
                     <tr class="hover:bg-gray-50 cursor-pointer" v-for="productItem in products.data" :key="products.id">
                         <TableData>{{ productItem.id }}</TableData>
                         <TableData>{{ productItem.name }}</TableData>

@@ -55,7 +55,11 @@ const logout = () => {
 
 
                                 <NavLink :href="route('product.index')" :active="route().current('product.index')">
-                                    Products
+                                    Producten
+                                </NavLink>
+
+                                <NavLink v-if="hasPermission('quantity-products.index')" :href="route('quantity-products.index')" :active="route().current('roles.*')">
+                                    Voorraad
                                 </NavLink>
                                 
 
