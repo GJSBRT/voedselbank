@@ -33,6 +33,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::prefix('/category')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('/new', [CategoryController::class, 'new'])->name('category.new');
+        Route::post('/new', [CategoryController::class, 'create'])->name('category.create');
+        Route::get('/{categoryId}', [CategoryController::class, 'view'])->name('category.view');
+        Route::patch('/{categoryId}', [CategoryController::class, 'update'])->name('category.update');
+        Route::delete('/{categoryId}', [CategoryController::class, 'delete'])->name('category.delete');
     });
 
 

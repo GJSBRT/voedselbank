@@ -28,7 +28,7 @@ const confirmDelete = ref(null);
             </h2>
 
             <div class="ml-auto">
-                <primary-button @click="() => Inertia.visit(route('customer.add'))">
+                <primary-button @click="() => Inertia.visit(route('category.new'))">
                     Maak een nieuw product categorie aan
                 </primary-button>
             </div>
@@ -40,16 +40,11 @@ const confirmDelete = ref(null);
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg ">
                     <Table
-                        :headers="['Naam', '', '']">
-                        <tr class="hover:bg-gray-50 cursor-pointer" v-for="categoryData in category.data"
+                        :headers="['Naam']">
+                        <tr @click="Inertia.visit(route('category.view', categoryData.id))"
+                            class="hover:bg-gray-50 cursor-pointer" v-for="categoryData in category.data"
                             :key="categoryData.id">
                             <TableData>{{ categoryData.name }}</TableData>
-
-<!--                            <table-data @click="Inertia.visit(route('customer.view', customerData.id))"-->
-<!--                                        class="font-bold">Wijzig-->
-<!--                            </table-data>-->
-<!--                            <table-data @click="confirmDelete=customerData.id" class="font-bold"> Verwijderen-->
-<!--                            </table-data>-->
                         </tr>
                     </Table>
                 </div>
