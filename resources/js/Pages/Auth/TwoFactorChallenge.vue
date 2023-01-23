@@ -47,11 +47,11 @@ const submit = () => {
 
         <div class="mb-4 text-sm text-gray-600">
             <template v-if="! recovery">
-                Bevestig toegang tot uw account door een van uw authenticatiecodes in te voeren.
+                Bevestig toegang tot uw account door een van uw authenticatie codes in te voeren.
             </template>
 
             <template v-else>
-                Bevestig toegang tot uw account door een van uw recovery codes in te voeren.
+                Bevestig toegang tot uw account door een van uw herstel codes in te voeren.
             </template>
         </div>
 
@@ -87,7 +87,7 @@ const submit = () => {
             <div class="flex items-center justify-end mt-4">
                 <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer" @click.prevent="toggleRecovery">
                     <template v-if="! recovery">
-                        Gebruik een recovery code
+                        Gebruik een herstel code
                     </template>
 
                     <template v-else>
