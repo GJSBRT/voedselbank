@@ -1,4 +1,8 @@
 function hasPermission(permission) {
+    if (!window.Permissions) {
+        location.reload();
+    }
+
     if (window.Permissions.includes('*')) {
         return true;
     }

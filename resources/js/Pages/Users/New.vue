@@ -17,6 +17,7 @@ const form = useForm({
 const handleSubmit = () => {
     form.post(route('users.create'), {
         preserveScroll: true,
+        onFinish: () => form.reset('password'),
     });
 }
 </script>

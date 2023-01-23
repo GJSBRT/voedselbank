@@ -43,11 +43,11 @@ const logout = () => {
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('suppliers.index')" :active="route().current('suppliers.*')">
+                                <NavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('suppliers.*')">
                                     Leveranciers
                                 </NavLink>
 
-                                <NavLink :href="route('deliveries.index')" :active="route().current('deliveries.*')">
+                                <NavLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')" :active="route().current('deliveries.*')">
                                     Leveringen
                                 </NavLink>
 
@@ -148,11 +148,11 @@ const logout = () => {
                             Voedselpakketten
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('suppliers.index')" :active="route().current('supplier.*')">
+                        <ResponsiveNavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('supplier.*')">
                             Leveranciers
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('deliveries.index')" :active="route().current('delivery.*')">
+                        <ResponsiveNavLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')" :active="route().current('delivery.*')">
                             Leveringen
                         </ResponsiveNavLink>
                         
