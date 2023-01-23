@@ -4,19 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\EditProductRequest;
+use App\Models\Customer;
 use App\Models\FoodPackage;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Collection;
 use Inertia\Inertia;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\Searchable\Search;
 
 class ProductController extends Controller
 {
         // Get all products
-        public function index() 
+        public function index()
         {
-            $products = Product::with('category')->paginate();
-    
+            $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+                $query->where(function ($query) use ($value) {
+                    Collection::wrap($value)->each(function ($value) use ($query) {
+                        $query
+                            ->orWhere('id', 'LIKE', "%{$value}%")
+                            ->orWhere('name', 'LIKE', "%{$value}%")
+                            ->orWhere('ean_number', 'LIKE', "%{$value}%");
+                    });
+                });
+            });
+
+            $products = QueryBuilder::for(Product::class)
+                ->with('category')
+                ->defaultSort('created_at')
+                ->allowedSorts(['id','name', 'ean_number'])
+                ->allowedFilters(['id','name', 'ean_number', $globalSearch])
+                ->paginate()
+                ->withQueryString();
+
+//            $products = Product::with('category')->paginate();
+
             return Inertia::render('Products/Show',[
                 'products' => $products
             ]);
@@ -32,13 +55,13 @@ class ProductController extends Controller
         // Create a new product
         public function create(CreateProductRequest $request)
         {
-  
+
                 Product::create([
                     'name' => $request->input('name'),
                     'ean_number' => $request->input('ean_number'),
                     'product_category_id' => $request->input('product_category_id'),
-                    'quantity' => $request->input('quantity'),  
-                ]);                
+                    'quantity' => $request->input('quantity'),
+                ]);
 
                 return redirect()->route('product.index')->banner('Product opgeslagen!');
         }
@@ -76,16 +99,16 @@ class ProductController extends Controller
             try
             {
                 $product->delete();
-                
+
             }catch(\Exception $error)
             {
                 return redirect()->route('product.index')->dangerBanner('Product kan niet verwijderd worden, Dit product is verwerkt in een voedselpakket');
             }
-            
+
             return redirect()->route('product.index')->banner('Product Verwijderd!');
         }
 
-        public function search(Request $request) 
+        public function search(Request $request)
         {
             $results = (new Search())
                 ->registerModel(Product::class, ['name', 'ean_number'])

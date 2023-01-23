@@ -3,12 +3,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Table from '@/Components/Table.vue';
 import TableData from '@/Components/TableData.vue';
 import Pagination from '@//Components/Pagination.vue';
-import { Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
-import { ref } from 'vue';
-import ConfirmationModal from '@/Components/ConfirmationModal.vue';
-import DangerButton from '@/Components/DangerButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
+import TableSearch from "@/Components/Search/TableSearch.vue";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 // haal de products op
@@ -16,12 +12,9 @@ defineProps({
     products: Object,
 });
 
-
-
 </script>
 
 <template>
-
     <AppLayout title="Producten" :breadcrumbs="[
         {
             title: 'Dashboard',
@@ -44,6 +37,8 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <TableSearch route="products.index" class="my-5" />
+
                 <Table :headers="['ID', 'Naam', 'EAN nummer', 'Product Categorie', 'Voorraad']" >
                     <tr @click="Inertia.visit(route('product.edit', productItem.id ))" class="hover:bg-gray-50 cursor-pointer" v-for="productItem in products.data" :key="products.id">
                         <TableData>{{ productItem.id }}</TableData>

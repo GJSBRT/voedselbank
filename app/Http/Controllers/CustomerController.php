@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
+use App\Models\Supplier;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Inertia\Inertia;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\Searchable\Search;
 
 class CustomerController extends Controller
@@ -15,7 +19,26 @@ class CustomerController extends Controller
     //Get a full list of all customers
     public function index()
     {
-        $customers = Customer::where('first_name', '!=', 'deleted')->paginate();
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
+                    $query
+                        ->orWhere('id', 'LIKE', "%{$value}%")
+                        ->orWhere('first_name', 'LIKE', "%{$value}%")
+                        ->orWhere('last_name', 'LIKE', "%{$value}%")
+                        ->orWhere('phone_number', 'LIKE', "%{$value}%");
+                });
+            });
+        });
+
+        $customers = QueryBuilder::for(Customer::class)
+            ->defaultSort('created_at')
+            ->allowedSorts(['id','first_name', 'last_name', 'phone_number'])
+            ->allowedFilters(['id','first_name', 'last_name', 'phone_number', $globalSearch])
+            ->where('first_name', '!=', 'deleted')
+            ->paginate()
+            ->withQueryString();
+
         return Inertia::render("Customers/Show", [
             'customers' => $customers,
         ]);

@@ -20,8 +20,11 @@ export default {
     },
     methods: {
         searchProducts() {
-            Inertia.replace(route('suppliers.index', {filter: {global: this.query} }));
+            Inertia.replace(route(this.route, {filter: {global: this.query} }));
         }
     },
+    props: {
+        route: String
+    }
 }
 </script>
