@@ -16,6 +16,7 @@ class FoodPackageController extends Controller
         $permission = Role::checkPermission($request->user(), 'food-packages:read');
         if ($permission) { return $permission; }
 
+
         $packages = FoodPackage::with(['customer', 'items'])->orderBy('retrieved_at')->paginate();   
         
         return Inertia::render('FoodPackages/Show', [

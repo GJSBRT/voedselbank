@@ -4,6 +4,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FoodPackageController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\QuantityProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -12,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/food-packages', [FoodPackageController::class, 'index'])->name('food-package.index');
+    Route::get('/quantity-products', [QuantityProductsController::class, 'index'])->name('quantity-products.index');
+    Route::get('/products', [ProductController::class, 'index'])->name('product.index');
+
+  Route::prefix('/products')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/new', [ProductController::class, 'add'])->name('product.add');
+    Route::post('/new', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/{productId}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::patch('/{productId}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/{productId}', [ProductController::class, 'delete'])->name('product.delete');
+  });
 
     Route::prefix('/food-packages')->group(function () {
         Route::get('/', [FoodPackageController::class, 'index'])->name('food-packages.index');
@@ -26,6 +40,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/new', [CustomerController::class, 'new'])->name('customers.new');
         Route::post('/new', [CustomerController::class, 'create'])->name('customers.create');
         Route::get('/{customerId}', [CustomerController::class, 'view'])->name('customers.view');
+        Route::get('/{customerId}/export', [CustomerController::class, 'export'])->name('customers.export');
         Route::patch('/{customerId}', [CustomerController::class, 'update'])->name('customers.update');
         Route::delete('/{customerId}/delete', [CustomerController::class, 'delete'])->name('customers.delete');
     });
@@ -52,6 +67,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('/new', [UserController::class, 'new'])->name('users.new');
         Route::post('/new', [UserController::class, 'create'])->name('users.create');
+        Route::patch('/{userId}/suspension', [UserController::class, 'suspend'])->name('users.suspension');
         Route::get('/{userId}', [UserController::class, 'view'])->name('users.view');
         Route::patch('/{userId}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/{userId}', [UserController::class, 'delete'])->name('users.delete');
@@ -71,3 +87,4 @@ Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_ses
     Route::get('/products', [ProductController::class, 'search']);
     Route::get('/roles', [RoleController::class, 'search']);
 });
+

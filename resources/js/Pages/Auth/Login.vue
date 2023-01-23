@@ -7,6 +7,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import Banner from '@/Components/Banner.vue';
 
 defineProps({
     canResetPassword: Boolean,
@@ -30,6 +31,8 @@ const submit = () => {
 </script>
 
 <template>
+    <Banner />
+
     <Head title="Log in" />
 
     <AuthenticationCard>
