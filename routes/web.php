@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-
     Route::get('/food-packages', [FoodPackageController::class, 'index'])->name('food-package.index');
     Route::get('/quantity-products', [QuantityProductsController::class, 'index'])->name('quantity-products.index');
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
@@ -58,9 +57,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('/new', [UserController::class, 'new'])->name('users.new');
         Route::post('/new', [UserController::class, 'create'])->name('users.create');
+        Route::patch('/{userId}/suspension', [UserController::class, 'suspend'])->name('users.suspension');
         Route::get('/{userId}', [UserController::class, 'view'])->name('users.view');
-        Route::patch('/suspend/{userId}', [UserController::class, 'suspend'])->name('users.suspend');
-        Route::patch('/unsuspend/{userId}', [UserController::class, 'unsuspend'])->name('users.unsuspend');
         Route::patch('/{userId}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/{userId}', [UserController::class, 'delete'])->name('users.delete');
     });

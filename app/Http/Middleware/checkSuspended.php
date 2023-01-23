@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class checkSuspended
 {
     /**
-     * Handle an incoming request.
+     * Check if user is allowed to make requests
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse) $next

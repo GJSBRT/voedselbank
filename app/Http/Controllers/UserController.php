@@ -40,6 +40,7 @@ class UserController extends Controller
         return Inertia::render('Users/View', [
             'user' => $user,
             'two_factor_enabled' => $user->two_factor_confirmed_at ? true : false,
+            'suspended' => $user->suspended_at ? true : false,
         ]);
     }
 
@@ -81,6 +82,8 @@ class UserController extends Controller
         $user = User::find($userId);
         $newUser = $request->input('user') ?? null;
         $twoFactorEnabled = $request->input('two_factor_enabled') ?? null;
+        $suspended = $request->input('suspended')? Carbon::now() : null;
+        $user->suspended_at = $suspended;
 
         $request->validate([
             'user' => 'required',
@@ -113,19 +116,19 @@ class UserController extends Controller
         return redirect()->route('users.index')->banner('Mederwerker is successvol verwijdered!');
     }
 
-    public function suspend($userId){
+    public function suspend(Request $request, $userId){
+        $permission = Role::checkPermission($request->user(), 'users:update');
+        if ($permission) { return $permission; }
+
         $user = User::find($userId);
-        $user->suspended_at = Carbon::now();
+
+        if ($request->get('suspended')){
+            $user->suspended_at = null;
+            $request->session()->flash('flash.banner', 'Gebruiker succesvol gedeblokkeerd.');
+        } else {
+            $user->suspended_at = Carbon::now();
+            $request->session()->flash('flash.banner', 'Gebruiker succesvol geblokkeerd.');
+        }
         $user->save();
-
-        return redirect()->route('users.index')->banner('Mederwerker is successvol geblokkeerd!');
-    }
-
-    public function unsuspend($userId){
-        $user = User::find($userId);
-        $user->suspended_at = null;
-        $user->save();
-
-        return redirect()->route('users.index')->banner('Mederwerker is successvol gedeblokkeerd!');
     }
 }
