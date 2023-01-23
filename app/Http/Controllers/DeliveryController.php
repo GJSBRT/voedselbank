@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Role;
+use App\Http\Requests\CreateDeliveryRequest;
+use App\Http\Requests\UpdateDeliveryRequest;
 use App\Models\Delivery;
 use App\Models\Supplier;
 use Carbon\Carbon;
@@ -46,7 +48,7 @@ class DeliveryController extends Controller
     {
         $permission = Role::checkPermission($request->user(), 'deliveries:create');
         if ($permission) { return $permission; }
-        
+
         $suppliers = Supplier::all();
 
         return Inertia::render('Deliveries/New', [
@@ -54,18 +56,10 @@ class DeliveryController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(CreateDeliveryRequest $request)
     {
         $permission = Role::checkPermission($request->user(), 'deliveries:create');
         if ($permission) { return $permission; }
-        
-        $request->validate([
-            'supplier_id' => 'required',
-            'expected_at' => 'required',
-        ], [
-            'supplier_id.required' => 'Dit is een verplicht veld.',
-            'expected_at.required' => 'Het is verplicht om een verwachte bezorgdatum in te voeren.',
-        ]);
 
         $delivery = Delivery::create([
             'supplier_id' => $request->get('supplier_id'),
@@ -83,7 +77,7 @@ class DeliveryController extends Controller
     {
         $permission = Role::checkPermission($request->user(), 'deliveries:read');
         if ($permission) { return $permission; }
-        
+
         $delivery = Delivery::with('supplier')->find($id);
         $suppliers = Supplier::all();
 
@@ -93,11 +87,11 @@ class DeliveryController extends Controller
         ]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, UpdateDeliveryRequest $request)
     {
         $permission = Role::checkPermission($request->user(), 'deliveries:update');
         if ($permission) { return $permission; }
-        
+
         $request->validate([
             'supplier_id' => 'required',
             'expected_at' => 'required',
@@ -127,7 +121,7 @@ class DeliveryController extends Controller
     {
         $permission = Role::checkPermission($request->user(), 'deliveries:delete');
         if ($permission) { return $permission; }
-        
+
         $delivery = Delivery::find($id);
         $delivery->delete();
 

@@ -5,42 +5,53 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import { toRefs } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+import { ref } from 'vue';
+import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 
 
 const props = defineProps({
     products: Object,
 });
 
+const { products } = toRefs(props)
+
 const form = useForm({
-    _method: 'POST',
-    name: '',
-    ean_number: '',
-    product_category_id: 0,
-    quantity: 0
+    _method: 'PATCH',
+    name: products.value.name,
+    ean_number: products.value.ean_number,
+    product_category_id: products.value.product_category_id,
+    quantity: products.value.quantity
 });
 
-const AddProduct = () => {
-    form.post(route('product.create'), {
+const EditProduct = () => {
+    form.post(route('products.update', products.value.id), {
         preserveScroll: true,
     });
 }
 
+const confirmingDelete = ref(false);
+
+
+
 </script>
 
 <template>
-    <AppLayout title="Producten Toevoegen" :breadcrumbs="[
+    <AppLayout title="Producten Bewerken" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),
         },
         {
             title: 'Producten Overzicht',
-            href: route('product.index'),
+            href: route('products.index'),
         },
         {
-            title: 'Producten Toevoegen',
+            title: 'Producten Bewerken',
             href: '#',
         }
     ]" >
@@ -58,7 +69,7 @@ const AddProduct = () => {
                         </template>
 
                         <template #description>
-                            Vul alle invulvakken in over de producten
+                            Op het product informatie pagina kan u alle informatie zien die beschikbaar is over het product
                         </template>
 
                         <template #form>
@@ -90,16 +101,40 @@ const AddProduct = () => {
                             </div>
 
                         </template>
-                        <template #actions >
-                            <div class="col-span-6 sm:col-span-4 w-full">
-                                <PrimaryButton @click="AddProduct" class="col-span-6 sm:col-span-4 float-left">
-                                  Opslaan
-                                </PrimaryButton>
-                            </div>
+                        <template #actions>
+                            <PrimaryButton @click="EditProduct">
+                                Opslaan
+                            </PrimaryButton>
+                            <DangerButton @click="confirmingDelete = true" class="ml-4">
+                                Verwijderen
+                            </DangerButton>
                         </template>
                     </FormSection>
                 </div>
             </div>
         </div>
+
+
+        <ConfirmationModal :show="confirmingDelete" @close="confirmingDelete = false">
+            <template #title>
+                Verwijder Product
+            </template>
+
+            <template #content>
+                Weet je het zeker dat je dit product wilt verwijderen? Dit product zal permanent verwijderd worden.
+            </template>
+
+            <template #footer>
+                <SecondaryButton @click.native="confirmingDelete = false">
+                    Nee
+                </SecondaryButton>
+                <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
+                <DangerButton class="ml-2"
+                    @click.native="Inertia.delete(route('products.delete', products.id)); confirmingDelete = false">
+                    Verwijder Product
+                </DangerButton>
+            </template>
+        </ConfirmationModal>
+
     </AppLayout>
 </template>

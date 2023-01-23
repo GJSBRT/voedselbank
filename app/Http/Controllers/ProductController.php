@@ -24,9 +24,9 @@ class ProductController extends Controller
 
         // This is a get function for the products
         // This makes you able to navigate to the add page in vue
-        public function add()
+        public function new()
         {
-            return Inertia::render('Products/Add');
+            return Inertia::render('Products/New');
         }
 
         // Create a new product
@@ -40,7 +40,7 @@ class ProductController extends Controller
                     'quantity' => $request->input('quantity'),  
                 ]);                
 
-                return redirect()->route('product.index')->banner('Product opgeslagen!');
+                return redirect()->route('products.index')->banner('Product opgeslagen!');
         }
 
         // Get the products find them by id and Make the edit page accesible in vue
@@ -48,7 +48,7 @@ class ProductController extends Controller
         {
             $products = Product::all()->find($productId);
 
-            return Inertia::render('Products/Edit',[
+            return Inertia::render('Products/View',[
                 'products' => $products
             ]);
         }
@@ -63,7 +63,7 @@ class ProductController extends Controller
             $products->quantity = $request->input('quantity');
             $products->save();
 
-            return redirect()->route('product.index')->banner('Product Veranderd!');
+            return redirect()->route('products.index')->banner('Product Veranderd!');
 
         }
 
@@ -79,10 +79,10 @@ class ProductController extends Controller
                 
             }catch(\Exception $error)
             {
-                return redirect()->route('product.index')->dangerBanner('Product kan niet verwijderd worden, Dit product is verwerkt in een voedselpakket');
+                return redirect()->route('products.index')->dangerBanner('Product kan niet verwijderd worden, Dit product is verwerkt in een voedselpakket');
             }
             
-            return redirect()->route('product.index')->banner('Product Verwijderd!');
+            return redirect()->route('products.index')->banner('Product Verwijderd!');
         }
 
         public function search(Request $request) 

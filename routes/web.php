@@ -8,24 +8,24 @@ use App\Http\Controllers\QuantityProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-
     Route::get('/food-packages', [FoodPackageController::class, 'index'])->name('food-package.index');
     Route::get('/quantity-products', [QuantityProductsController::class, 'index'])->name('quantity-products.index');
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 
   Route::prefix('/products')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/new', [ProductController::class, 'add'])->name('product.add');
-    Route::post('/new', [ProductController::class, 'create'])->name('product.create');
-    Route::get('/{productId}', [ProductController::class, 'view'])->name('product.view');
-    Route::patch('/{productId}', [ProductController::class, 'update'])->name('product.update');
-    Route::delete('/{productId}', [ProductController::class, 'delete'])->name('product.delete');
+    Route::get('/', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/new', [ProductController::class, 'new'])->name('products.new');
+    Route::post('/new', [ProductController::class, 'create'])->name('products.create');
+    Route::get('/{productId}', [ProductController::class, 'view'])->name('products.view');
+    Route::patch('/{productId}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/{productId}', [ProductController::class, 'delete'])->name('products.delete');
   });
 
     Route::prefix('/food-packages')->group(function () {
@@ -41,6 +41,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/new', [CustomerController::class, 'new'])->name('customers.new');
         Route::post('/new', [CustomerController::class, 'create'])->name('customers.create');
         Route::get('/{customerId}', [CustomerController::class, 'view'])->name('customers.view');
+        Route::get('/{customerId}/export', [CustomerController::class, 'export'])->name('customers.export');
         Route::patch('/{customerId}', [CustomerController::class, 'update'])->name('customers.update');
         Route::delete('/{customerId}/delete', [CustomerController::class, 'delete'])->name('customers.delete');
     });
@@ -67,9 +68,19 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('/new', [UserController::class, 'new'])->name('users.new');
         Route::post('/new', [UserController::class, 'create'])->name('users.create');
+        Route::patch('/{userId}/suspension', [UserController::class, 'suspend'])->name('users.suspension');
         Route::get('/{userId}', [UserController::class, 'view'])->name('users.view');
         Route::patch('/{userId}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/{userId}', [UserController::class, 'delete'])->name('users.delete');
+    });
+
+    Route::prefix('/category')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('/new', [CategoryController::class, 'new'])->name('categories.new');
+        Route::post('/new', [CategoryController::class, 'create'])->name('categories.create');
+        Route::get('/{categoryId}', [CategoryController::class, 'view'])->name('categories.view');
+        Route::patch('/{categoryId}', [CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/{categoryId}', [CategoryController::class, 'delete'])->name('categories.delete');
     });
 
     Route::prefix('/roles')->group(function () {

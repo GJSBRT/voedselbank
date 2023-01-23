@@ -37,11 +37,25 @@ const handleSubmit = () => {
     });
 }
 
+const exportPdf = () => {
+
+    axios.get(route('customers.export', customer.value.id),{ responseType: 'blob' })
+    .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'account_gegevens_' + customer.value.first_name + '_' + customer.value.id + '.pdf');
+        document.body.appendChild(link);
+        link.click();
+    });
+}
+
 const confirmingDelete = ref(false);
 
 const confirmDelete = () => {
     confirmingDelete.value = true;
 }
+
 
 </script>
 
@@ -182,6 +196,9 @@ const confirmDelete = () => {
 
 
                         <template #actions>
+                            <SecondaryButton class="mr-4" @click="exportPdf">
+                                Exporteer als PDF
+                            </SecondaryButton>
                             <PrimaryButton @click="handleSubmit">
                                 Opslaan
                             </PrimaryButton>
@@ -208,8 +225,7 @@ const confirmDelete = () => {
                     Nee
                 </SecondaryButton>
 
-                <DangerButton class="ml-2"
-                              @click.native="Inertia.delete(route('customers.delete', customer.id));">
+                <DangerButton class="ml-2" @click.native="Inertia.delete(route('customers.delete', customer.id));">
                     Verwijder Klant
                 </DangerButton>
             </template>
