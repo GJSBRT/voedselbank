@@ -2,7 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import BarChart from '@/Components/Charts/BarChart.vue';
 import { toRefs } from 'vue';
-import { HasPermission } from '@/utils';
+import { hasPermission } from '@/utils';
 import LineChart from '../Components/Charts/LineChart.vue';
 import Statistic from '../Components/Statistic.vue';
 
@@ -29,14 +29,14 @@ console.log(packageCount.value)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="grid grid-rows-1 auto-cols-auto grid-flow-col gap-4 mb-4">
-                    <Statistic v-if="HasPermission('suppliers:read')" title="Leveranciers Beschikbaar" :value="statistics.suppliers" />
-                    <Statistic v-if="HasPermission('deliveries:read')" title="Aankomende Leveringen" :value="statistics.undeliveredDeliveries" />
-                    <Statistic v-if="HasPermission('food-packages:read')" title="Pakketten Niet Opgehaald" :value="statistics.unretreivedPackages" />
-                    <Statistic v-if="HasPermission('products:read')" title="Producten Beschikbaar" :value="statistics.productsAvailable" />
+                    <Statistic v-if="hasPermission('suppliers:read')" title="Leveranciers Beschikbaar" :value="statistics.suppliers" />
+                    <Statistic v-if="hasPermission('deliveries:read')" title="Aankomende Leveringen" :value="statistics.undeliveredDeliveries" />
+                    <Statistic v-if="hasPermission('food-packages:read')" title="Pakketten Niet Opgehaald" :value="statistics.unretreivedPackages" />
+                    <Statistic v-if="hasPermission('products:read')" title="Producten Beschikbaar" :value="statistics.productsAvailable" />
                 </div>
 
                 <BarChart 
-                    v-if="HasPermission('products:read') && HasPermission('food-packages:read')"
+                    v-if="hasPermission('products:read') && hasPermission('food-packages:read')"
                     title="Top 10 Producten (30 dagen)" 
                     id="top-10-products-graph" 
                     height="80" 
@@ -61,7 +61,7 @@ console.log(packageCount.value)
 
                 <div class="mt-4">
                     <LineChart
-                        v-if="HasPermission('food-packages:read')"
+                        v-if="hasPermission('food-packages:read')"
                         title="Pakketten Gemaakt (30 dagen)" 
                         id="package-made-graph" 
                         height="80" 
