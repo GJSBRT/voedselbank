@@ -40,7 +40,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/new', [CustomerController::class, 'new'])->name('customers.new');
         Route::post('/new', [CustomerController::class, 'create'])->name('customers.create');
         Route::get('/{customerId}', [CustomerController::class, 'view'])->name('customers.view');
-        Route::get('/{customerId}/export', [CustomerController::class, 'export'])->name('customer.export');
+        Route::get('/{customerId}/export', [CustomerController::class, 'export'])->name('customers.export');
         Route::patch('/{customerId}', [CustomerController::class, 'update'])->name('customers.update');
         Route::delete('/{customerId}/delete', [CustomerController::class, 'delete'])->name('customers.delete');
     });

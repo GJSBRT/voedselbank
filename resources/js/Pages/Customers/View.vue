@@ -38,11 +38,9 @@ const handleSubmit = () => {
 }
 
 const exportPdf = () => {
-    axios({
-        url: '/customers/' + customer.value.id + '/export',
-        method: 'GET',
-        responseType: 'blob', // important
-    }).then((response) => {
+
+    axios.get(route('customers.export', customer.value.id),{ responseType: 'blob' })
+    .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
@@ -188,7 +186,7 @@ const confirmDelete = () => {
 
                         <template #actions>
                             <SecondaryButton class="mr-4" @click="exportPdf">
-                                Exporteer naar pdf
+                                Exporteer als PDF
                             </SecondaryButton>
                             <PrimaryButton @click="handleSubmit">
                                 Opslaan

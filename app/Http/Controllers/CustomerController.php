@@ -90,9 +90,9 @@ class CustomerController extends Controller
         return response()->json($results);
     }
 
-    public function export($id)
+    public function export($customerId)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::where('id', $customerId)->firstOrFail();
 
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
