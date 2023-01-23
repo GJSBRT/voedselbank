@@ -12,6 +12,7 @@ import { hasPermission } from '@/utils';
 
 defineProps({
     title: String,
+    breadcrumbs: Array,
 });
 
 const showingNavigationDropdown = ref(false);
@@ -52,6 +53,12 @@ const logout = () => {
 
                                 </NavLink>
 
+
+                                <NavLink :href="route('product.index')" :active="route().current('product.index')">
+                                    Products
+                                </NavLink>
+                                
+
                                 <NavLink :href="route('customers.index')" :active="route().current('customers.index')">
                                     Klanten
                                 </NavLink>
@@ -67,6 +74,7 @@ const logout = () => {
                                 <NavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                                     Rollen
                                 </NavLink>
+
 
                             </div>
                         </div>
@@ -184,6 +192,10 @@ const logout = () => {
                         <ResponsiveNavLink :href="route('quantity-products.index')" :active="route().current('quantity-products.index')">
                             Voorraad Producten
                         </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('product.index')" :active="route().current('product.index')">
+                            Producten
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -225,6 +237,9 @@ const logout = () => {
             <header v-if="$slots.header" class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex">
                     <slot name="header"/>
+                </div>
+                <div class="flex flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-yellow-500 text-sm">
+                    <Link v-for="breadcrumb in breadcrumbs" :href="breadcrumb.href" class="flex flex-row m-1">{{ breadcrumb.title }} > </Link>
                 </div>
             </header>
 
