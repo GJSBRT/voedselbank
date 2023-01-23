@@ -52,12 +52,14 @@ class UserController extends Controller
         $lastName = $request->input('last_name');
         $email = $request->input('email');
         $password = $request->input('password');
+        $role_id = $request->input('role_id');
 
         $request->validate([
             'first_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
             'email' => 'required|email|max:100',
             'password' => 'required|string|max:100',
+            'role_id' => 'required|int',
         ]);
 
         User::create([
@@ -65,6 +67,7 @@ class UserController extends Controller
             'last_name' => $lastName,
             'email' => $email,
             'password' => bcrypt($password),
+            'role_id' => $role_id,
         ]);
 
         return redirect()->route('users.index')->banner("{$firstName} is successvol toegevoeged als medewerker!");
