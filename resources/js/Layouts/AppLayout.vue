@@ -52,7 +52,7 @@ const logout = () => {
                                     Leveringen
                                 </NavLink>
 
-                                <NavLink :href="route('products.index')" :active="route().current('product.*')">
+                                <NavLink :href="route('products.index')" :active="route().current('products.*')">
                                     Producten
                                 </NavLink>
 
@@ -75,8 +75,6 @@ const logout = () => {
                                 <NavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                                     Rollen
                                 </NavLink>
-
-
                             </div>
                         </div>
 
