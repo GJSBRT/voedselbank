@@ -32,7 +32,7 @@ const handleSubmit = () => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
-                <FormSection @submitted="CreateCategory" class="flex justify-center items-center">
+                <FormSection @submitted="createCategory" class="flex justify-center items-center">
 
                     <template #form>
                         <div class="col-span-6 sm:col-span-4 w-full flex-auto">
