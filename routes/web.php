@@ -84,7 +84,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/customers', [CustomerController::class, 'search']);
     Route::get('/products', [ProductController::class, 'search']);
-});
     Route::get('/roles', [RoleController::class, 'search']);
 });
 
