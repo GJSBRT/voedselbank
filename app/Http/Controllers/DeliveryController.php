@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Role;
 use App\Models\Delivery;
 use App\Models\Supplier;
 use Carbon\Carbon;
@@ -12,6 +13,9 @@ class DeliveryController extends Controller
 {
     public function index(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'deliveries:read');
+        if ($permission) { return $permission; }
+
         $page = substr($request->query('page'), 0, 1);
 
         $showDelivered = $request->query('show-delivered') ?? true;
@@ -38,8 +42,11 @@ class DeliveryController extends Controller
         ]);
     }
 
-    public function new()
+    public function new(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'deliveries:create');
+        if ($permission) { return $permission; }
+        
         $suppliers = Supplier::all();
 
         return Inertia::render('Deliveries/New', [
@@ -49,6 +56,9 @@ class DeliveryController extends Controller
 
     public function create(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'deliveries:create');
+        if ($permission) { return $permission; }
+        
         $request->validate([
             'supplier_id' => 'required',
             'expected_at' => 'required',
@@ -69,8 +79,11 @@ class DeliveryController extends Controller
         return redirect()->route('deliveries.index')->banner('De levering van ' . $supplier->company_name . ' is succesvol ingepland!');
     }
 
-    public function view($id)
+    public function view(Request $request, $id)
     {
+        $permission = Role::checkPermission($request->user(), 'deliveries:read');
+        if ($permission) { return $permission; }
+        
         $delivery = Delivery::with('supplier')->find($id);
         $suppliers = Supplier::all();
 
@@ -82,6 +95,9 @@ class DeliveryController extends Controller
 
     public function update($id, Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'deliveries:update');
+        if ($permission) { return $permission; }
+        
         $request->validate([
             'supplier_id' => 'required',
             'expected_at' => 'required',
@@ -107,8 +123,11 @@ class DeliveryController extends Controller
         return redirect()->route('deliveries.index')->banner('De levering van ' . $supplier->company_name . ' is succesvol aangepast!');
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
+        $permission = Role::checkPermission($request->user(), 'deliveries:delete');
+        if ($permission) { return $permission; }
+        
         $delivery = Delivery::find($id);
         $delivery->delete();
 
