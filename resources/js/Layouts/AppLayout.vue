@@ -51,8 +51,8 @@ const logout = () => {
                                 <NavLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')" :active="route().current('deliveries.*')">
                                     Leveringen
                                 </NavLink>
-
-                                <NavLink :href="route('product.index')" :active="route().current('product.*')">
+                                
+                                <NavLink :href="route('products.index')" :active="route().current('products.index')">
                                     Products
                                 </NavLink>
 
@@ -198,7 +198,7 @@ const logout = () => {
                             Voorraad Producten
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('product.index')" :active="route().current('product.index')">
+                        <ResponsiveNavLink :href="route('products.index')" :active="route().current('products.index')">
                             Producten
                         </ResponsiveNavLink>
                     </div>
