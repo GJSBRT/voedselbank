@@ -14,6 +14,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { hasPermission } from '@/utils';
 import axios from 'axios';
 import { Inertia } from '@inertiajs/inertia';
+import InputError from '@/Components/InputError.vue';
 
 const props = defineProps({
     user: Object,
@@ -104,22 +105,26 @@ const deleteUser = () => {
                                 <div>
                                     <InputLabel for="first_name" value="Voornaam" />
                                     <TextInput id="first_name" v-model="form.user.first_name" type="text" class="mt-1 block w-full"/>
+                                    <InputError :message="form.errors.first_name" class="mt-2"/>
                                 </div>
 
                                 <div>
                                     <InputLabel for="last_name" value="Achternaam" />
                                     <TextInput id="last_name" v-model="form.user.last_name" type="text" class="mt-1 block w-full"/>
+                                    <InputError :message="form.errors.last_name" class="mt-2"/>
                                 </div>
                             </div>
 
                             <div class="col-span-6">
                                 <InputLabel for="email" value="Email" />
                                 <TextInput id="email" v-model="form.user.email" type="text" class="mt-1 block w-full"/>
+                                <InputError :message="form.errors.email" class="mt-2"/>
                             </div>
 
                             <div class="col-span-6">
                                 <InputLabel for="role" value="Rol" />
                                 <RoleSearch id="role" :callback="setRole" :value="user.role.name"/>
+                                <InputError :message="form.errors.role" class="mt-2"/>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4 col-span-6">
