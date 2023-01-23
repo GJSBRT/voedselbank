@@ -54,7 +54,7 @@ const logout = () => {
                                 </NavLink>
 
 
-                                <NavLink :href="route('product.index')" :active="route().current('product.index')">
+                                <NavLink :href="route('products.index')" :active="route().current('products.index')">
                                     Products
                                 </NavLink>
                                 
@@ -193,7 +193,7 @@ const logout = () => {
                             Voorraad Producten
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('product.index')" :active="route().current('product.index')">
+                        <ResponsiveNavLink :href="route('products.index')" :active="route().current('products.index')">
                             Producten
                         </ResponsiveNavLink>
                     </div>

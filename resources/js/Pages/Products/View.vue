@@ -5,27 +5,38 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import { toRefs } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+import { ref } from 'vue';
+import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 
 
 const props = defineProps({
     products: Object,
 });
 
+const { products } = toRefs(props)
+
 const form = useForm({
-    _method: 'POST',
-    name: '',
-    ean_number: '',
-    product_category_id: 0,
-    quantity: 0
+    _method: 'PATCH',
+    name: products.value.name,
+    ean_number: products.value.ean_number,
+    product_category_id: products.value.product_category_id,
+    quantity: products.value.quantity
 });
 
-const AddProduct = () => {
-    form.post(route('product.create'), {
+const EditProduct = () => {
+    form.post(route('products.update', products.value.id), {
         preserveScroll: true,
     });
 }
+
+const confirmingDelete = ref(false);
+
+
 
 </script>
 
@@ -37,17 +48,17 @@ const AddProduct = () => {
         },
         {
             title: 'Producten Overzicht',
-            href: route('product.index'),
+            href: route('products.index'),
         },
         {
-            title: 'Producten Toevoegen',
+            title: 'Producten Bewerken',
             href: '#',
         }
     ]" >
 
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Maak een nieuwe product aan
+                Details van het product {{ products.name }}
             </h2>
         </template>
 
@@ -60,7 +71,7 @@ const AddProduct = () => {
                         </template>
 
                         <template #description>
-                            Vul alle invulvakken in over de producten
+                            Op het product informatie pagina kan u alle informatie zien die beschikbaar is over het product
                         </template>
 
                         <template #form>
@@ -93,13 +104,39 @@ const AddProduct = () => {
 
                         </template>
                         <template #actions>
-                            <PrimaryButton @click="AddProduct">
+                            <PrimaryButton @click="EditProduct">
                                 Opslaan
                             </PrimaryButton>
+                            <DangerButton @click="confirmingDelete = true" class="ml-4">
+                                Verwijderen
+                            </DangerButton>
                         </template>
                     </FormSection>
                 </div>
             </div>
         </div>
+
+
+        <ConfirmationModal :show="confirmingDelete" @close="confirmingDelete = false">
+            <template #title>
+                Verwijder Product
+            </template>
+
+            <template #content>
+                Weet je het zeker dat je dit product wilt verwijderen? Dit product zal permanent verwijderd worden.
+            </template>
+
+            <template #footer>
+                <SecondaryButton @click.native="confirmingDelete = false">
+                    Nee
+                </SecondaryButton>
+                <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
+                <DangerButton class="ml-2"
+                    @click.native="Inertia.delete(route('products.delete', products.id)); confirmingDelete = false">
+                    Verwijder Product
+                </DangerButton>
+            </template>
+        </ConfirmationModal>
+
     </AppLayout>
 </template>

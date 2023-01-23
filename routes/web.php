@@ -20,12 +20,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 
   Route::prefix('/products')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/new', [ProductController::class, 'add'])->name('product.add');
-    Route::post('/new', [ProductController::class, 'create'])->name('product.create');
-    Route::get('/{productId}', [ProductController::class, 'edit'])->name('product.edit');
-    Route::patch('/{productId}', [ProductController::class, 'update'])->name('product.update');
-    Route::delete('/{productId}', [ProductController::class, 'delete'])->name('product.delete');
+    Route::get('/', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/new', [ProductController::class, 'new'])->name('products.new');
+    Route::post('/new', [ProductController::class, 'create'])->name('products.create');
+    Route::get('/{productId}', [ProductController::class, 'view'])->name('products.view');
+    Route::patch('/{productId}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/{productId}', [ProductController::class, 'delete'])->name('products.delete');
   });
 
     Route::prefix('/food-packages')->group(function () {
