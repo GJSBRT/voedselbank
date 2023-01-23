@@ -32,7 +32,7 @@ const confirmDelete = () => {
 </script>
 
 <template>
-    <AppLayout title="Klanten overzicht">
+    <AppLayout title="Categorieën overzicht">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Details van de categorie {{ category.name }}
@@ -42,7 +42,7 @@ const confirmDelete = () => {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
                 <div>
-                    <FormSection @submitted="updateProfileInformation">
+                    <FormSection @submitted="UpdateCategorie">
                         <template #title>
                             Categorie informatie
                         </template>
@@ -95,7 +95,7 @@ const confirmDelete = () => {
                               @click.native="Inertia.delete(route('categories.delete', category.id));">
                     Verwijder categorie
                 </DangerButton>
-            </template>
+                </template>
         </ConfirmationModal>
     </AppLayout>
 </template>

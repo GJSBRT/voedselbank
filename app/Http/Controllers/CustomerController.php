@@ -47,7 +47,6 @@ class CustomerController extends Controller
 
     }
 
-    //Function to delete a customer
     public function delete(int $customerId)
     {
         //search the customer you want to delete

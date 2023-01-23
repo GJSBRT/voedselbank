@@ -1,15 +1,15 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Table from '../../Components/Table.vue';
-import TableData from '../../Components/TableData.vue';
-import Pagination from '../../Components/Pagination.vue';
+import Table from '@/Components/Table.vue';
+import TableData from '@/Components/TableData.vue';
+import Pagination from '@/Components/Pagination.vue';
 import {Link} from "@inertiajs/inertia-vue3";
 import {Inertia} from '@inertiajs/inertia';
-import PrimaryButton from "../../Components/PrimaryButton.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 import {ref} from "vue";
-import ConfirmationModal from '../../Components/ConfirmationModal.vue';
-import DangerButton from '../../Components/DangerButton.vue';
-import SecondaryButton from '../../Components/SecondaryButton.vue';
+import ConfirmationModal from '@/Components/ConfirmationModal.vue';
+import DangerButton from '@/Components/DangerButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 
 
 defineProps({
@@ -33,9 +33,6 @@ const confirmDelete = ref(null);
                 </primary-button>
             </div>
         </template>
-        <div class="mx-auto mt-6 ml-6">
-        </div>
-
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg ">
