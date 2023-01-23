@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Role;
-use App\Models\Delivery;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
-use App\Models\User;
 use Illuminate\Support\Collection;
+use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
