@@ -21,7 +21,7 @@ const confirmDelete = ref(null);
 </script>
 
 <template>
-    <AppLayout title="Customer Overview">
+    <AppLayout title="Categorie overzicht">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Categorieën overzicht
@@ -62,7 +62,6 @@ const confirmDelete = ref(null);
                 <SecondaryButton @click.native="confirmDelete = null">
                     Nee
                 </SecondaryButton>
-                <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
                 <DangerButton class="ml-2"
                               @click.native="Inertia.delete(route('categories.delete', confirmDelete)); confirmDelete = null">
                     Verwijder categorie

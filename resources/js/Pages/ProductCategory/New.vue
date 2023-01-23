@@ -1,4 +1,4 @@
-<script setup xmlns="http://www.w3.org/1999/html">
+<script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
@@ -32,7 +32,7 @@ const handleSubmit = () => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
-                <FormSection @submitted="updateProfileInformation" class="flex justify-center items-center">
+                <FormSection @submitted="CreateCategory" class="flex justify-center items-center">
 
                     <template #form>
                         <div class="col-span-6 sm:col-span-4 w-full flex-auto">
