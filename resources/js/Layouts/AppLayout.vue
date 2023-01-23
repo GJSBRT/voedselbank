@@ -67,6 +67,7 @@ const logout = () => {
                                 <NavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                                     Rollen
                                 </NavLink>
+
                             </div>
                         </div>
 
@@ -178,6 +179,10 @@ const logout = () => {
 
                         <ResponsiveNavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                             Rollen
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('quantity-products.index')" :active="route().current('quantity-products.index')">
+                            Voorraad Producten
                         </ResponsiveNavLink>
                     </div>
 
