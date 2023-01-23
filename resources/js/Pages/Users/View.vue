@@ -18,14 +18,16 @@ import { Inertia } from '@inertiajs/inertia';
 const props = defineProps({
     user: Object,
     two_factor_enabled: Boolean,
+    suspended: Boolean
 });
 
-const { user, two_factor_enabled } = toRefs(props);
+const { user, two_factor_enabled, suspended } = toRefs(props);
 
 const form = useForm({
     _method: 'PATCH',
     user: user.value,
     two_factor_enabled: two_factor_enabled.value,
+    suspended: suspended.value
 });
 
 const handleSubmit = () => {
@@ -114,18 +116,25 @@ const deleteUser = () => {
                                 <InputLabel for="email" value="Email" />
                                 <TextInput id="email" v-model="form.user.email" type="text" class="mt-1 block w-full"/>
                             </div>
-                            
+
                             <div class="col-span-6">
                                 <InputLabel for="role" value="Rol" />
                                 <RoleSearch id="role" :callback="setRole" :value="user.role.name"/>
                             </div>
 
-                            <div class="col-span-6">
-                                <Checkbox v-model:checked="form.two_factor_enabled" :value="null" :disabled="user.two_factor_confirmed_at == null"/>
-                                <span class="ml-2 text-sm text-gray-600">Twee Factor Authentictie</span>
+                            <div class="grid grid-cols-2 gap-4 col-span-6">
+                                <div>
+                                    <Checkbox v-model:checked="form.two_factor_enabled" :value="null" :disabled="user.two_factor_confirmed_at == null"/>
+                                    <span class="ml-2 text-sm text-gray-600">Twee Factor Authentictie</span>
+                                </div>
+
+                                <div>
+                                    <Checkbox v-model:checked="form.suspended" :value="form.suspended"/>
+                                    <span class="ml-2 text-sm text-gray-600">Geblokkeerd</span>
+                                </div>
                             </div>
                         </template>
-                        
+
                         <template #actions>
                             <DangerButton v-if="hasPermission('users:delete')" class="mr-2" @click.native="confirmingUserDeletion = true">
                                 Medewerker Verwijderen
