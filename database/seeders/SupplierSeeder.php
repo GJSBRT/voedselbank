@@ -14,6 +14,26 @@ class SupplierSeeder extends Seeder
      */
     public function run()
     {
-        Supplier::factory(10)->create();
+        $companies = [
+            'Albert Heijn',
+            'Jumbo',
+            'Plus',
+            'Action',
+            'Coop',
+            'Deen',
+            'Spar',
+            'Dirk',
+        ];
+
+        foreach ($companies as $company){
+            Supplier::create([
+                'company_name' => $company,
+                'address' => fake()->streetAddress,
+                'email' => fake()->companyEmail,
+                'phone_number' => fake()->e164PhoneNumber,
+                'contact_name' => fake()->name,
+                'notes' => fake()->text,
+            ]);
+        }
     }
 }

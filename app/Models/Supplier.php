@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Supplier extends Model
 {
@@ -23,5 +24,12 @@ class Supplier extends Model
     public function deliveries()
     {
         return $this->hasMany(Delivery::class);
+    }
+
+    public function nextDeliveries()
+    {
+        return $this->hasMany(Delivery::class)
+            ->whereDate('expected_at', '>=', Carbon::now())
+            ->orderBy('expected_at');
     }
 }
