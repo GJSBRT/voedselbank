@@ -28,7 +28,7 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'producten',
+            title: 'Producten Overzicht',
             href: route('product.index'),
         }
     ]" >

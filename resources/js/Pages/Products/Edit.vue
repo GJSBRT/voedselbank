@@ -47,11 +47,11 @@ const confirmingDelete = ref(false);
             href: route('dashboard'),
         },
         {
-            title: 'producten',
+            title: 'Producten Overzicht',
             href: route('product.index'),
         },
         {
-            title: 'producten toevoegen',
+            title: 'Producten Toevoegen',
             href: '#',
         }
     ]" >
@@ -77,15 +77,14 @@ const confirmingDelete = ref(false);
                         <template #form>
                             <div class="col-span-6 sm:col-span-4 w-full flex-auto">
                                 <InputLabel for="name" value="Product Naam" />
-                                <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full"
-                                    autocomplete="given-name" />
+                                <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full"/>
                                 <InputError :message="form.errors.name" class="mt-2" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-4 w-full">
                                 <InputLabel for="ean_number" value="EAN Nummer" />
                                 <TextInput id="ean_number" v-model="form.ean_number" type="number"
-                                    class="mt-1 block w-full" autocomplete="family-name" />
+                                    class="mt-1 block w-full"/>
                                 <InputError :message="form.errors.ean_number" class="mt-2" />
                             </div>
 
