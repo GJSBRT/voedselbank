@@ -8,6 +8,7 @@ use App\Http\Controllers\QuantityProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +72,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/{userId}', [UserController::class, 'view'])->name('users.view');
         Route::patch('/{userId}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/{userId}', [UserController::class, 'delete'])->name('users.delete');
+    });
+
+    Route::prefix('/category')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('/new', [CategoryController::class, 'new'])->name('categories.new');
+        Route::post('/new', [CategoryController::class, 'create'])->name('categories.create');
+        Route::get('/{categoryId}', [CategoryController::class, 'view'])->name('categories.view');
+        Route::patch('/{categoryId}', [CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/{categoryId}', [CategoryController::class, 'delete'])->name('categories.delete');
     });
 
     Route::prefix('/roles')->group(function () {

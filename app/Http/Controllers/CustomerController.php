@@ -44,9 +44,9 @@ class CustomerController extends Controller
         ]);
 
         return redirect()->route('customers.index')->banner('Klant toegevoegd');
+
     }
 
-    //Function to delete a customer
     public function delete(int $customerId)
     {
         //search the customer you want to delete

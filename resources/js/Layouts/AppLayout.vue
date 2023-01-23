@@ -64,6 +64,10 @@ const logout = () => {
                                     Voedsel Pakketten
                                 </NavLink>
 
+                                <NavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.index')">
+                                    Categorieën
+                                </NavLink>
+
                                 <NavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
                                     Medewerkers
                                 </NavLink>
@@ -164,6 +168,10 @@ const logout = () => {
 
                         <ResponsiveNavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.*')">
                             Voedselpakketten
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.index')">
+                            Categorieën
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('supplier.*')">
