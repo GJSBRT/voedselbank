@@ -87,7 +87,7 @@ const deleteUser = () => {
             href: route('dashboard'),
         },
         {
-            title: 'Medewerkers Overzicht',
+            title: 'Medewerkers overzicht',
             href: route('users.index'),
         },
         {
@@ -96,7 +96,7 @@ const deleteUser = () => {
         }
     ]">
         <template #header>
-            
+
         </template>
 
         <div class="py-12">

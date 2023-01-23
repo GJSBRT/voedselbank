@@ -66,7 +66,7 @@ const confirmDelete = () => {
             href: route('dashboard'),
         },
         {
-            title: 'Klanten Overzicht',
+            title: 'Klanten overzicht',
             href: route('customers.index'),
         },
         {
@@ -75,7 +75,7 @@ const confirmDelete = () => {
         }
     ]">
         <template #header>
-            
+
         </template>
 
         <div class="py-12">

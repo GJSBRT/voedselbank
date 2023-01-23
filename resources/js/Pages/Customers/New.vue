@@ -39,7 +39,7 @@ const handleSubmit = () => {
             href: route('dashboard'),
         },
         {
-            title: 'Klant Overzicht',
+            title: 'Klant overzicht',
             href: route('customers.index'),
         },
         {

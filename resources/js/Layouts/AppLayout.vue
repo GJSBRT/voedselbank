@@ -52,16 +52,12 @@ const logout = () => {
                                     Leveringen
                                 </NavLink>
 
-                                <NavLink :href="route('product.index')" :active="route().current('product.index')">
+                                <NavLink :href="route('products.index')" :active="route().current('products.*')">
                                     Producten
                                 </NavLink>
 
-                                <NavLink v-if="hasPermission('quantity-products.index')" :href="route('quantity-products.index')" :active="route().current('roles.*')">
+                                <NavLink v-if="hasPermission('quantity-products.index')" :href="route('quantity-products.index')" :active="route().current('quantity-products.*')">
                                     Voorraad
-                                </NavLink>
-
-                                <NavLink :href="route('products.index')" :active="route().current('products.index')">
-                                    Products
                                 </NavLink>
 
                                 <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
@@ -72,7 +68,7 @@ const logout = () => {
                                     Voedsel Pakketten
                                 </NavLink>
 
-                                <NavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.index')">
+                                <NavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.*')">
                                     Categorieën
                                 </NavLink>
 

@@ -33,7 +33,7 @@ const handleSubmit = () => {
             href: route('dashboard'),
         },
         {
-            title: 'Leveranciers Overzicht',
+            title: 'Leveranciers overzicht',
             href: route('suppliers.index'),
         },
         {
@@ -42,7 +42,7 @@ const handleSubmit = () => {
         }
     ]">
         <template #header>
-            
+
         </template>
 
         <div class="py-12">

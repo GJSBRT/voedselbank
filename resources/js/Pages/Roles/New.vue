@@ -28,7 +28,7 @@ const handleSubmit = () => {
             href: route('dashboard'),
         },
         {
-            title: 'Rollen Overzicht',
+            title: 'Rollen overzicht',
             href: route('roles.index'),
         },
         {
@@ -37,7 +37,7 @@ const handleSubmit = () => {
         }
     ]">
         <template #header>
-            
+
         </template>
 
         <div class="py-12">
@@ -75,7 +75,7 @@ const handleSubmit = () => {
                                 <TextInput id="password" v-model="form.password" type="password" class="mt-1 block w-full"/>
                             </div>
                         </template>
-                        
+
                         <template #actions>
                             <PrimaryButton @click="handleSubmit">
                                 Medewerker Toevoegen

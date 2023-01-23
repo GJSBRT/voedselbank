@@ -55,7 +55,7 @@ function destroy(id) {
             href: route('dashboard'),
         },
         {
-            title: 'Leveringen Overzicht',
+            title: 'Leveringen overzicht',
             href: route('deliveries.index'),
         },
         {
@@ -64,7 +64,7 @@ function destroy(id) {
         }
     ]">
         <template #header>
-            
+
         </template>
 
         <div class="py-12">

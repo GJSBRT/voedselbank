@@ -19,12 +19,12 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'Leveranciers Overzicht',
+            title: 'Leveranciers overzicht',
             href: route('suppliers.index'),
         }
     ]">
         <template #header>
-            
+
 
             <div class="ml-auto">
                 <PrimaryButton @click="() => Inertia.visit(route('suppliers.new'))">

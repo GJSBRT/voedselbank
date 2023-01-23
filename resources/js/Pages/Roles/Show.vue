@@ -20,12 +20,12 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'Rollen Overzicht',
+            title: 'Rollen overzicht',
             href: route('roles.index'),
         }
     ]">
         <template #header>
-            
+
 
             <div class="ml-auto">
                 <PrimaryButton v-if="hasPermission('roles:create')" @click="() => Inertia.visit(route('roles.new'))">
@@ -41,7 +41,7 @@ defineProps({
                         <TableData>{{ role.id }}</TableData>
                         <TableData>{{ role.name }}</TableData>
                         <TableData>{{ JSON.parse(role.permissions).length }}</TableData>
-                    </tr>   
+                    </tr>
                 </Table>
                 <Pagination class="mt-6" :links="roles.links" />
             </div>

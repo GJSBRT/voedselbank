@@ -36,7 +36,7 @@ const AddProduct = () => {
             href: route('dashboard'),
         },
         {
-            title: 'Producten Overzicht',
+            title: 'Producten overzicht',
             href: route('products.index'),
         },
         {
@@ -46,7 +46,7 @@ const AddProduct = () => {
     ]" >
 
         <template #header>
-            
+
         </template>
 
         <div class="py-12">

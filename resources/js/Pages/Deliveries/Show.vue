@@ -32,12 +32,12 @@ function setShowDelivered(){
             href: route('dashboard'),
         },
         {
-            title: 'Leveringen Overzicht',
+            title: 'Leveringen overzicht',
             href: route('deliveries.index'),
         }
     ]">
         <template #header>
-            
+
 
             <div class="ml-auto">
                 <PrimaryButton @click="() => Inertia.visit(route('deliveries.new'))">

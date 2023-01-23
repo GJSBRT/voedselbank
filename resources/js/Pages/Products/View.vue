@@ -47,7 +47,7 @@ const confirmingDelete = ref(false);
             href: route('dashboard'),
         },
         {
-            title: 'Producten Overzicht',
+            title: 'Producten overzicht',
             href: route('products.index'),
         },
         {
@@ -57,7 +57,7 @@ const confirmingDelete = ref(false);
     ]" >
 
         <template #header>
-            
+
         </template>
 
         <div class="py-12">

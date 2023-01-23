@@ -42,7 +42,7 @@ const setRole = (role) => {
             href: route('dashboard'),
         },
         {
-            title: 'Medewerkers Overzicht',
+            title: 'Medewerkers overzicht',
             href: route('users.index'),
         },
         {
@@ -51,7 +51,7 @@ const setRole = (role) => {
         }
     ]">
         <template #header>
-            
+
         </template>
 
         <div class="py-12">

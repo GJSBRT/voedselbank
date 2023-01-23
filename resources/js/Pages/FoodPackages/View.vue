@@ -88,7 +88,7 @@ async function onScan(scan) {
             href: route('dashboard'),
         },
         {
-            title: 'Voedselpakketten Overzicht',
+            title: 'Voedselpakketten overzicht',
             href: route('food-packages.index'),
         },
         {
@@ -97,7 +97,7 @@ async function onScan(scan) {
         }
     ]">
         <template #header>
-            
+
         </template>
 
         <div class="py-12">

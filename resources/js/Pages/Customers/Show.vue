@@ -24,12 +24,12 @@ const confirmDelete = ref(null);
             href: route('dashboard'),
         },
         {
-            title: 'Klanten Overzicht',
+            title: 'Klanten overzicht',
             href: route('customers.index'),
         }
     ]">
         <template #header>
-            
+
 
             <div class="ml-auto">
                 <primary-button @click="() => Inertia.visit(route('customers.new'))">

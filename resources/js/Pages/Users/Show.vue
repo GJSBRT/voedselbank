@@ -20,12 +20,12 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'Medewerkers Overzicht',
+            title: 'Medewerkers overzicht',
             href: route('users.index'),
         }
     ]">
         <template #header>
-            
+
 
             <div class="ml-auto">
                 <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('users.new'))">

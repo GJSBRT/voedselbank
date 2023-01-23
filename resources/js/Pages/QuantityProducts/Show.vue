@@ -17,12 +17,12 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'Producten Voorraad Overzicht',
+            title: 'Voorraad overzicht',
             href: route('deliveries.index'),
         },
     ]">
         <template #header>
-            
+
         </template>
 
         <div class="py-12">
@@ -32,7 +32,7 @@ defineProps({
                         <TableData>{{ productItem.id }}</TableData>
                         <TableData>{{ productItem.name }}</TableData>
                         <TableData>{{ productItem.quantity }}</TableData>
-                    </tr>   
+                    </tr>
                 </Table>
                 <Pagination class="mt-6" :links="products.links" />
             </div>

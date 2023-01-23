@@ -21,13 +21,13 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'Voedselpakketten Overzicht',
+            title: 'Voedselpakketten overzicht',
             href: route('food-packages.index')
         }
     ]">
 
         <template #header>
-            
+
 
             <div class="ml-auto">
                 <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('food-packages.new'))">
