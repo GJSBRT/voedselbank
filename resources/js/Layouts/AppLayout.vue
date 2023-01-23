@@ -50,7 +50,7 @@ const logout = () => {
                                     Klanten
                                 </NavLink>
 
-                                <NavLink :href="route('category.index')" :active="route().current('category.index')">
+                                <NavLink :href="route('categories.index')" :active="route().current('categories.index')">
                                     Categorieën
                                 </NavLink>
                             </div>
@@ -160,6 +160,10 @@ const logout = () => {
 
                             <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
                                 API Tokens
+                            </ResponsiveNavLink>
+
+                            <ResponsiveNavLink :href="route('categories.index')" :active="route().current('categories.index')">
+                                Categorieën
                             </ResponsiveNavLink>
 
                             <!-- Authentication -->

@@ -28,7 +28,7 @@ const confirmDelete = ref(null);
             </h2>
 
             <div class="ml-auto">
-                <primary-button @click="() => Inertia.visit(route('category.new'))">
+                <primary-button @click="() => Inertia.visit(route('categories.new'))">
                     Maak een nieuw product categorie aan
                 </primary-button>
             </div>
@@ -41,7 +41,7 @@ const confirmDelete = ref(null);
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg ">
                     <Table
                         :headers="['Naam']">
-                        <tr @click="Inertia.visit(route('category.view', categoryData.id))"
+                        <tr @click="Inertia.visit(route('categories.view', categoryData.id))"
                             class="hover:bg-gray-50 cursor-pointer" v-for="categoryData in category.data"
                             :key="categoryData.id">
                             <TableData>{{ categoryData.name }}</TableData>
@@ -67,8 +67,8 @@ const confirmDelete = ref(null);
                 </SecondaryButton>
                 <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
                 <DangerButton class="ml-2"
-                              @click.native="Inertia.delete(route('customer.delete', confirmDelete)); confirmDelete = null">
-                    Verwijder Klant
+                              @click.native="Inertia.delete(route('categories.delete', confirmDelete)); confirmDelete = null">
+                    Verwijder categorie
                 </DangerButton>
             </template>
         </ConfirmationModal>

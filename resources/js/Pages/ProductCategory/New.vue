@@ -14,7 +14,7 @@ const form = useForm({
     name: '',
 });
 const handleSubmit = () => {
-    form.post(route('category.create'), {
+    form.post(route('categories.create'), {
         preserveScroll: true,
     });
 }

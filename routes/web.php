@@ -32,17 +32,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
 
     Route::prefix('/category')->group(function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('category.index');
-        Route::get('/new', [CategoryController::class, 'new'])->name('category.new');
-        Route::post('/new', [CategoryController::class, 'create'])->name('category.create');
-        Route::get('/{categoryId}', [CategoryController::class, 'view'])->name('category.view');
-        Route::patch('/{categoryId}', [CategoryController::class, 'update'])->name('category.update');
-        Route::delete('/{categoryId}', [CategoryController::class, 'delete'])->name('category.delete');
+        Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('/new', [CategoryController::class, 'new'])->name('categories.new');
+        Route::post('/new', [CategoryController::class, 'create'])->name('categories.create');
+        Route::get('/{categoryId}', [CategoryController::class, 'view'])->name('categories.view');
+        Route::patch('/{categoryId}', [CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/{categoryId}', [CategoryController::class, 'delete'])->name('categories.delete');
     });
-
-
-    });
-
+});
 
 Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/customers', [CustomerController::class, 'search']);

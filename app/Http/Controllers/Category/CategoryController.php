@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
         $request->session()->flash('flash.banner', 'Categorie toegevoegd');
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
     public function view(int $categoryId)
@@ -52,7 +52,7 @@ class CategoryController extends Controller
 
         $request->session()->flash('flash.banner', 'Categorie gewijzigd');
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
     public function delete(int $categoryId)
@@ -64,7 +64,7 @@ class CategoryController extends Controller
             'name' => 'deleted',
         ]);
 
-        return redirect()->route('category.index')->banner('Categorie is succesvol verwijderd');
+        return redirect()->route('categories.index')->banner('Categorie is succesvol verwijderd');
 
     }
 }

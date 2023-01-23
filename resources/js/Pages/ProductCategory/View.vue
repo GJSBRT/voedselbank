@@ -21,7 +21,7 @@ const form = useForm({
     name: category.value.name,
 });
 const handleSubmit = () => {
-    form.post(route('category.update', category.value.id), {
+    form.post(route('categories.update', category.value.id), {
         preserveScroll: true,
     });
 }
@@ -92,7 +92,7 @@ const confirmDelete = () => {
                     Nee
                 </SecondaryButton>
                 <DangerButton class="ml-2"
-                              @click.native="Inertia.delete(route('category.delete', category.id));">
+                              @click.native="Inertia.delete(route('categories.delete', category.id));">
                     Verwijder categorie
                 </DangerButton>
             </template>
