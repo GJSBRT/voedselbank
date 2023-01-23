@@ -3,11 +3,17 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import FormSection from '@/Components/FormSection.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
-import { toRefs } from 'vue';
-import TextInput from '../../Components/TextInput.vue';
-import Checkbox from '../../Components/Checkbox.vue';
-import RoleSearch from '../../Components/Search/RoleSearch.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { ref, toRefs } from 'vue';
+import TextInput from '@/Components/TextInput.vue';
+import Checkbox from '@/Components/Checkbox.vue';
+import RoleSearch from '@/Components/Search/RoleSearch.vue';
+import DangerButton from '@/Components/DangerButton.vue';
+import ConfirmationModal from '@/Components/ConfirmationModal.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import { hasPermission } from '@/utils';
+import axios from 'axios';
+import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
     user: Object,
@@ -31,9 +37,47 @@ const handleSubmit = () => {
 const setRole = (role) => {
     form.user.role_id = role.id
 }
+
+const confirmingUserDeletion = ref(false);
+const processingDeletion = ref(false);
+
+const deleteUser = () => {
+    processingDeletion.value = true;
+    axios.delete(route('users.delete', user.value.id))
+        .then(() => {
+            confirmingUserDeletion.value = false;
+            Inertia.visit(route('users.index'));
+        })
+        .catch(() => {
+            processingDeletion.value = false;
+            confirmingUserDeletion.value = false;
+        })
+    Inertia.visit(route('users.index'));
+}
 </script>
 
 <template>
+    <ConfirmationModal :show="confirmingUserDeletion" @close="confirmingUserDeletion = false">
+        <template #title>
+            Medewerker Verwijderen
+        </template>
+
+        <template #content>
+            Weet je zeker dat je deze medewerker wilt verwijderen? Dit kan niet ongedaan worden gemaakt.
+        </template>
+
+        <template #footer>
+            <SecondaryButton @click.native="confirmingUserDeletion = false">
+                Annuleer
+            </SecondaryButton>
+
+            <DangerButton class="ml-2" @click="deleteUser" :class="{ 'opacity-25': processingDeletion }" :disabled="processingDeletion">
+                Verwijder Medewerker
+            </DangerButton>
+        </template>
+    </ConfirmationModal>
+
+
     <AppLayout title="Medewerker Beheer">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -83,6 +127,10 @@ const setRole = (role) => {
                         </template>
                         
                         <template #actions>
+                            <DangerButton v-if="hasPermission('users:delete')" class="mr-2" @click.native="confirmingUserDeletion = true">
+                                Medewerker Verwijderen
+                            </DangerButton>
+
                             <PrimaryButton @click="handleSubmit">
                                 Medewerker Opslaan
                             </PrimaryButton>

@@ -1,11 +1,11 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Table from '../../Components/Table.vue';
-import TableData from '../../Components/TableData.vue';
-import Pagination from '../../Components/Pagination.vue';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
+import Table from '@/Components/Table.vue';
+import TableData from '@/Components/TableData.vue';
+import Pagination from '@/Components/Pagination.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
-import { HasPermission } from '@/utils';
+import { hasPermission } from '@/utils';
 
 defineProps({
     users: Object,
@@ -21,7 +21,7 @@ defineProps({
             </h2>
 
             <div class="ml-auto">
-                <PrimaryButton v-if="HasPermission('users:create')" @click="() => Inertia.visit(route('users.new'))">
+                <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('users.new'))">
                     Nieuwe Medewerker
                 </PrimaryButton>
             </div>

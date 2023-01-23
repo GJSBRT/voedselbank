@@ -25,6 +25,14 @@ class Role {
         'roles:create',
         'roles:delete',
         'roles:update',
+        'suppliers:read',
+        'suppliers:create',
+        'suppliers:delete',
+        'suppliers:update',
+        'deliveries:read',
+        'deliveries:create',
+        'deliveries:delete',
+        'deliveries:update',
     ];
     
     /**

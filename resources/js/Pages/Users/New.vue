@@ -3,8 +3,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import FormSection from '@/Components/FormSection.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
-import TextInput from '../../Components/TextInput.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
 
 const form = useForm({
     _method: 'POST',
@@ -17,6 +17,7 @@ const form = useForm({
 const handleSubmit = () => {
     form.post(route('users.create'), {
         preserveScroll: true,
+        onFinish: () => form.reset('password'),
     });
 }
 </script>
@@ -38,7 +39,7 @@ const handleSubmit = () => {
                         </template>
 
                         <template #description>
-                            Bewerk hier de informatie van de medewerker.
+                            Voer hier de informatie van de medewerker.
                         </template>
 
                         <template #form>

@@ -1,4 +1,4 @@
-export function HasPermission(permission) {
+export function hasPermission(permission) {
     if (window.Permissions.includes('*')) {
         return true;
     }

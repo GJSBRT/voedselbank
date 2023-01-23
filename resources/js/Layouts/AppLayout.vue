@@ -8,7 +8,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { HasPermission } from '@/utils';
+import { hasPermission } from '@/utils';
 
 defineProps({
     title: String,
@@ -43,23 +43,23 @@ const logout = () => {
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('suppliers.index')" :active="route().current('suppliers.*')">
+                                <NavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('suppliers.*')">
                                     Leveranciers
                                 </NavLink>
 
-                                <NavLink :href="route('deliveries.index')" :active="route().current('deliveries.*')">
+                                <NavLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')" :active="route().current('deliveries.*')">
                                     Leveringen
                                 </NavLink>
 
-                                <NavLink v-if="HasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
+                                <NavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                                     Voedsel Pakketten
                                 </NavLink>
                                 
-                                <NavLink v-if="HasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
+                                <NavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
                                     Medewerkers
                                 </NavLink>
                                 
-                                <NavLink v-if="HasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
+                                <NavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                                     Rollen
                                 </NavLink>
                             </div>
@@ -144,23 +144,23 @@ const logout = () => {
                             Dashboard
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink v-if="HasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
+                        <ResponsiveNavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                             Voedselpakketten
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('suppliers.index')" :active="route().current('supplier.*')">
+                        <ResponsiveNavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('supplier.*')">
                             Leveranciers
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('deliveries.index')" :active="route().current('delivery.*')">
+                        <ResponsiveNavLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')" :active="route().current('delivery.*')">
                             Leveringen
                         </ResponsiveNavLink>
                         
-                        <ResponsiveNavLink v-if="HasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
+                        <ResponsiveNavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
                             Medewerkers
                         </ResponsiveNavLink>
                         
-                        <ResponsiveNavLink v-if="HasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
+                        <ResponsiveNavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                             Rollen
                         </ResponsiveNavLink>
                     </div>

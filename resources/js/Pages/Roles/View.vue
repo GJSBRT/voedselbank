@@ -3,10 +3,10 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import FormSection from '@/Components/FormSection.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
-import PrimaryButton from '../../Components/PrimaryButton.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { toRefs } from 'vue';
-import TextInput from '../../Components/TextInput.vue';
-import Checkbox from '../../Components/Checkbox.vue';
+import TextInput from '@/Components/TextInput.vue';
+import Checkbox from '@/Components/Checkbox.vue';
 
 const props = defineProps({
     role: Object,
