@@ -15,12 +15,14 @@ import TextInput from '@/Components/TextInput.vue';
 
 const props = defineProps({
     foodPackage: Object,
-    notes: '',
-    customer: null,
-    products: [],
+    notes: String,
+    customer: Object,
+    products: Array,
 });
 
 const { foodPackage, notes, customer, products } = toRefs(props);
+
+console.log(products.value)
 
 // Set the retrieved_at date to the current date and time if retrived_at is set.
 let now = null;
@@ -104,7 +106,7 @@ async function onScan(scan) {
                         <template #form>
                             <div class="col-span-6">
                                 <InputLabel for="customerId" value="Klant" />
-                                <CustomerSearch id="customerId" :callback="setCustomerId"/>
+                                <CustomerSearch id="customerId" :callback="setCustomerId" :value="customer.first_name + ' ' + customer.last_name"/>
                             </div>
 
                             <div class="col-span-6">

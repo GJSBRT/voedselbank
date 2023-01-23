@@ -36,8 +36,8 @@ class FoodPackageController extends Controller
         $permission = Role::checkPermission($request->user(), 'food-packages:read');
         if ($permission) { return $permission; }
         
-        $foodPackage = FoodPackage::with(['customer'])->find($foodPackageId);
-        $packageItems = $foodPackage->items();
+        $foodPackage = FoodPackage::with(['customer', 'items'])->find($foodPackageId);
+        $packageItems = FoodPackageItem::where('food_package_id', $foodPackageId)->get();
         $products = [];
 
         foreach($packageItems as $packageItem) {
