@@ -68,7 +68,11 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="block mt-4">
+            <div class="block mt-2">
+                <span class="text-sm text-gray-600">Door in te loggen ga je akkoord met <Link :href="route('policy.show')" class="hover:underline font-bold">onze voorwaarden</Link></span>
+            </div>
+
+            <div class="block mt-2">
                 <label class="flex items-center">
                     <Checkbox v-model:checked="form.remember" name="remember" />
                     <span class="ml-2 text-sm text-gray-600">Onthoud mij</span>
