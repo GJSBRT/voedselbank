@@ -31,7 +31,6 @@ class CustomerController extends Controller
     //This function let's you create a customer
     public function create(RegisterCustomerRequest $request)
     {
-
         $customer = Customer::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),

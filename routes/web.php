@@ -13,7 +13,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-
     Route::prefix('/food-packages')->group(function () {
         Route::get('/', [FoodPackageController::class, 'index'])->name('food-packages.index');
         Route::get('/new', [FoodPackageController::class, 'new'])->name('food-packages.new');
@@ -30,7 +29,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::patch('/{customerId}', [CustomerController::class, 'update'])->name('customers.update');
         Route::delete('/{customerId}/delete', [CustomerController::class, 'delete'])->name('customers.delete');
     });
-
 
     Route::prefix('/suppliers')->group(function () {
         Route::get('/', [SupplierController::class, 'index'])->name('suppliers.index');

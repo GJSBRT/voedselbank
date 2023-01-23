@@ -43,7 +43,6 @@ const confirmDelete = () => {
     confirmingDelete.value = true;
 }
 
-
 </script>
 
 <template>
