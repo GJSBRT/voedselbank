@@ -44,10 +44,7 @@ class CustomerController extends Controller
             'notes' => $request->input('notes'),
         ]);
 
-        //Sends you back to the customers list
-        $request->session()->flash('flash.banner', 'Klant toegevoegd');
-
-        return redirect()->route('customer.index');
+        return redirect()->route('customer.index')->banner('Klant toegevoegd');
     }
 
     //Function to delete a customer
@@ -80,10 +77,7 @@ class CustomerController extends Controller
         $input = $request->all();
         $customer->fill($input)->save();
 
-        //Let a banner appear to notify the user of the change
-        $request->session()->flash('flash.banner', 'Klant gewijzigd');
-
-        return redirect()->route('customer.index');
+        return redirect()->route('customer.index')->banner('Klant gewijzigd');
 
 
     }
