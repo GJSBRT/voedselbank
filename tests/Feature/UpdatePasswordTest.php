@@ -17,11 +17,11 @@ class UpdatePasswordTest extends TestCase
 
         $response = $this->put('/user/password', [
             'current_password' => 'password',
-            'password' => 'new-password',
-            'password_confirmation' => 'new-password',
+            'password' => '$uP3r$3cP3t',
+            'password_confirmation' => '$uP3r$3cP3t',
         ]);
 
-        $this->assertTrue(Hash::check('new-password', $user->fresh()->password));
+        $this->assertTrue(Hash::check('$uP3r$3cP3t', $user->fresh()->password));
     }
 
     public function test_current_password_must_be_correct(): void
@@ -30,8 +30,8 @@ class UpdatePasswordTest extends TestCase
 
         $response = $this->put('/user/password', [
             'current_password' => 'wrong-password',
-            'password' => 'new-password',
-            'password_confirmation' => 'new-password',
+            'password' => '$uP3r$3cP3t',
+            'password_confirmation' => '$uP3r$3cP3t',
         ]);
 
         $response->assertSessionHasErrors();
@@ -45,7 +45,7 @@ class UpdatePasswordTest extends TestCase
 
         $response = $this->put('/user/password', [
             'current_password' => 'password',
-            'password' => 'new-password',
+            'password' => '$uP3r$3cP3t',
             'password_confirmation' => 'wrong-password',
         ]);
 

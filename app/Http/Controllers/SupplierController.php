@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Role;
 use App\Models\Delivery;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
@@ -9,8 +10,11 @@ use Inertia\Inertia;
 
 class SupplierController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'suppliers:read');
+        if ($permission) { return $permission; }
+
         $suppliers = Supplier::with('nextDeliveries')->paginate();
 
         return Inertia::render('Suppliers/Show', [
@@ -18,13 +22,19 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function new()
+    public function new(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'suppliers:create');
+        if ($permission) { return $permission; }
+
         return Inertia::render('Suppliers/New');
     }
 
     public function create(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'suppliers:create');
+        if ($permission) { return $permission; }
+        
         $request->validate([
             'company_name' => 'required',
             'address' => 'required',
@@ -53,8 +63,11 @@ class SupplierController extends Controller
         return redirect()->route('suppliers.index')->banner('De Leverancier ' . $supplier->company_name . ' is succesvol toegevoegd!');
     }
 
-    public function view($id)
+    public function view(Request $request, $id)
     {
+        $permission = Role::checkPermission($request->user(), 'suppliers:read');
+        if ($permission) { return $permission; }
+        
         $supplier = Supplier::with('deliveries')->find($id);
         $deliveries = $supplier->deliveries()
             ->orderBy('expected_at', 'desc')
@@ -68,6 +81,9 @@ class SupplierController extends Controller
 
     public function update($id, Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'suppliers:update');
+        if ($permission) { return $permission; }
+        
         $request->validate([
             'company_name' => 'required',
             'address' => 'required',
@@ -92,8 +108,11 @@ class SupplierController extends Controller
         return redirect()->route('suppliers.index')->banner('De Leverancier ' . $supplier->company_name . ' is succesvol aangepast!');
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
+        $permission = Role::checkPermission($request->user(), 'suppliers:delete');
+        if ($permission) { return $permission; }
+        
         $supplier = Supplier::find($id);
         $company_name = $supplier->company_name;
         $supplier->delete();

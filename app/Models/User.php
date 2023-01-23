@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -65,4 +65,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function permissions(): string
+    {
+        return Role::find($this->role_id)->permissions;
+    }
+
+    public function formatPermissions(): array
+    {
+        return Collection::make(json_decode($this->permissions()))->toArray();
+    }
+
 }

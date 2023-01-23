@@ -5,6 +5,8 @@ use App\Http\Controllers\FoodPackageController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -37,9 +39,27 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/{id}', [DeliveryController::class, 'view'])->name('deliveries.view');
         Route::patch('/{id}', [DeliveryController::class, 'update'])->name('deliveries.update');
     });
+
+    Route::prefix('/users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+        Route::get('/new', [UserController::class, 'new'])->name('users.new');
+        Route::post('/new', [UserController::class, 'create'])->name('users.create');
+        Route::get('/{userId}', [UserController::class, 'view'])->name('users.view');
+        Route::patch('/{userId}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/{userId}', [UserController::class, 'delete'])->name('users.delete');
+    });
+    
+    Route::prefix('/roles')->group(function () {
+        Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+        Route::get('/new', [RoleController::class, 'new'])->name('roles.new');
+        Route::post('/new', [RoleController::class, 'create'])->name('roles.create');
+        Route::get('/{roleId}', [RoleController::class, 'view'])->name('roles.view');
+        Route::patch('/{roleId}', [RoleController::class, 'update'])->name('roles.update');
+    });
 });
 
 Route::prefix('/search')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/customers', [CustomerController::class, 'search']);
     Route::get('/products', [ProductController::class, 'search']);
+    Route::get('/roles', [RoleController::class, 'search']);
 });
