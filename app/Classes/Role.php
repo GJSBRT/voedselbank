@@ -13,8 +13,8 @@ class Role {
      */
     public static $permissions = [
         '*', // All permissions
+        'food-packages:read',
         'food-packages:create',
-        'food-packages:write',
         'food-packages:delete',
         'food-packages:update',
         'users:read',
@@ -44,15 +44,24 @@ class Role {
      *
      * @param User $user
      * @param string $permission
+     * @param bool $redirect
      * @return redirect
      */
-    public static function checkPermission(User $user, string $permission) {
+    public static function checkPermission(User $user, string $permission, $redirect = true) {
         $userPermissions = json_decode($user->role->permissions);
 
         if (!in_array('*', $userPermissions)) {
             if (!in_array($permission, $userPermissions)) {
-                return redirect()->route('dashboard')->dangerBanner('Je hebt geen toegang tot deze pagina!');
+                if ($redirect) {
+                    return redirect()->route('dashboard')->dangerBanner('Je hebt geen toegang tot deze pagina!');
+                } else {
+                    return false;
+                }
             }
+        }
+
+        if (!$redirect) {
+            return true;
         }
     }
 }
