@@ -29,7 +29,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Details van leverancier" :breadcrumbs="[
+    <AppLayout title="Details van leveringen" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),

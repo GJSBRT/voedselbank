@@ -69,7 +69,7 @@ async function onScan(scan) {
 </script>
 
 <template>
-    <AppLayout title="Voedselpakketten" :breadcrumbs="[
+    <AppLayout title="Voedselpakketten toevoegen" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),

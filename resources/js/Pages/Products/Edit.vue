@@ -41,7 +41,7 @@ const confirmingDelete = ref(false);
 </script>
 
 <template>
-    <AppLayout title="Producten Overzicht" :breadcrumbs="[
+    <AppLayout title="Producten Bewerken" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),

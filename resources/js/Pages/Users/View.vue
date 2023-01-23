@@ -78,7 +78,7 @@ const deleteUser = () => {
     </ConfirmationModal>
 
 
-    <AppLayout title="Medewerker Beheer" :breadcrumbs="[
+    <AppLayout title="Medewerker bewerken" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),

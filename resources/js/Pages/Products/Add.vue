@@ -30,7 +30,7 @@ const AddProduct = () => {
 </script>
 
 <template>
-    <AppLayout title="Producten Overzicht" :breadcrumbs="[
+    <AppLayout title="Producten Toevoegen" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),

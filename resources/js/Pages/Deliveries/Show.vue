@@ -26,7 +26,7 @@ function setShowDelivered(){
 </script>
 
 <template>
-    <AppLayout title="Leveringen" :breadcrumbs="[
+    <AppLayout title="leveringen" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),

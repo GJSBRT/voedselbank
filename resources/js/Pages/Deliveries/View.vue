@@ -49,7 +49,7 @@ function destroy(id) {
 </script>
 
 <template>
-    <AppLayout title="Details van leverancier" :breadcrumbs="[
+    <AppLayout title="Details van leveringen bewerken" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),

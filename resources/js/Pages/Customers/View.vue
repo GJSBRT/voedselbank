@@ -46,7 +46,7 @@ const confirmDelete = () => {
 </script>
 
 <template>
-    <AppLayout title="Klanten overzicht" :breadcrumbs="[
+    <AppLayout title="Klanten Bewerken" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),
