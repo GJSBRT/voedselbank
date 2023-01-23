@@ -1,13 +1,14 @@
 <script setup>
-import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import {ref} from 'vue';
+import {Inertia} from '@inertiajs/inertia';
+import {Head, Link} from '@inertiajs/inertia-vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import { hasPermission } from '@/utils';
 
 defineProps({
     title: String,
@@ -21,7 +22,7 @@ const logout = () => {
 
 <template>
     <div>
-        <Head :title="title" />
+        <Head :title="title"/>
 
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
@@ -32,7 +33,7 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    <ApplicationMark class="block h-9 w-auto" />
+                                    <ApplicationMark class="block h-9 w-auto"/>
                                 </Link>
                             </div>
 
@@ -42,21 +43,30 @@ const logout = () => {
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('food-packages.index')" :active="route().current('food-packages.*')">
-                                    Voedselpakketten
-                                </NavLink>
-
-                                <NavLink :href="route('suppliers.index')" :active="route().current('suppliers.*')">
+                                <NavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('suppliers.*')">
                                     Leveranciers
                                 </NavLink>
 
-                                <NavLink :href="route('deliveries.index')" :active="route().current('deliveries.*')">
+                                <NavLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')" :active="route().current('deliveries.*')">
                                     Leveringen
                                 </NavLink>
 
-                                <NavLink :href="route('customer.index')" :active="route().current('customer.index')">
-                                    Customers
+                                <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
+                                    Klanten
                                 </NavLink>
+
+                                <NavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
+                                    Voedsel Pakketten
+                                </NavLink>
+
+                                <NavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
+                                    Medewerkers
+                                </NavLink>
+
+                                <NavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
+                                    Rollen
+                                </NavLink>
+
                             </div>
                         </div>
 
@@ -66,11 +76,14 @@ const logout = () => {
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                            <button type="button"
+                                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
                                                 {{ $page.props.user.first_name }}
 
-                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                     width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                                                 </svg>
                                             </button>
                                         </span>
@@ -86,11 +99,12 @@ const logout = () => {
                                             Account
                                         </DropdownLink>
 
-                                        <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
+                                        <DropdownLink v-if="$page.props.jetstream.hasApiFeatures"
+                                                      :href="route('api-tokens.index')">
                                             API Tokens
                                         </DropdownLink>
 
-                                        <div class="border-t border-gray-100" />
+                                        <div class="border-t border-gray-100"/>
 
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
@@ -105,7 +119,9 @@ const logout = () => {
 
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
-                            <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition" @click="showingNavigationDropdown = ! showingNavigationDropdown">
+                            <button
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition"
+                                @click="showingNavigationDropdown = ! showingNavigationDropdown">
                                 <svg
                                     class="h-6 w-6"
                                     stroke="currentColor"
@@ -133,22 +149,39 @@ const logout = () => {
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
+                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
+                     class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('food-packages.index')" :active="route().current('food-packages.index')">
+                        <ResponsiveNavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.index')">
                             Voedselpakketten
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('suppliers.index')" :active="route().current('supplier.*')">
+                        <ResponsiveNavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('supplier.*')">
                             Leveranciers
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('deliveries.index')" :active="route().current('delivery.*')">
+                        <ResponsiveNavLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')" :active="route().current('delivery.*')">
                             Leveringen
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink v-if="hasPermission('customers:read')" :href="route('customers.index')" :active="route().current('customers.*')">
+                            Klanten
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
+                            Medewerkers
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
+                            Rollen
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('quantity-products.index')" :active="route().current('quantity-products.index')">
+                            Voorraad Producten
                         </ResponsiveNavLink>
                     </div>
 
@@ -170,7 +203,9 @@ const logout = () => {
                                 Profile
                             </ResponsiveNavLink>
 
-                            <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
+                            <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures"
+                                               :href="route('api-tokens.index')"
+                                               :active="route().current('api-tokens.index')">
                                 API Tokens
                             </ResponsiveNavLink>
 
@@ -188,15 +223,15 @@ const logout = () => {
             <!-- Page Heading -->
             <header v-if="$slots.header" class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex">
-                    <slot name="header" />
+                    <slot name="header"/>
                 </div>
             </header>
 
-            <Banner />
+            <Banner/>
 
             <!-- Page Content -->
             <main>
-                <slot />
+                <slot/>
             </main>
         </div>
     </div>
