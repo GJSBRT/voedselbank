@@ -44,7 +44,7 @@ class CustomerController extends Controller
             'notes' => $request->input('notes'),
         ]);
 
-        return redirect()->route('customer.index')->banner('Klant toegevoegd');
+        return redirect()->route('customers.index')->banner('Klant toegevoegd');
     }
 
     //Function to delete a customer
@@ -57,7 +57,7 @@ class CustomerController extends Controller
             'last_name' => 'Deleted',
         ]);
 
-        return redirect()->route('customer.index')->banner('Klant is succesvol verwijderd');
+        return redirect()->route('customers.index')->banner('Klant is succesvol verwijderd');
     }
 
     public function view(int $customerId)
@@ -77,7 +77,7 @@ class CustomerController extends Controller
         $input = $request->all();
         $customer->fill($input)->save();
 
-        return redirect()->route('customer.index')->banner('Klant gewijzigd');
+        return redirect()->route('customers.index')->banner('Klant gewijzigd');
 
 
     }

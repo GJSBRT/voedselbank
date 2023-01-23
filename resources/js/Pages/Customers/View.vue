@@ -32,7 +32,7 @@ const form = useForm({
 });
 
 const handleSubmit = () => {
-    form.post(route('customer.update', customer.value.id), {
+    form.post(route('customers.update', customer.value.id), {
         preserveScroll: true,
     });
 }
@@ -197,9 +197,9 @@ const confirmDelete = () => {
                 <SecondaryButton @click.native="confirmingDelete = false">
                     Nee
                 </SecondaryButton>
-                <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
+
                 <DangerButton class="ml-2"
-                              @click.native="Inertia.delete(route('customer.delete', customer.id));">
+                              @click.native="Inertia.delete(route('customers.delete', customer.id));">
                     Verwijder Klant
                 </DangerButton>
             </template>

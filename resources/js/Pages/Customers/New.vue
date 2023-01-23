@@ -25,7 +25,7 @@ const form = useForm({
 });
 
 const handleSubmit = () => {
-    form.post(route('customer.create'), {
+    form.post(route('customers.create'), {
         preserveScroll: true,
     });
 }
