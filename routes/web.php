@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\FoodPackageController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
