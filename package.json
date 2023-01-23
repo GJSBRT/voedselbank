@@ -21,6 +21,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@protonemedia/inertiajs-tables-laravel-query-builder": "^2.1.0",
         "@zxing/library": "^0.19.1"
     }
 }

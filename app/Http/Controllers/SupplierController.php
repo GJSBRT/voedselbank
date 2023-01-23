@@ -2,20 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Delivery;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
+use App\Models\User;
+use Illuminate\Support\Collection;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class SupplierController extends Controller
 {
     public function index()
     {
-        $suppliers = Supplier::with('nextDeliveries')->paginate();
+
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
+                    $query
+                        ->orWhere('id', 'LIKE', "%{$value}%")
+                        ->orWhere('company_name', 'LIKE', "%{$value}%")
+                        ->orWhere('phone_number', 'LIKE', "%{$value}%")
+                        ->orWhere('contact_name', 'LIKE', "%{$value}%")
+                        ->orWhere('email', 'LIKE', "%{$value}%");
+                });
+            });
+        });
+
+        $suppliers = QueryBuilder::for(Supplier::class)
+            ->with('nextDeliveries')
+            ->defaultSort('created_at')
+            ->allowedSorts(['id','company_name', 'phone_number', 'contact_name','email'])
+            ->allowedFilters(['id','company_name', 'phone_number', 'contact_name','email', $globalSearch])
+            ->paginate()
+            ->withQueryString();
+
 
         return Inertia::render('Suppliers/Show', [
             'suppliers' => $suppliers
-        ]);
+        ])->table(function (InertiaTable $table) {
+            $table->withGlobalSearch()
+                ->column(key: 'id', label: '#', searchable: true, sortable: true)
+                ->column(key: 'company_name', label: 'Bedrijfsnaam', searchable: true, sortable: true)
+                ->column(key: 'phone_number', label: 'Telefoonnummer', searchable: true, sortable: true)
+                ->column(key: 'contact_name', label: 'Contact persoon', searchable: true, sortable: true)
+                ->column(key: 'email', label: 'E-mailadres', searchable: true, sortable: true)
+                ->column(key: 'next_deliveries', label: 'Volgende levering' );
+        });
     }
 
     public function new()
