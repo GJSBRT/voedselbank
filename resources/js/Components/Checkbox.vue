@@ -12,6 +12,10 @@ const props = defineProps({
         type: String,
         default: null,
     },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const proxyChecked = computed({
@@ -30,6 +34,7 @@ const proxyChecked = computed({
     <input
         v-model="proxyChecked"
         type="checkbox"
+        :disabled="disabled"
         :value="value"
         class="rounded border-gray-300 text-primary-600 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
     >

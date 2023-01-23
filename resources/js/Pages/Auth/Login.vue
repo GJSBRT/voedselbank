@@ -7,6 +7,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import Banner from '@/Components/Banner.vue';
 
 defineProps({
     canResetPassword: Boolean,
@@ -30,6 +31,8 @@ const submit = () => {
 </script>
 
 <template>
+    <Banner />
+
     <Head title="Log in" />
 
     <AuthenticationCard>
@@ -78,10 +81,6 @@ const submit = () => {
             <div class="flex items-center justify-end mt-4">
                 <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
                     Wachtwoord vergeten?
-                </Link>
-
-                <Link :href="route('register')" class="ml-2 underline text-sm text-gray-600 hover:text-gray-900">
-                    Registreren?
                 </Link>
 
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">

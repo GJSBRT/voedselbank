@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,11 +20,14 @@ class DeliveryFactory extends Factory
     {
         $date = fake()->dateTimeBetween('-1week', '+1week');
 
+        $createdAt = Carbon::createFromTimeStamp($date->getTimestamp());
+
         return [
-            'supplier_id' => rand(1, 12),
+            'supplier_id' => rand(1, 7),
             'expected_at' => $date,
             'delivered_at' => $date > now()? null : $date,
             'notes' => fake()->text,
+            'created_at' => $createdAt->subDays(rand(1,10))
         ];
     }
 }
