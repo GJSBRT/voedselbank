@@ -71,7 +71,7 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->banner('Categorie is gewijzigd');
     }
 
-    public function delete(int $categoryId, Request $request)
+    public function delete($categoryId, Request $request)
     {
         $permission = Role::checkPermission($request->user(), 'categories:delete');
         if ($permission) { return $permission; }

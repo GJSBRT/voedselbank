@@ -103,7 +103,7 @@ class CustomerController extends Controller
     }
 
     //Update customers in the same form as the register function
-    public function update(UpdateCustomerRequest $request, int $customerId)
+    public function update(UpdateCustomerRequest $request, $customerId)
     {
         $permission = Role::checkPermission($request->user(), 'customers:update');
         if ($permission) { return $permission; }
