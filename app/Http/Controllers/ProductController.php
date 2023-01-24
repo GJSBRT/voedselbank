@@ -27,17 +27,12 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
-        if ($permission) 
-        { 
-            return $permission; 
-        }
+        if ($permission) {return $permission;}
 
-        $globalSearch = AllowedFilter::callback('global', function ($query, $value) 
-        {
-            $query->where(function ($query) use ($value) 
-            {
-                Collection::wrap($value)->each(function ($value) use ($query) 
-                {
+        // Return the products depending on the queries.
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
                     $query
                         ->orWhere('name', 'LIKE', "%{$value}%")
                         ->orWhere('ean_number', 'LIKE', "%{$value}%");
@@ -67,14 +62,14 @@ class ProductController extends Controller
     public function new(Request $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:create');
-        if ($permission) 
-        { 
-            return $permission; 
+        if ($permission)
+        {
+            return $permission;
         }
 
-        $productCategories = ProductCategory::all();
+        $productCategories = ProductCategory::whereNot('name', 'deleted')->get();
 
-        return Inertia::render('Products/New', [
+        return Inertia::render('Products/New',[
             'product_categories' => $productCategories,
         ]);
     }
@@ -90,9 +85,9 @@ class ProductController extends Controller
     public function create(CreateProductRequest $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:create');
-        if ($permission) 
-        { 
-            return $permission; 
+        if ($permission)
+        {
+            return $permission;
         }
 
         Product::create([
@@ -121,14 +116,14 @@ class ProductController extends Controller
     public function view(Request $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
-        if ($permission) 
-        { 
-            return $permission; 
+        if ($permission)
+        {
+            return $permission;
         }
 
         // Try to get the product, else gives a 404 back instead of a 500 error.
         $products = Product::where('id', $productId)->firstOrFail();
-        $productCategories = ProductCategory::all();
+        $productCategories = ProductCategory::whereNot('name', 'deleted')->get();
 
         return Inertia::render('Products/View', [
             'products' => $products,
@@ -153,9 +148,9 @@ class ProductController extends Controller
 
     {
         $permission = Role::checkPermission($request->user(), 'products:update');
-        if ($permission) 
-        { 
-            return $permission; 
+        if ($permission)
+        {
+            return $permission;
         }
 
         // Try to get the product, else gives a 404 back instead of a 500 error.
@@ -186,18 +181,18 @@ class ProductController extends Controller
     public function delete(Request $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:delete');
-        if ($permission) 
-        { 
-            return $permission; 
+        if ($permission)
+        {
+            return $permission;
         }
 
         // Try to get the product, else gives a 404 back instead of a 500 error.
         $product = Product::where('id', $productId)->firstOrFail();
 
-        try 
+        try
         {
             $product->delete();
-        } catch (\Exception $error) 
+        } catch (\Exception $error)
         {
             return redirect()->route('products.index')->dangerBanner('Product kan niet verwijderd worden, Dit product is verwerkt in een voedselpakket');
         }

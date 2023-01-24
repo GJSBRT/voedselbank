@@ -73,7 +73,6 @@ const confirmDelete = () => {
                             </div>
                         </template>
 
-
                         <template #actions>
                             <PrimaryButton v-if="hasPermission('categories:update')" @click="handleSubmit">
                                 Opslaan
