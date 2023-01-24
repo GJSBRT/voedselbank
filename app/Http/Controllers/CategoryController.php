@@ -52,6 +52,8 @@ class CategoryController extends Controller
         // Try to get the category, else gives a 404 back.
         $category = ProductCategory::where('id', $categoryId)->firstOrFail();
 
+        $category = ProductCategory::where('id', $categoryId,)->firstOrFail();
+
         return Inertia::render('ProductCategory/View', [
             'category' => $category
         ]);

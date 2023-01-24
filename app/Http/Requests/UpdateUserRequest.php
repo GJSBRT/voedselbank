@@ -13,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,31 +24,31 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'user.first_name' => 'required|string|max:100',
-            'user.last_name' => 'required|string|max:100',
-            'user.email' => 'required|email|max:100',
-            'user.password' => 'required|string|max:100',
-            'user.role_id' => 'required|int',
+            'first_name' => 'required|string|max:100',
+            'last_name' => 'required|string|max:100',
+            'email' => 'required|email|max:100',
+            'password' => 'required|string|max:100',
+            'role_id' => 'required|int',
         ];
     }
 
     public function messages()
     {
         return [
-            'user.first_name.required' => 'De voornaam is een verplicht veld.',
-            'user.first_name.string' => 'De voornaam mag maximaal 100 karakters zijn.',
-            'user.first_name.max:100' => 'De voornaam mag maximaal 100 karakters zijn.',
-            'user.last_name.required' => 'De achternaam is een verplicht veld.',
-            'user.last_name.string' => 'De achternaam mag maximaal 100 karakters zijn.',
-            'user.last_name.max:100' => 'De achternaam mag maximaal 100 karakters zijn.',
-            'user.email.required' => 'De voornaam is een verplicht veld.',
-            'user.email.email' => 'Vul een geldig e-mailadres in.',
-            'user.email.max:100' => 'De email mag maximaal 100 karakters zijn.',
-            'user.password.required' => 'Het wachtwoord is een verplicht veld.',
-            'user.password.string' => 'Het wachtwoord mag maximaal 100 karakters zijn.',
-            'user.password.max:100' => 'Het wachtwoord mag maximaal 100 karakters zijn.',
-            'user.role_id.required' => 'Vul een rol in.',
-            'user.role_id.int' => 'Er is iets mis gegaan met het selecteren van de rol.',
+            'first_name.required' => 'De voornaam is een verplicht veld.',
+            'first_name.string' => 'De voornaam mag maximaal 100 karakters zijn.',
+            'first_name.max:100' => 'De voornaam mag maximaal 100 karakters zijn.',
+            'last_name.required' => 'De achternaam is een verplicht veld.',
+            'last_name.string' => 'De achternaam mag maximaal 100 karakters zijn.',
+            'last_name.max:100' => 'De achternaam mag maximaal 100 karakters zijn.',
+            'email.required' => 'De voornaam is een verplicht veld.',
+            'email.email' => 'Vul een geldig e-mailadres in.',
+            'email.max:100' => 'De email mag maximaal 100 karakters zijn.',
+            'password.required' => 'Het wachtwoord is een verplicht veld.',
+            'password.string' => 'Het wachtwoord mag maximaal 100 karakters zijn.',
+            'password.max:100' => 'Het wachtwoord mag maximaal 100 karakters zijn.',
+            'role_id.required' => 'Vul een rol in.',
+            'role_id.int' => 'Er is iets mis gegaan met het selecteren van de rol.',
         ];
     }
 }
