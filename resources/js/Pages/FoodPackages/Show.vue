@@ -36,7 +36,7 @@ function sort(state){
 
 
             <div class="ml-auto my-auto">
-                <PrimaryButton v-if="hasPermission('food-package:create')" @click="() => Inertia.visit(route('food-packages.new'))">
+                <PrimaryButton v-if="hasPermission('food-packages:create')" @click="() => Inertia.visit(route('food-packages.new'))">
                     Nieuw Pakket
                 </PrimaryButton>
             </div>
