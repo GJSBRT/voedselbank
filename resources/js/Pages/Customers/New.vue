@@ -33,7 +33,8 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Klanten toevoegen" :breadcrumbs="[
+
+     <AppLayout title="Klanten toevoegen" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),
@@ -47,7 +48,19 @@ const handleSubmit = () => {
             href: '#',
         }
     ]">
-        <FormSection @submitted="updateProfileInformation" class="flex justify-center items-center">
+
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
+        <FormSection>
+
+            <template #title>
+                Klant aanmaken
+            </template>
+
+            <template #description>
+                Maak een klant aan waar je voedselpakketten voor kan maken. Onthoud:
+                Er moet altijd één volwassen persoon aanwezig zijn.
+            </template>
 
             <template #form>
                 <div class="col-span-6 sm:col-span-4 w-full flex-auto">
@@ -161,5 +174,7 @@ const handleSubmit = () => {
                 </PrimaryButton>
             </template>
         </FormSection>
+            </div>
+        </div>
     </AppLayout>
 </template>
