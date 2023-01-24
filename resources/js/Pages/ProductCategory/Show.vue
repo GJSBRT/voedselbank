@@ -42,8 +42,7 @@ const confirmDelete = ref(null);
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg ">
-                    <Table
-                        :headers="['Naam']">
+                    <Table :headers="['Naam']">
                         <tr @click="Inertia.visit(route('categories.view', categoryData.id))"
                             class="hover:bg-gray-50 cursor-pointer" v-for="categoryData in category.data"
                             :key="categoryData.id">
