@@ -17,7 +17,9 @@ defineProps({
 
 const showingNavigationDropdown = ref(false);
 const logout = () => {
-    Inertia.post(route('logout'));
+    Inertia.post(route('logout')).then(() => {
+        location.reload();
+    });
 };
 
 </script>
