@@ -4,7 +4,6 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FoodPackageController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\QuantityProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -15,16 +14,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/quantity-products', [QuantityProductsController::class, 'index'])->name('quantity-products.index');
-
-  Route::prefix('/products')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/new', [ProductController::class, 'new'])->name('products.new');
-    Route::post('/new', [ProductController::class, 'create'])->name('products.create');
-    Route::get('/{productId}', [ProductController::class, 'view'])->name('products.view');
-    Route::patch('/{productId}', [ProductController::class, 'update'])->name('products.update');
-    Route::delete('/{productId}', [ProductController::class, 'delete'])->name('products.delete');
-  });
+    Route::prefix('/products')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/new', [ProductController::class, 'new'])->name('products.new');
+        Route::post('/new', [ProductController::class, 'create'])->name('products.create');
+        Route::get('/{productId}', [ProductController::class, 'view'])->name('products.view');
+        Route::patch('/{productId}', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/{productId}', [ProductController::class, 'delete'])->name('products.delete');
+    });
 
     Route::prefix('/food-packages')->group(function () {
         Route::get('/', [FoodPackageController::class, 'index'])->name('food-packages.index');

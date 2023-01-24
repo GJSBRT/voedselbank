@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { toRefs } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import Checkbox from '@/Components/Checkbox.vue';
+import { hasPermission } from '@/utils';
 
 const props = defineProps({
     role: Object,
@@ -80,7 +81,7 @@ const handleSubmit = () => {
                         </template>
 
                         <template #actions>
-                            <PrimaryButton @click="handleSubmit">
+                            <PrimaryButton v-if="hasPermission('roles:update')" @click="handleSubmit">
                                 Rol Opslaan
                             </PrimaryButton>
                         </template>

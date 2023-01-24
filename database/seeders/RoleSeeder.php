@@ -24,6 +24,10 @@ class RoleSeeder extends Seeder
             'id' => 2,
             'name' => 'magazijnmedewerker',
             'permissions' => json_encode([
+                'customers:read',
+                'products:read',
+                'products:create',
+                'products:update',
                 'suppliers:read',
                 'suppliers:create',
                 'suppliers:delete',
@@ -39,8 +43,10 @@ class RoleSeeder extends Seeder
             'id' => 3,
             'name' => 'vrijwilliger',
             'permissions' => json_encode([
+                'customers:read',
+                'products:read',
+                'food-packages:read',
                 'food-packages:create',
-                'food-packages:write',
                 'food-packages:delete',
                 'food-packages:update',
             ]),

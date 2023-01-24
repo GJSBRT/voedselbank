@@ -6,11 +6,17 @@ import Pagination from '@/Components/Pagination.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { hasPermission } from '@/utils';
+import TableSearch from "@/Components/Search/TableSearch.vue";
+import Dropdown from "@/Components/Dropdown.vue";
+import DropdownLink from "@/Components/DropdownLink.vue";
 
 defineProps({
     users: Object,
 });
 
+function sort(state){
+    Inertia.replace(route('users.index', {sort: state? 'created_at' : '-created_at' }));
+}
 </script>
 
 <template>
@@ -36,6 +42,31 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <TableSearch route="users.index" placeholder="Zoeken op voornaam of email" class="my-5" />
+
+                <Dropdown class="my-5" align="left" width="48">
+                    <template #trigger>
+                        <span class="inline-flex rounded-md">
+                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+
+                                Aangemaakt op
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </button>
+                        </span>
+                    </template>
+
+                    <template #content>
+                        <DropdownLink @click="sort(true)">
+                            Oud naar nieuw
+                        </DropdownLink>
+
+                        <DropdownLink @click="sort(false)">
+                            Nieuw naar oud
+                        </DropdownLink>
+                    </template>
+                </Dropdown>
+
                 <Table :headers="['#', 'Naam', 'Email', '2FA Ingeschakeld Op', 'Geblokkeerd op', 'Aangemaakt Op']" >
                     <tr @click="Inertia.visit(route('users.view', user.id))" class="hover:bg-gray-50 cursor-pointer" v-for="user in users.data" :key="user.id">
                         <TableData>{{ user.id }}</TableData>
@@ -43,7 +74,7 @@ defineProps({
                         <TableData>{{ user.email }}</TableData>
                         <TableData>
                             <span v-if="user.two_factor_confirmed_at == null" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-md bg-red-100 text-red-800">
-                                Niet Geactiveerd
+                                Niet geactiveerd
                             </span>
                             <span v-else>
                                 {{ new Date(user.two_factor_confirmed_at).toLocaleString() }}

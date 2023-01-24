@@ -6,9 +6,11 @@ use App\Classes\Role;
 use App\Http\Requests\RegisterCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
-use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Inertia\Inertia;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\Searchable\Search;
 
 class CustomerController extends Controller
@@ -19,7 +21,24 @@ class CustomerController extends Controller
         $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
-        $customers = Customer::where('first_name', '!=', 'deleted')->paginate();
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
+                    $query
+                        ->orWhere('first_name', 'LIKE', "%{$value}%")
+                        ->orWhere('last_name', 'LIKE', "%{$value}%")
+                        ->orWhere('phone_number', 'LIKE', "%{$value}%");
+                });
+            });
+        });
+
+        $customers = QueryBuilder::for(Customer::class)
+            ->allowedSorts(['first_name', 'last_name', 'phone_number'])
+            ->allowedFilters(['first_name', 'last_name', 'phone_number', $globalSearch])
+            ->where('first_name', '!=', 'deleted')
+            ->paginate()
+            ->withQueryString();
+
         return Inertia::render("Customers/Show", [
             'customers' => $customers,
         ]);
@@ -28,11 +47,10 @@ class CustomerController extends Controller
     //This function sends you straight to the register form for creating customers
     public function new(Request $request)
     {
-        $permission = Role::checkPermission($request->user(), 'customers:read');
+        $permission = Role::checkPermission($request->user(), 'customers:create');
         if ($permission) { return $permission; }
 
         return Inertia::render("Customers/New");
-
     }
 
     //This function let's you create a customer
@@ -41,7 +59,7 @@ class CustomerController extends Controller
         $permission = Role::checkPermission($request->user(), 'customers:create');
         if ($permission) { return $permission; }
 
-        $customer = Customer::create([
+        Customer::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
@@ -57,7 +75,7 @@ class CustomerController extends Controller
 
     }
 
-    public function delete(int $customerId, Request $request)
+    public function delete(Request $request, int $customerId)
     {
         $permission = Role::checkPermission($request->user(), 'customers:delete');
         if ($permission) { return $permission; }
@@ -72,12 +90,12 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->banner('Klant is succesvol verwijderd');
     }
 
-    public function view(int $customerId, Request $request)
+    public function view(Request $request, int $customerId)
     {
-        $permission = Role::checkPermission($request->user(), 'customers:update');
+        $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
-        $customer = Customer::all()->find($customerId);
+        $customer = Customer::find($customerId);
 
         return Inertia::render('Customers/View', [
             'customer' => $customer
@@ -96,8 +114,6 @@ class CustomerController extends Controller
         $customer->fill($input)->save();
 
         return redirect()->route('customers.index')->banner('Klant gewijzigd');
-
-
     }
 
     public function search(Request $request)
@@ -109,8 +125,11 @@ class CustomerController extends Controller
         return response()->json($results);
     }
 
-    public function export($customerId)
+    public function export(Request $request, $customerId)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:read');
+        if ($permission) { return $permission; }
+
         $customer = Customer::where('id', $customerId)->firstOrFail();
 
         $pdf = app('dompdf.wrapper');
