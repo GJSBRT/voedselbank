@@ -62,11 +62,22 @@ const confirmDelete = () => {
 </script>
 
 <template>
-    <AppLayout title="Klanten overzicht">
+    <AppLayout title="Klanten Bewerken" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Klanten overzicht',
+            href: route('customers.index'),
+        },
+        {
+            title: 'Klanten Bewerken',
+            href: '#',
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Details van de klant {{ customer.first_name }}
-            </h2>
+
         </template>
 
         <div class="py-12">
