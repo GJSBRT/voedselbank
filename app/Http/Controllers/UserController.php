@@ -50,12 +50,12 @@ class UserController extends Controller
         return Inertia::render('Users/New');
     }
 
-    public function view(Request $request, int $userId)
+    public function view(Request $request, $userId)
     {
         $permission = Role::checkPermission($request->user(), 'users:read');
         if ($permission) { return $permission; }
 
-        $user = User::with('role')->find($userId);
+        $user = User::with('role')->where('id', $userId)->firstOrFail();
 
         return Inertia::render('Users/View', [
             'user' => $user,
@@ -86,12 +86,12 @@ class UserController extends Controller
         return redirect()->route('users.index')->banner("{$firstName} is successvol toegevoeged als medewerker!");
     }
 
-    public function update(UpdateUserRequest $request, int $userId)
+    public function update(UpdateUserRequest $request, $userId)
     {
         $permission = Role::checkPermission($request->user(), 'users:update');
         if ($permission) { return $permission; }
 
-        $user = User::find($userId);
+        $user = User::where('id', $userId)->firstOrFail();
         $newUser = $request->input('user') ?? null;
         $twoFactorEnabled = $request->input('two_factor_enabled') ?? null;
         $suspended = $request->input('suspended')? Carbon::now() : null;
@@ -113,12 +113,12 @@ class UserController extends Controller
         return redirect()->route('users.index')->banner('Mederwerker is successvol aangepast!');
     }
 
-    public function delete(Request $request, int $userId)
+    public function delete(Request $request, $userId)
     {
         $permission = Role::checkPermission($request->user(), 'users:delete');
         if ($permission) { return $permission; }
 
-        $user = User::find($userId);
+        $user = User::where('id', $userId)->firstOrFail();
         $user->delete();
 
         return redirect()->route('users.index')->banner('Mederwerker is successvol verwijdered!');
@@ -128,7 +128,7 @@ class UserController extends Controller
         $permission = Role::checkPermission($request->user(), 'users:update');
         if ($permission) { return $permission; }
 
-        $user = User::find($userId);
+        $user = User::where('id', $userId)->firstOrFail();
 
         if ($request->get('suspended')){
             $user->suspended_at = null;

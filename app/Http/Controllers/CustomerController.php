@@ -75,13 +75,13 @@ class CustomerController extends Controller
 
     }
 
-    public function delete(Request $request, int $customerId)
+    public function delete(Request $request, $customerId)
     {
         $permission = Role::checkPermission($request->user(), 'customers:delete');
         if ($permission) { return $permission; }
 
         //search the customer you want to delete
-        $customer = Customer::all()->find($customerId);
+        $customer = Customer::where('id', $customerId)->firstOrFail();
         $customer->update([
             'first_name' => 'Deleted',
             'last_name' => 'Deleted',
@@ -90,12 +90,12 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->banner('Klant is succesvol verwijderd');
     }
 
-    public function view(Request $request, int $customerId)
+    public function view(Request $request, $customerId)
     {
         $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
-        $customer = Customer::find($customerId);
+        $customer = Customer::where('id', $customerId)->firstOrFail();
 
         return Inertia::render('Customers/View', [
             'customer' => $customer

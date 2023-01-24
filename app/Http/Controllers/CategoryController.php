@@ -44,28 +44,27 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
     }
 
-    public function view(int $categoryId, Request $request)
+    public function view($categoryId, Request $request)
     {
         $permission = Role::checkPermission($request->user(), 'categories:update');
         if ($permission) { return $permission; }
 
-        $category = ProductCategory::all()->find($categoryId);
+        // Try to get the category, else gives a 404 back.
+        $category = ProductCategory::where('id', $categoryId)->firstOrFail();
 
         return Inertia::render('ProductCategory/View', [
             'category' => $category
         ]);
     }
 
-    public function update(UpdateCategoryRequest $request, int $categoryId)
+    public function update(UpdateCategoryRequest $request, $categoryId)
     {
         $permission = Role::checkPermission($request->user(), 'categories:update');
         if ($permission) { return $permission; }
 
-        $category = ProductCategory::all()->find($categoryId);
+        $category = ProductCategory::where('id', $categoryId)->firstOrFail();
         $name = $request->all();
         $category->fill($name)->save();
-
-
 
         return redirect()->route('categories.index')->banner('Categorie is gewijzigd');
     }
@@ -77,8 +76,8 @@ class CategoryController extends Controller
 
         //search the customer you want to delete
         //Because of customer preference there will be a soft delete
-        $customer = ProductCategory::all()->find($categoryId);
-        $customer->update([
+        $category = ProductCategory::where('id', $categoryId)->firstOrFail();
+        $category->update([
             'name' => 'deleted',
         ]);
 

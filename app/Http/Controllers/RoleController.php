@@ -31,13 +31,13 @@ class RoleController extends Controller
         ]);
     }
 
-    public function view(Request $request, int $roleId)
+    public function view(Request $request, $roleId)
     {
         $permission = ClassRole::checkPermission($request->user(), 'roles:read');
         if ($permission) { return $permission; }
 
         return Inertia::render('Roles/View', [
-            'role' => Role::find($roleId),
+            'role' => Role::where('id', $roleId)->firstOrFail(),
             'available_permissions' => ClassRole::$permissions,
         ]);
     }
@@ -58,12 +58,12 @@ class RoleController extends Controller
         return redirect()->route('roles.index')->banner("De rol {$name} is successvol toegevoeged!");
     }
 
-    public function update(Request $request, int $roleId)
+    public function update(Request $request, $roleId)
     {
         $permission = ClassRole::checkPermission($request->user(), 'roles:update');
         if ($permission) { return $permission; }
 
-        $role = Role::find($roleId);
+        $role = Role::where('id', $roleId)->firstOrFail();
         $role->name = $request->input('name');
         $role->permissions = $request->input('permissions');
         $role->save();

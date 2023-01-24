@@ -38,12 +38,13 @@ class FoodPackageController extends Controller
         return Inertia::render('FoodPackages/New');
     }
 
-    public function view(Request $request, int $foodPackageId)
+    public function view(Request $request, $foodPackageId)
     {
         $permission = Role::checkPermission($request->user(), 'food-packages:read');
         if ($permission) { return $permission; }
 
-        $foodPackage = FoodPackage::with(['customer'])->find($foodPackageId);
+
+        $foodPackage = FoodPackage::with(['customer'])->where('id', $foodPackageId)->firstOrFail();
         $packageItems = $foodPackage->items();
         $products = [];
 
@@ -87,12 +88,12 @@ class FoodPackageController extends Controller
         return redirect()->route('food-packages.index')->banner('Pakket is successvol aangemaakt!');
     }
 
-    public function update(Request $request, int $foodPackageId)
+    public function update(Request $request, $foodPackageId)
     {
         $permission = Role::checkPermission($request->user(), 'food-packages:update');
         if ($permission) { return $permission; }
 
-        $foodPackage = FoodPackage::find($foodPackageId)->firstOrFail();
+        $foodPackage = FoodPackage::where('id', $foodPackageId)->firstOrFail();
         $notes = $request->input('notes') ?? null;
         $customer = $request->input('customer') ?? null;
         $items = $request->input('products') ?? null;

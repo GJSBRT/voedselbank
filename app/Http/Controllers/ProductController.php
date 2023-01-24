@@ -71,12 +71,12 @@ class ProductController extends Controller
     }
 
     // Get the products find them by id and Make the edit page accesible in vue
-    public function view(Request $request, int $productId)
+    public function view(Request $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
         if ($permission) { return $permission; }
 
-        $products = Product::all()->find($productId);
+        $products = Product::where('id', $productId)->firstOrFail();
         $productCategories = ProductCategory::all();
 
         return Inertia::render('Products/View', [
@@ -86,7 +86,7 @@ class ProductController extends Controller
     }
 
     // Edit a product
-    public function update(EditProductRequest $request, int $productId)
+    public function update(EditProductRequest $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:update');
         if ($permission) { return $permission; }
@@ -103,12 +103,12 @@ class ProductController extends Controller
     }
 
     // Find a product by id and delete that product
-    public function delete(Request $request, int $productId)
+    public function delete(Request $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:delete');
         if ($permission) { return $permission; }
 
-        $product = Product::find($productId);
+        $product = Product::where('id', $productId)->firstOrFail();
 
         try {
             $product->delete();
