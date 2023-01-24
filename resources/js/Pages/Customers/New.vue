@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import {useForm} from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import TextField from '@/Components/TextField.vue';
 
 const props = defineProps({
     customer: Object,
@@ -151,14 +152,9 @@ const handleSubmit = () => {
                             <InputError :message="form.errors.baby_amount" class="mt-2"/>
                         </div>
 
-                        <div class="col-span-6 sm:col-span-4">
+                        <div class="col-span-6 sm:col-span-4 w-full">
                             <InputLabel for="notes" value="Notities"/>
-                            <TextInput
-                                id="notes"
-                                v-model="form.notes"
-                                type="text"
-                                class="mt-1 block w-full"
-                            />
+                            <TextField id="notes" v-model="form.notes" type="text" class="mt-1 block w-full"/>
                             <InputError :message="form.errors.notes" class="mt-2"/>
                         </div>
                     </template>

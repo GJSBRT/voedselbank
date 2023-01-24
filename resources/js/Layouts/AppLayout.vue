@@ -54,7 +54,7 @@ const logout = () => {
                             </div>
 
                             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                                <Dropdown align="right" width="48" v-if="hasPermission('suppliers:read') || hasPermission('deliveries:read')">
+                                <Dropdown :active="route().current('suppliers.*') || route().current('deliveries.*')" align="right" width="48" v-if="hasPermission('suppliers:read') || hasPermission('deliveries:read')">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
@@ -82,7 +82,7 @@ const logout = () => {
                                     </template>
                                 </Dropdown>
 
-                                <Dropdown align="right" width="48" v-if="hasPermission('products:read') || hasPermission('categories:read')">
+                                <Dropdown :active="route().current('products.*') || route().current('categories.*')" align="right" width="48" v-if="hasPermission('products:read') || hasPermission('categories:read')">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
@@ -110,7 +110,7 @@ const logout = () => {
                                     </template>
                                 </Dropdown>
 
-                                <Dropdown align="right" width="48" v-if="hasPermission('users:read') || hasPermission('roles:read')">
+                                <Dropdown :active="route().current('users.*') || route().current('roles.*')" align="right" width="48" v-if="hasPermission('users:read') || hasPermission('roles:read')">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
