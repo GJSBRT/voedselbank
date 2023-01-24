@@ -59,6 +59,7 @@ return [
 
     'features' => [
         Features::termsAndPrivacyPolicy(),
+        Features::accountDeletion(),
     ],
 
     /*
@@ -73,5 +74,4 @@ return [
     */
 
     'profile_photo_disk' => 'public',
-
 ];
