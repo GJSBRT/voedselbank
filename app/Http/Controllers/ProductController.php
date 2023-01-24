@@ -27,16 +27,12 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
-        if ($permission)
-        {
-            return $permission;
-        }
+        if ($permission) {return $permission;}
 
         // Return the products depending on the queries.
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
-
                     $query
                         ->orWhere('name', 'LIKE', "%{$value}%")
                         ->orWhere('ean_number', 'LIKE', "%{$value}%");
