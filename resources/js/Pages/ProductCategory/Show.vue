@@ -33,7 +33,7 @@ const confirmDelete = ref(null);
     ]">
 
         <template #header>
-            <div class="ml-auto">
+            <div class="ml-auto my-auto">
                 <primary-button @click="() => Inertia.visit(route('categories.new'))">
                     Maak een nieuw product categorie aan
                 </primary-button>

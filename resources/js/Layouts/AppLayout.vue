@@ -274,13 +274,6 @@ const logout = () => {
                                 Profile
                             </ResponsiveNavLink>
 
-                            <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures"
-                                               :href="route('api-tokens.index')"
-                                               :active="route().current('api-tokens.index')">
-                                API Tokens
-                            </ResponsiveNavLink>
-
-                            <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
                                 <ResponsiveNavLink as="button">
                                     Log Out
@@ -293,16 +286,16 @@ const logout = () => {
 
             <!-- Page Heading -->
             <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex">
-                    <div>
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex">
+                    <div class="my-auto">
                         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                             {{ breadcrumbs[breadcrumbs.length -1].title }}
                         </h2>
 
-                        <div class="flex text-yellow-500 text-sm">
-                            <Link v-for="(breadcrumb, key) of breadcrumbs" :href="breadcrumb.href" class="flex flex-row mb-4 m-1">
-                                {{ breadcrumb.title }}
-                                <p v-if="key != breadcrumbs.length -1" :class="key != breadcrumbs.length && 'ml-1'"> > </p>
+                        <div class="flex text-primary-700 text-sm font-medium">
+                            <Link v-for="(breadcrumb, key) of breadcrumbs" :href="breadcrumb.href" class="flex flex-row m-1" :class="key == 0 && 'ml-0'">
+                                <label :class="key == breadcrumbs.length -1 && 'text-primary-900'">{{ breadcrumb.title }}</label>
+                                <p v-if="key != breadcrumbs.length -1" class="ml-2"> > </p>
                             </Link>
                         </div>
                     </div>
@@ -313,7 +306,6 @@ const logout = () => {
 
             <Banner/>
 
-            <!-- Page Content -->
             <main>
                 <slot/>
             </main>

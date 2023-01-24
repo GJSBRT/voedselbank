@@ -31,7 +31,7 @@ const confirmDelete = ref(null);
         <template #header>
 
 
-            <div class="ml-auto">
+            <div class="ml-auto my-auto">
                 <primary-button @click="() => Inertia.visit(route('customers.new'))">
                     Maak een klant aan
                 </primary-button>

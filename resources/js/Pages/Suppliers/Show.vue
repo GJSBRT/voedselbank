@@ -26,7 +26,7 @@ defineProps({
         <template #header>
 
 
-            <div class="ml-auto">
+            <div class="ml-auto my-auto">
                 <PrimaryButton @click="() => Inertia.visit(route('suppliers.new'))">
                     Nieuwe leverancier
                 </PrimaryButton>

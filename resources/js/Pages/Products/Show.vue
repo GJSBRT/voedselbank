@@ -35,7 +35,7 @@ defineProps({
 
         <template #header>
 
-            <div class="ml-auto">
+            <div class="ml-auto my-auto">
                 <PrimaryButton class="flex text-white p-2 rounded" @click="Inertia.visit(route('products.new'))">Toevoegen</PrimaryButton>
             </div>
         </template>
