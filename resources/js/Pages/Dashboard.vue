@@ -23,8 +23,6 @@ const { products, packageCount } = toRefs(props)
             href: route('dashboard'),
         }
     ]">
-        
-
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <h2 class="text-xl text-center" v-if="!hasPermission('suppliers:read') && !hasPermission('deliveries:read') && !hasPermission('food-packages:read') && !hasPermission('products:read')">
