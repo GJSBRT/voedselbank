@@ -93,7 +93,7 @@ const deleteUser = () => {
             href: route('users.index'),
         },
         {
-            title: 'Medewerkers Bewerken',
+            title: 'Medewerkers bewerken',
             href: '#',
         }
     ]">

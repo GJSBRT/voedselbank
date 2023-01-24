@@ -60,7 +60,7 @@ function destroy(id) {
             href: route('deliveries.index'),
         },
         {
-            title: `Leveringen #${delivery.id} Bewerken`,
+            title: `Leveringen #${delivery.id} bewerken`,
             href: '#',
         }
     ]">

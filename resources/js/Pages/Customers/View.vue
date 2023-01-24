@@ -73,7 +73,7 @@ const confirmDelete = () => {
             href: route('customers.index'),
         },
         {
-            title: 'Klanten Bewerken',
+            title: 'Klanten bewerken',
             href: '#',
         }
     ]">

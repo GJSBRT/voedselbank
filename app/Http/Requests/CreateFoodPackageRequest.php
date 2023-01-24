@@ -24,7 +24,6 @@ class CreateFoodPackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'notes' => 'string',
             'customer' => 'required',
             'products' => 'required',
         ];
@@ -33,7 +32,6 @@ class CreateFoodPackageRequest extends FormRequest
     public function messages()
     {
         return [
-            'notes.string' => 'Er is blijkbaar iets mis gegaan met uw notitie',
             'customer.required' => 'Een klant vermelden is verplicht',
             'products.required' => 'Een product toevoegen is verplicht'
         ];

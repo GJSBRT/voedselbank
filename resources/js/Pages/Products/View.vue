@@ -50,7 +50,7 @@ const confirmingDelete = ref(false);
             href: route('products.index'),
         },
         {
-            title: 'Producten Bewerken',
+            title: 'Producten bewerken',
             href: '#',
         }
     ]" >

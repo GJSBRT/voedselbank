@@ -42,7 +42,7 @@ const AddProduct = () => {
             href: route('products.index'),
         },
         {
-            title: 'Producten Toevoegen',
+            title: 'Producten toevoegen',
             href: '#',
         }
     ]" >

@@ -45,7 +45,7 @@ const handleSubmit = () => {
             href: route('customers.index'),
         },
         {
-            title: 'Klanten Toevoegen',
+            title: 'Klanten toevoegen',
             href: '#',
         }
     ]">
