@@ -27,6 +27,10 @@ const { products, packageCount } = toRefs(props)
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <h2 class="text-xl text-center" v-if="!hasPermission('suppliers:read') && !hasPermission('deliveries:read') && !hasPermission('food-packages:read') && !hasPermission('products:read')">
+                    Er is helaas niks te laten zien.
+                </h2>
+
                 <div class="grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 auto-cols-auto grid-flow-col gap-4 mb-4">
                     <Statistic v-if="hasPermission('suppliers:read')" title="Leveranciers Beschikbaar" :value="statistics.suppliers" />
                     <Statistic v-if="hasPermission('deliveries:read')" title="Aankomende Leveringen" :value="statistics.undeliveredDeliveries" />

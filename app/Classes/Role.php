@@ -41,6 +41,10 @@ class Role {
         'categories:create',
         'categories:update',
         'categories:delete',
+        'products:read',
+        'products:create',
+        'products:update',
+        'products:delete',
         ];
 
     /**
