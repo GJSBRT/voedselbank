@@ -19,8 +19,8 @@ const form = useForm({
     _method: 'POST',
     name: '',
     ean_number: '',
-    product_category_id: 0,
-    quantity: 0
+    product_category_id: null,
+    quantity: null
 });
 
 const AddProduct = () => {
@@ -84,6 +84,7 @@ const AddProduct = () => {
                                         {{ product_category.name }}
                                     </option>
                                 </select>
+                                <InputError :message="form.errors.product_category_id" class="mt-2" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-4">

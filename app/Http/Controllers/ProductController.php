@@ -67,7 +67,10 @@ class ProductController extends Controller
     public function new(Request $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:create');
-        if ($permission) { return $permission; }
+        if ($permission) 
+        { 
+            return $permission; 
+        }
 
         $productCategories = ProductCategory::all();
 
@@ -87,7 +90,10 @@ class ProductController extends Controller
     public function create(CreateProductRequest $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:create');
-        if ($permission) { return $permission; }
+        if ($permission) 
+        { 
+            return $permission; 
+        }
 
         Product::create([
             'name' => $request->input('name'),
@@ -112,7 +118,10 @@ class ProductController extends Controller
     public function view(Request $request, int $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
-        if ($permission) { return $permission; }
+        if ($permission) 
+        { 
+            return $permission; 
+        }
 
         $products = Product::all()->find($productId);
         $productCategories = ProductCategory::all();
@@ -137,7 +146,10 @@ class ProductController extends Controller
     public function update(EditProductRequest $request, int $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:update');
-        if ($permission) { return $permission; }
+        if ($permission) 
+        { 
+            return $permission; 
+        }
 
         $products = Product::where('id', $productId)->firstOrFail();
         $products->name = $request->input('name');
@@ -164,13 +176,18 @@ class ProductController extends Controller
     public function delete(Request $request, int $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:delete');
-        if ($permission) { return $permission; }
+        if ($permission) 
+        { 
+            return $permission; 
+        }
 
         $product = Product::find($productId);
 
-        try {
+        try 
+        {
             $product->delete();
-        } catch (\Exception $error) {
+        } catch (\Exception $error) 
+        {
             return redirect()->route('products.index')->dangerBanner('Product kan niet verwijderd worden, Dit product is verwerkt in een voedselpakket');
         }
 
