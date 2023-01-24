@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Role;
 use App\Http\Requests\RegisterCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
@@ -13,8 +14,11 @@ use Spatie\Searchable\Search;
 class CustomerController extends Controller
 {
     //Get a full list of all customers
-    public function index()
+    public function index(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:read');
+        if ($permission) { return $permission; }
+
         $customers = Customer::where('first_name', '!=', 'deleted')->paginate();
         return Inertia::render("Customers/Show", [
             'customers' => $customers,
@@ -22,8 +26,11 @@ class CustomerController extends Controller
     }
 
     //This function sends you straight to the register form for creating customers
-    public function new()
+    public function new(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:read');
+        if ($permission) { return $permission; }
+
         return Inertia::render("Customers/New");
 
     }
@@ -31,6 +38,9 @@ class CustomerController extends Controller
     //This function let's you create a customer
     public function create(RegisterCustomerRequest $request)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:create');
+        if ($permission) { return $permission; }
+
         $customer = Customer::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -47,8 +57,11 @@ class CustomerController extends Controller
 
     }
 
-    public function delete(int $customerId)
+    public function delete(int $customerId, Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:delete');
+        if ($permission) { return $permission; }
+
         //search the customer you want to delete
         $customer = Customer::all()->find($customerId);
         $customer->update([
@@ -59,8 +72,11 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->banner('Klant is succesvol verwijderd');
     }
 
-    public function view(int $customerId)
+    public function view(int $customerId, Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:update');
+        if ($permission) { return $permission; }
+
         $customer = Customer::all()->find($customerId);
 
         return Inertia::render('Customers/View', [
@@ -71,6 +87,9 @@ class CustomerController extends Controller
     //Update customers in the same form as the register function
     public function update(UpdateCustomerRequest $request, int $customerId)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:update');
+        if ($permission) { return $permission; }
+
         //Updates every column of costumer
         $customer = Customer::where('id', $customerId,)->firstOrFail();
         $input = $request->all();

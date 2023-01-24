@@ -12,8 +12,11 @@ use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'categories:create');
+        if ($permission) { return $permission; }
+
         $category = ProductCategory::where('name', '!=', 'deleted')->paginate();
         return Inertia::render("ProductCategory/Show", [
             'category' => $category,
