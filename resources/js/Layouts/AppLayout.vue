@@ -100,7 +100,7 @@ const logout = () => {
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            Beheer Account
                                         </div>
 
                                         <DropdownLink :href="route('profile.show')">

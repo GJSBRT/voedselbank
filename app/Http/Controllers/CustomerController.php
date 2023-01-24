@@ -125,6 +125,7 @@ class CustomerController extends Controller
         return response()->json($results);
     }
 
+    // Returns a PDF of the user data
     public function export(Request $request, $customerId)
     {
         $permission = Role::checkPermission($request->user(), 'customers:read');
