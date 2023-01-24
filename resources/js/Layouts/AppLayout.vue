@@ -294,7 +294,7 @@ const logout = () => {
 
                         <div class="flex text-primary-700 text-sm font-medium">
                             <Link v-for="(breadcrumb, key) of breadcrumbs" :href="breadcrumb.href" class="flex flex-row m-1" :class="key == 0 && 'ml-0'">
-                                <label :class="key == breadcrumbs.length -1 && 'text-primary-900'">{{ breadcrumb.title }}</label>
+                                <label :class="key == breadcrumbs.length -1 && 'text-primary-900'" class="cursor-pointer">{{ breadcrumb.title }}</label>
                                 <p v-if="key != breadcrumbs.length -1" class="ml-2"> > </p>
                             </Link>
                         </div>
