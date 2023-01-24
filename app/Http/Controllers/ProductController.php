@@ -76,6 +76,7 @@ class ProductController extends Controller
         $permission = Role::checkPermission($request->user(), 'products:read');
         if ($permission) { return $permission; }
 
+        // Try to get the product, else gives a 404 back instead of a 500 error.
         $products = Product::where('id', $productId)->firstOrFail();
         $productCategories = ProductCategory::all();
 
@@ -91,6 +92,7 @@ class ProductController extends Controller
         $permission = Role::checkPermission($request->user(), 'products:update');
         if ($permission) { return $permission; }
 
+        // Try to get the product, else gives a 404 back instead of a 500 error.
         $products = Product::where('id', $productId)->firstOrFail();
         $products->name = $request->input('name');
         $products->ean_number = $request->input('ean_number');
@@ -108,6 +110,7 @@ class ProductController extends Controller
         $permission = Role::checkPermission($request->user(), 'products:delete');
         if ($permission) { return $permission; }
 
+        // Try to get the product, else gives a 404 back instead of a 500 error.
         $product = Product::where('id', $productId)->firstOrFail();
 
         try {

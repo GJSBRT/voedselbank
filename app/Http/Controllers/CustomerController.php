@@ -95,6 +95,7 @@ class CustomerController extends Controller
         $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
+        // Try to get the customer, else gives a 404 back instead of a 500 error.
         $customer = Customer::where('id', $customerId)->firstOrFail();
 
         return Inertia::render('Customers/View', [
@@ -108,8 +109,10 @@ class CustomerController extends Controller
         $permission = Role::checkPermission($request->user(), 'customers:update');
         if ($permission) { return $permission; }
 
-        //Updates every column of costumer
+        // Try to get the customer, else gives a 404 back instead of a 500 error.
         $customer = Customer::where('id', $customerId,)->firstOrFail();
+
+        // Updates the customer
         $input = $request->all();
         $customer->fill($input)->save();
 
@@ -131,6 +134,7 @@ class CustomerController extends Controller
         $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
+        // Try to get the customer, else gives a 404 back instead of a 500 error.
         $customer = Customer::where('id', $customerId)->firstOrFail();
 
         $pdf = app('dompdf.wrapper');

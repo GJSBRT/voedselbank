@@ -43,6 +43,7 @@ class FoodPackageController extends Controller
         $permission = Role::checkPermission($request->user(), 'food-packages:read');
         if ($permission) { return $permission; }
 
+        // Try to get the food-package, else gives a 404 back instead of a 500 error.
         $foodPackage = FoodPackage::with(['customer'])->where('id', $foodPackageId)->firstOrFail();
         $packageItems = FoodPackageItem::where('food_package_id', $foodPackageId)->get();
 
@@ -92,7 +93,9 @@ class FoodPackageController extends Controller
         $permission = Role::checkPermission($request->user(), 'food-packages:update');
         if ($permission) { return $permission; }
 
+        // Try to get the food-package, else gives a 404 back instead of a 500 error.
         $foodPackage = FoodPackage::where('id', $foodPackageId)->firstOrFail();
+
         $notes = $request->input('notes') ?? null;
         $customer = $request->input('customer') ?? null;
         $items = $request->input('products') ?? null;

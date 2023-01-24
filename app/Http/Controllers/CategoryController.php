@@ -49,9 +49,7 @@ class CategoryController extends Controller
         $permission = Role::checkPermission($request->user(), 'categories:update');
         if ($permission) { return $permission; }
 
-        // Try to get the category, else gives a 404 back.
-        $category = ProductCategory::where('id', $categoryId)->firstOrFail();
-
+        // Try to get the category, else gives a 404 back instead of a 500 error.
         $category = ProductCategory::where('id', $categoryId,)->firstOrFail();
 
         return Inertia::render('ProductCategory/View', [
@@ -64,6 +62,7 @@ class CategoryController extends Controller
         $permission = Role::checkPermission($request->user(), 'categories:update');
         if ($permission) { return $permission; }
 
+        // Try to get the category, else gives a 404 back instead of a 500 error.
         $category = ProductCategory::where('id', $categoryId)->firstOrFail();
         $name = $request->all();
         $category->fill($name)->save();

@@ -36,8 +36,11 @@ class RoleController extends Controller
         $permission = ClassRole::checkPermission($request->user(), 'roles:read');
         if ($permission) { return $permission; }
 
+        // Try to get the role, else gives a 404 back instead of a 500 error.
+        $role = Role::where('id', $roleId)->firstOrFail();
+
         return Inertia::render('Roles/View', [
-            'role' => Role::where('id', $roleId)->firstOrFail(),
+            'role' => $role,
             'available_permissions' => ClassRole::$permissions,
         ]);
     }
@@ -63,7 +66,9 @@ class RoleController extends Controller
         $permission = ClassRole::checkPermission($request->user(), 'roles:update');
         if ($permission) { return $permission; }
 
+        // Try to get the role, else gives a 404 back instead of a 500 error.
         $role = Role::where('id', $roleId)->firstOrFail();
+
         $role->name = $request->input('name');
         $role->permissions = $request->input('permissions');
         $role->save();

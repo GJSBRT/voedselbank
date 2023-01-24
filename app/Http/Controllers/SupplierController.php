@@ -74,7 +74,9 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:read');
         if ($permission) { return $permission; }
 
+        // Try to get the supplier, else gives a 404 back instead of a 500 error.
         $supplier = Supplier::with('deliveries')->where('id', $id)->firstOrFail();
+
         $deliveries = $supplier->deliveries()
             ->orderBy('expected_at', 'desc')
             ->paginate(5);
@@ -90,6 +92,7 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:update');
         if ($permission) { return $permission; }
 
+        // Try to get the supplier, else gives a 404 back instead of a 500 error.
         $supplier = Supplier::where('id', $id)->firstOrFail();
 
         $input = $request->all();
@@ -103,7 +106,9 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:delete');
         if ($permission) { return $permission; }
 
+        // Try to get the supplier, else gives a 404 back instead of a 500 error.
         $supplier = Supplier::where('id', $id)->firstOrFail();
+
         $company_name = $supplier->company_name;
         $supplier->delete();
 

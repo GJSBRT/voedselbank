@@ -55,6 +55,7 @@ class UserController extends Controller
         $permission = Role::checkPermission($request->user(), 'users:read');
         if ($permission) { return $permission; }
 
+        // Try to get the user, else gives a 404 back instead of a 500 error.
         $user = User::with('role')->where('id', $userId)->firstOrFail();
 
         return Inertia::render('Users/View', [
@@ -91,7 +92,9 @@ class UserController extends Controller
         $permission = Role::checkPermission($request->user(), 'users:update');
         if ($permission) { return $permission; }
 
+        // Try to get the user, else gives a 404 back instead of a 500 error.
         $user = User::where('id', $userId)->firstOrFail();
+
         $twoFactorEnabled = $request->input('two_factor_enabled') ?? null;
         $suspended = $request->input('suspended')? Carbon::now() : null;
         $user->suspended_at = $suspended;
@@ -118,6 +121,7 @@ class UserController extends Controller
         $permission = Role::checkPermission($request->user(), 'users:delete');
         if ($permission) { return $permission; }
 
+        // Try to get the user, else gives a 404 back instead of a 500 error.
         $user = User::where('id', $userId)->firstOrFail();
         $user->delete();
 
@@ -128,6 +132,7 @@ class UserController extends Controller
         $permission = Role::checkPermission($request->user(), 'users:update');
         if ($permission) { return $permission; }
 
+        // Try to get the user, else gives a 404 back instead of a 500 error.
         $user = User::where('id', $userId)->firstOrFail();
 
         if ($request->get('suspended')){
