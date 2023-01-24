@@ -14,7 +14,7 @@ class FoodPackage extends Model
     protected $fillable = [
         'customer_id',
         'notes',
-        'retrieved_at',
+        'retrieved_at'
     ];
 
     public function customer()
