@@ -32,19 +32,12 @@ class ProductController extends Controller
             return $permission; 
         }
 
-
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) 
         {
             $query->where(function ($query) use ($value) 
             {
                 Collection::wrap($value)->each(function ($value) use ($query) 
                 {
-
-        // Return the products depending on the queries.
-        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
-            $query->where(function ($query) use ($value) {
-                Collection::wrap($value)->each(function ($value) use ($query) {
-                
                     $query
                         ->orWhere('name', 'LIKE', "%{$value}%")
                         ->orWhere('ean_number', 'LIKE', "%{$value}%");
