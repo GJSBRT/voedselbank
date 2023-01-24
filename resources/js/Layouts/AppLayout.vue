@@ -40,7 +40,7 @@ const logout = () => {
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink v-if="hasPermission('dashboard:read')" :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
 
@@ -190,10 +190,6 @@ const logout = () => {
 
                         <ResponsiveNavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                             Rollen
-                        </ResponsiveNavLink>
-
-                        <ResponsiveNavLink :href="route('quantity-products.index')" :active="route().current('quantity-products.index')">
-                            Voorraad Producten
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink :href="route('products.index')" :active="route().current('products.index')">

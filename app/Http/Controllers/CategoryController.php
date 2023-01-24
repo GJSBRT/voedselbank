@@ -35,7 +35,7 @@ class CategoryController extends Controller
         $permission = Role::checkPermission($request->user(), 'categories:create');
         if ($permission) { return $permission; }
 
-        $category = ProductCategory::create([
+        ProductCategory::create([
             'name' => $request->input('name')
         ]);
 

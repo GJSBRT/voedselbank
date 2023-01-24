@@ -57,22 +57,6 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:create');
         if ($permission) { return $permission; }
 
-        $request->validate([
-            'company_name' => 'required',
-            'address' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required|max:13',
-            'contact_name' => 'required',
-        ], [
-            'company_name.required' => 'De bedrijfsnaam is een verplicht veld.',
-            'address.required' => 'Het adres is een verplicht veld.',
-            'email.required' => 'Het e-mailadres is een verplicht veld.',
-            'email.email' => 'Vul een geldig e-mailadres in.',
-            'phone_number.required' => 'Het telefoonnummer is een verplicht veld.',
-            'phone_number.max' => 'Vul een geldig telefoonnummer in.',
-            'contact_name.required' => 'Het contactpersoon is een verplicht veld.',
-        ]);
-
         $supplier = Supplier::create([
             'company_name' => $request->get('company_name'),
             'address' => $request->get('address'),
@@ -105,22 +89,6 @@ class SupplierController extends Controller
     {
         $permission = Role::checkPermission($request->user(), 'suppliers:update');
         if ($permission) { return $permission; }
-
-        $request->validate([
-            'company_name' => 'required',
-            'address' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required|max:13',
-            'contact_name' => 'required',
-        ], [
-            'company_name.required' => 'De bedrijfsnaam is een verplicht veld.',
-            'address.required' => 'Het adres is een verplicht veld.',
-            'email.required' => 'Het e-mailadres is een verplicht veld.',
-            'email.email' => 'Vul een geldig e-mailadres in.',
-            'phone_number.required' => 'Het telefoonnummer is een verplicht veld.',
-            'phone_number.max' => 'Vul een geldig telefoonnummer in.',
-            'contact_name.required' => 'Het contactpersoon is een verplicht veld.',
-        ]);
 
         $supplier = Supplier::find($id);
 

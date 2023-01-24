@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\Role;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -85,18 +86,10 @@ class UserController extends Controller
         return redirect()->route('users.index')->banner("{$firstName} is successvol toegevoeged als medewerker!");
     }
 
-    public function update(Request $request, int $userId)
+    public function update(UpdateUserRequest $request, int $userId)
     {
         $permission = Role::checkPermission($request->user(), 'users:update');
         if ($permission) { return $permission; }
-
-        $request->validate([
-            'user.first_name' => 'required|string|max:100',
-            'user.last_name' => 'required|string|max:100',
-            'user.email' => 'required|email|max:100',
-            'user.password' => 'required|string|max:100',
-            'user.role_id' => 'required|int',
-        ]);
 
         $user = User::find($userId);
         $newUser = $request->input('user') ?? null;

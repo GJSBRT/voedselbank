@@ -95,7 +95,7 @@ class CustomerController extends Controller
         $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
-        $customer = Customer::all()->find($customerId);
+        $customer = Customer::find($customerId);
 
         return Inertia::render('Customers/View', [
             'customer' => $customer

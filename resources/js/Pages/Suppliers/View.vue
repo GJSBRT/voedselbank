@@ -123,12 +123,12 @@ function destroy(id) {
 
                         <template #actions>
                             <div class="col-span-6 sm:col-span-4 w-full">
-                                <PrimaryButton v-if="hasPermission('suppliers:update')" class="mr-4" @click="handleSubmit">
-                                    Gegevens wijzigen
-                                </PrimaryButton>
-                                <DangerButton v-if="hasPermission('suppliers:delete')" @click="confirmSupplierDeletion">
+                                <DangerButton v-if="hasPermission('suppliers:delete')" class="mr-4" @click="confirmSupplierDeletion">
                                     Leverancier verwijderen
                                 </DangerButton>
+                                <PrimaryButton v-if="hasPermission('suppliers:update')" @click="handleSubmit">
+                                    Gegevens wijzigen
+                                </PrimaryButton>
                             </div>
                         </template>
                     </FormSection>

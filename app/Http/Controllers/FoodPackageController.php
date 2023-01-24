@@ -68,11 +68,6 @@ class FoodPackageController extends Controller
         $customer = $request->input('customer');
         $products = $request->input('products');
 
-        $request->validate([
-            'customer' => 'required',
-            'products' => 'required',
-        ]);
-
         $foodPackage = FoodPackage::create([
             'customer_id' => $customer['id'],
             'notes' => $notes,
