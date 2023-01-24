@@ -32,7 +32,7 @@ class UserController extends Controller
         });
 
         $users = QueryBuilder::for(User::class)
-            ->allowedSorts(['first_name', 'email'])
+            ->allowedSorts(['created_at'])
             ->allowedFilters(['first_name', 'email', $globalSearch])
             ->paginate()
             ->withQueryString();
