@@ -49,11 +49,22 @@ function destroy(id) {
 </script>
 
 <template>
-    <AppLayout title="Supplier details">
+    <AppLayout title="Details van leveringen bewerken" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Leveringen overzicht',
+            href: route('deliveries.index'),
+        },
+        {
+            title: `Leveringen #${delivery.id} Bewerken`,
+            href: '#',
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Details van levering #{{delivery.id}}
-            </h2>
+
         </template>
 
         <div class="py-12">

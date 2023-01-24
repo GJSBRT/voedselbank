@@ -14,11 +14,18 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Voedsel Pakketten">
+    <AppLayout title="Mederwerkers Overzicht" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Medewerkers overzicht',
+            href: route('users.index'),
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Medewerker Beheer
-            </h2>
+
 
             <div class="ml-auto">
                 <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('users.new'))">

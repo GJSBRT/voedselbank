@@ -33,7 +33,21 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Customer Overview">
+
+     <AppLayout title="Klanten toevoegen" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Klant overzicht',
+            href: route('customers.index'),
+        },
+        {
+            title: 'Klanten Toevoegen',
+            href: '#',
+        }
+    ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Klant aanmaken

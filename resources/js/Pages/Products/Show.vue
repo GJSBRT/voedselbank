@@ -28,15 +28,13 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'Producten Overzicht',
+            title: 'Producten overzicht',
             href: route('products.index'),
         }
     ]" >
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Producten
-            </h2>
+
             <div class="ml-auto">
                 <PrimaryButton class="flex text-white p-2 rounded" @click="Inertia.visit(route('products.new'))">Toevoegen</PrimaryButton>
             </div>

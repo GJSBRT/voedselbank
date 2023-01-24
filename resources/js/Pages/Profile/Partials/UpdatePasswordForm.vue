@@ -71,6 +71,7 @@ const updatePassword = () => {
                     class="mt-1 block w-full"
                     autocomplete="new-password"
                 />
+                <Label class="text-sm text-gray-600">Het wachtwoord moet minimaal 10 tekens lang zijn en minimaal één hoofdletter, één cijfer en één speciaal teken bevatten.</Label>
                 <InputError :message="form.errors.password" class="mt-2" />
             </div>
 
@@ -83,6 +84,7 @@ const updatePassword = () => {
                     class="mt-1 block w-full"
                     autocomplete="new-password"
                 />
+                <Label class="text-sm text-gray-600">Het wachtwoord moet minimaal 10 tekens lang zijn en minimaal één hoofdletter, één cijfer en één speciaal teken bevatten.</Label>
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
             </div>
         </template>
