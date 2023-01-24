@@ -27,7 +27,6 @@ class UpdateUserRequest extends FormRequest
             'first_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
             'email' => 'required|email|max:100',
-            'password' => 'required|string|max:100',
             'role_id' => 'required|int',
         ];
     }
@@ -44,9 +43,6 @@ class UpdateUserRequest extends FormRequest
             'email.required' => 'De voornaam is een verplicht veld.',
             'email.email' => 'Vul een geldig e-mailadres in.',
             'email.max:100' => 'De email mag maximaal 100 karakters zijn.',
-            'password.required' => 'Het wachtwoord is een verplicht veld.',
-            'password.string' => 'Het wachtwoord mag maximaal 100 karakters zijn.',
-            'password.max:100' => 'Het wachtwoord mag maximaal 100 karakters zijn.',
             'role_id.required' => 'Vul een rol in.',
             'role_id.int' => 'Er is iets mis gegaan met het selecteren van de rol.',
         ];

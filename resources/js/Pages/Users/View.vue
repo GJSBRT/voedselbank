@@ -29,7 +29,6 @@ const form = useForm({
     first_name: user.value.first_name,
     last_name: user.value.last_name,
     email: user.value.email,
-    password: user.value.password,
     role_id: user.value.role_id,
     two_factor_enabled: two_factor_enabled.value,
     suspended: suspended.value

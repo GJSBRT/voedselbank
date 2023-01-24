@@ -92,14 +92,9 @@ class UserController extends Controller
         if ($permission) { return $permission; }
 
         $user = User::where('id', $userId)->firstOrFail();
-        $newUser = $request->input('user') ?? null;
         $twoFactorEnabled = $request->input('two_factor_enabled') ?? null;
         $suspended = $request->input('suspended')? Carbon::now() : null;
         $user->suspended_at = $suspended;
-
-        if ($newUser) {
-            $user->update($newUser);
-        }
 
         if ($twoFactorEnabled != ($user->two_factor_confirmed_at ? true : false)) {
             if (!$twoFactorEnabled) {
@@ -109,6 +104,11 @@ class UserController extends Controller
                 $user->save();
             }
         }
+
+        $input = $request->all();
+
+        $request->input();
+        $user->fill($input)->save();
 
         return redirect()->route('users.index')->banner('Mederwerker is successvol aangepast!');
     }
