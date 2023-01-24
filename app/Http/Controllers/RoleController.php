@@ -75,6 +75,23 @@ class RoleController extends Controller
 
         return redirect()->route('roles.index')->banner("De rol {$role->name} is successvol aangepast!");
     }
+    
+    public function delete(Request $request, $roleId)
+    {
+        $permission = ClassRole::checkPermission($request->user(), 'roles:delete');
+        if ($permission) { return $permission; }
+        // Try to get the role, else gives a 404 back instead of a 500 error.
+        $role = Role::where('id', $roleId)->with('users')->firstOrFail();
+
+        
+        if (count($role->users) > 0) {
+            return redirect()->route('roles.index')->dangerBanner("De rol {$role->name} kan niet verwijdered worden omdat er nog gebruikers aan gekoppeld zijn!");
+        }
+
+        $role->delete();
+
+        return redirect()->route('roles.index')->banner("De rol {$role->name} is successvol verwijdered!");
+    }
 
     public function search(Request $request)
     {
