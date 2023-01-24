@@ -92,7 +92,7 @@ const confirmingDelete = ref(false);
                                         {{ product_category.name }}
                                     </option>
                                 </select>
-                                <InputError :message="form.errors.product_category_id" for="product_category_id" value="Categorie"/>
+                                <InputError :message="form.errors.product_category_id" class="mt-2" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-4">
