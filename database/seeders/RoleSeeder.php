@@ -49,6 +49,8 @@ class RoleSeeder extends Seeder
                 'food-packages:create',
                 'food-packages:delete',
                 'food-packages:update',
+                'products:read',
+                'products:update',
             ]),
         ]);
     }

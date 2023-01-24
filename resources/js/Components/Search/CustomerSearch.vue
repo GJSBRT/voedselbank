@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input :id="id" type="text" placeholder="Zoeken" v-model="query" class="w-full border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 rounded-md shadow-sm">
+        <input :id="id" type="text" :placeholder="value" v-model="query" class="w-full border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 rounded-md shadow-sm">
         <ul :id="id + 'List'" v-if="results.length > 0 && query" class="border-gray-300 border rounded-md shadow-sm bg-white w-64 absolute">
             <li v-for="result in results.slice(0,10)" :key="result.id" @click="setCustomer(result)" class="border-bottom p-2 hover:bg-gray-100 cursor-pointer">
                 <div v-text="result.title"></div>
@@ -46,6 +46,11 @@ export default {
             type: String,
             default: '',
             required: true,
+        },
+        value: {
+            type: String,
+            default: 'Zoeken',
+            required: false,
         },
         callback: {
             required: true,

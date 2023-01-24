@@ -1,6 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3';
 import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { Inertia } from '@inertiajs/inertia';
 
 defineProps({
     policy: String,
@@ -18,6 +20,10 @@ defineProps({
                 </div>
 
                 <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose" v-html="policy" />
+
+                <PrimaryButton @click="() => Inertia.visit('/')" class="mt-4">
+                    Terug naar dashboard
+                </PrimaryButton>
             </div>
         </div>
     </div>
