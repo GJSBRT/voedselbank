@@ -6,6 +6,8 @@ use App\Classes\Role;
 use App\Http\Requests\RegisterCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
+use App\Models\FoodPackage;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
@@ -135,11 +137,18 @@ class CustomerController extends Controller
         if ($permission) { return $permission; }
 
         // Try to get the customer, else gives a 404 back instead of a 500 error.
-        $customer = Customer::where('id', $customerId)->firstOrFail();
+        $customer = Customer::where('id', $customerId)->with('foodPackages')->firstOrFail();
+        $foodPackages = FoodPackage::where('customer_id', $customerId)->with('items')->get();
+
+        foreach($foodPackages as $foodPackage) {
+            foreach($foodPackage->items as $item) {
+                $item->product = Product::where('id', $item->product_id)->first();
+            }
+        }
 
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->loadView('pdf/pdf', compact('customer'));
+        $pdf->loadView('pdf/pdf', compact('customer', 'foodPackages'));
         return $pdf->stream('account_gegevens_' . $customer->first_name . '_' . $customer->id . '.pdf');
     }
 }

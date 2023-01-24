@@ -87,6 +87,45 @@
             </tr>
         </table>
     </div>
+
+    <div class="data">
+        <br/>
+        <h2>Voedselpakketten</h2>
+        @foreach($foodPackages as $foodPackage)
+        <div>
+            <table>
+                <tr>
+                    <td>Pakket Nummer:</td>
+                    <td>#{{$foodPackage['id']}}</td>
+                </tr>
+                <tr>
+                    <td>Notities:</td>
+                    <td>{{$foodPackage['notes']}}</td>
+                </tr>
+            </table>
+            
+            <br/>
+            <br/>
+            
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>EAN Nummer</th>
+                </tr>
+                @foreach($foodPackage['items'] as $foodPackageItem)
+                    <tr>
+                        <td>{{$foodPackageItem['product']['name']}}</td>
+                        <td>{{$foodPackageItem['product']['ean_number']}}</td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+
+        <hr/>
+        <br/>
+        <br/>
+        @endforeach
+    </div>
 </div>
 </body>
 </html>
