@@ -48,20 +48,6 @@ const handleSubmit = () => {
             href: '#',
         }
     ]">
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
-        <FormSection>
-
-            <template #title>
-                Klant aanmaken
-            </template>
-
-            <template #description>
-                Maak een klant aan waar je voedselpakketten voor kan maken. Onthoud:
-                Er moet altijd één volwassen persoon aanwezig zijn.
-            </template>
-
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
                 <FormSection class="flex justify-center items-center">
