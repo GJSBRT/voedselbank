@@ -39,7 +39,7 @@ const handleSubmit = () => {
             href: route('deliveries.index'),
         },
         {
-            title: 'Leveringen Toevoegen',
+            title: 'Leveringen toevoegen',
             href: '#',
         }
     ]">

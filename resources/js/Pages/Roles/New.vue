@@ -39,7 +39,7 @@ const handleSubmit = () => {
             href: route('roles.index'),
         },
         {
-            title: 'Rollen Toevoegen',
+            title: 'Rollen toevoegen',
             href: '#',
         }
     ]">
@@ -65,7 +65,7 @@ const handleSubmit = () => {
                                 <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" />
                                 <InputError :message="form.errors.name" class="mt-2" />
                             </div>
-                            
+
                             <div v-if="available_permissions.length > 0" class="col-span-6">
                                 <InputLabel for="permissions" value="Permissions" />
 

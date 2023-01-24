@@ -37,7 +37,7 @@ const handleSubmit = () => {
             href: route('suppliers.index'),
         },
         {
-            title: 'leveranciers Toevoegen',
+            title: 'leveranciers toevoegen',
             href: '#',
         }
     ]">

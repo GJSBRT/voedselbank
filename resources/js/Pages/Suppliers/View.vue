@@ -63,7 +63,7 @@ function destroy(id) {
             href: route('suppliers.index'),
         },
         {
-            title: 'leveranciers Bewerken',
+            title: 'leveranciers bewerken',
             href: '#',
         }
     ]">

@@ -46,7 +46,7 @@ const setRole = (role) => {
             href: route('users.index'),
         },
         {
-            title: 'Medewerkers Toevoegen',
+            title: 'Medewerkers toevoegen',
             href: '#',
         }
     ]">
@@ -100,7 +100,7 @@ const setRole = (role) => {
                             <InputError :message="form.errors.password" class="mt-2"/>
                         </div>
                     </template>
-                    
+
                     <template #actions>
                         <PrimaryButton @click="handleSubmit">
                             Medewerker Toevoegen

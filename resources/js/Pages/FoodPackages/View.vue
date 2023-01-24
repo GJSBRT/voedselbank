@@ -95,7 +95,7 @@ async function onScan(scan) {
             href: route('food-packages.index'),
         },
         {
-            title: 'Voedselpakketten Wijzigen',
+            title: 'Voedselpakketten wijzigen',
             href: '#',
         }
     ]">
