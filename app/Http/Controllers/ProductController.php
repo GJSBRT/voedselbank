@@ -22,6 +22,7 @@ class ProductController extends Controller
         $permission = Role::checkPermission($request->user(), 'products:read');
         if ($permission) { return $permission; }
 
+        // Return the products depending on the queries.
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {

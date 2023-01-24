@@ -18,6 +18,7 @@ class FoodPackageController extends Controller
         $permission = Role::checkPermission($request->user(), 'food-packages:read');
         if ($permission) { return $permission; }
 
+        // Return the packages depending on the queries.
         $packages = QueryBuilder::for(FoodPackage::class)
             ->with(['customer', 'items'])
             ->allowedSorts(['created_at'])

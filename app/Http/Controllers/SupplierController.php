@@ -19,6 +19,7 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:read');
         if ($permission) { return $permission; }
 
+        // Return the suppliers depending on the queries.
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
