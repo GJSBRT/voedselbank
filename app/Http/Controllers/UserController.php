@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Role;
+use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -44,7 +45,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+
+    public function create(CreateUserRequest $request)
+
     {
         $permission = Role::checkPermission($request->user(), 'users:create');
         if ($permission) { return $permission; }
@@ -54,14 +57,6 @@ class UserController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         $role_id = $request->input('role_id');
-
-        $request->validate([
-            'first_name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
-            'email' => 'required|email|max:100',
-            'password' => 'required|string|max:100',
-            'role_id' => 'required|int',
-        ]);
 
         User::create([
             'first_name' => $firstName,
