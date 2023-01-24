@@ -38,22 +38,9 @@ const logout = () => {
                                 </Link>
                             </div>
 
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:flex sm:ml-4">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
-                                </NavLink>
-
-                                <NavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('suppliers.*')">
-                                    Leveranciers
-                                </NavLink>
-
-                                <NavLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')" :active="route().current('deliveries.*')">
-                                    Leveringen
-                                </NavLink>
-                                
-                                <NavLink :href="route('products.index')" :active="route().current('products.index')">
-                                    Products
                                 </NavLink>
 
                                 <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
@@ -63,20 +50,92 @@ const logout = () => {
                                 <NavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.*')">
                                     Voedsel Pakketten
                                 </NavLink>
+                            </div>
 
-                                <NavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.index')">
-                                    Categorieën
-                                </NavLink>
+                            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                                <Dropdown align="right" width="48" v-if="hasPermission('suppliers:read') || hasPermission('deliveries:read')">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                                Magazijn
 
-                                <NavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
-                                    Medewerkers
-                                </NavLink>
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                    width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </template>
 
-                                <NavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
-                                    Rollen
-                                </NavLink>
+                                    <template #content>
+                                        <DropdownLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')">
+                                            Leveranciers
+                                        </DropdownLink>
 
+                                        <div class="border-t border-gray-100"/>
 
+                                        <DropdownLink v-if="hasPermission('deliveries:read')" :href="route('deliveries.index')">
+                                            Leveringen
+                                        </DropdownLink>
+                                    </template>
+                                </Dropdown>
+
+                                <Dropdown align="right" width="48" v-if="hasPermission('products:read') || hasPermission('categories:read')">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                                Producten
+
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                    width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <DropdownLink v-if="hasPermission('products:read')" :href="route('products.index')">
+                                            Producten
+                                        </DropdownLink>
+
+                                        <div class="border-t border-gray-100"/>
+
+                                        <DropdownLink v-if="hasPermission('categories:read')" :href="route('categories.index')">
+                                            Categorieën
+                                        </DropdownLink>
+                                    </template>
+                                </Dropdown>
+
+                                <Dropdown align="right" width="48" v-if="hasPermission('users:read') || hasPermission('roles:read')">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                                Beheer
+
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                    width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <DropdownLink v-if="hasPermission('users:read')" :href="route('users.index')">
+                                            Medewerkers
+                                        </DropdownLink>
+
+                                        <div class="border-t border-gray-100"/>
+
+                                        <DropdownLink v-if="hasPermission('roles:read')" :href="route('roles.index')">
+                                            Rollen
+                                        </DropdownLink>
+                                    </template>
+                                </Dropdown>
                             </div>
                         </div>
 
@@ -109,14 +168,8 @@ const logout = () => {
                                             Account
                                         </DropdownLink>
 
-                                        <DropdownLink v-if="$page.props.jetstream.hasApiFeatures"
-                                                      :href="route('api-tokens.index')">
-                                            API Tokens
-                                        </DropdownLink>
-
                                         <div class="border-t border-gray-100"/>
 
-                                        <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <DropdownLink as="button">
                                                 Uitloggen
