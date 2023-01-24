@@ -7,18 +7,20 @@ import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import { hasPermission } from '@/utils';
 
 
 const props = defineProps({
     products: Object,
+    product_categories: Object,
 });
 
 const form = useForm({
     _method: 'POST',
     name: '',
     ean_number: '',
-    product_category_id: 0,
-    quantity: 0
+    product_category_id: null,
+    quantity: null
 });
 
 const AddProduct = () => {
@@ -75,10 +77,13 @@ const AddProduct = () => {
                                 <InputError :message="form.errors.ean_number" class="mt-2" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-4">
-                                <InputLabel for="product_category_id" value="Product Categorie" />
-                                <TextInput id="product_category_id" v-model="form.product_category_id" type="number"
-                                    class="mt-1 block w-full" />
+                            <div class="col-span-6 sm:col-span-4 w-full">
+                                <InputLabel for="product_category_id" value="Categorie"/>
+                                <select id="product_category_id" v-model="form.product_category_id" class="border-gray-300 focus:border-primary-300 focus:ring w-full sfocus:ring-primary-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                                    <option v-for="product_category in product_categories" :value="product_category.id">
+                                        {{ product_category.name }}
+                                    </option>
+                                </select>
                                 <InputError :message="form.errors.product_category_id" class="mt-2" />
                             </div>
 
