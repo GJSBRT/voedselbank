@@ -29,7 +29,7 @@ const form = useForm({
 });
 
 const EditProduct = () => {
-    form.post(route('product.update', products.value.id), {
+    form.post(route('products.update', products.value.id), {
         preserveScroll: true,
     });
 }
@@ -41,25 +41,23 @@ const confirmingDelete = ref(false);
 </script>
 
 <template>
-    <AppLayout title="Producten Overzicht" :breadcrumbs="[
+    <AppLayout title="Producten Bewerken" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),
         },
         {
-            title: 'Producten Overzicht',
-            href: route('product.index'),
+            title: 'Producten overzicht',
+            href: route('products.index'),
         },
         {
-            title: 'Producten Toevoegen',
+            title: 'Producten Bewerken',
             href: '#',
         }
     ]" >
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Details van het product {{ products.name }}
-            </h2>
+
         </template>
 
         <div class="py-12">
@@ -132,7 +130,7 @@ const confirmingDelete = ref(false);
                 </SecondaryButton>
                 <!-- Is de variabel null? dan laat je niks zien, Is de variabel niet null dan laat je wel wat zien -->
                 <DangerButton class="ml-2"
-                    @click.native="Inertia.delete(route('product.delete', products.id)); confirmingDelete = false">
+                    @click.native="Inertia.delete(route('products.delete', products.id)); confirmingDelete = false">
                     Verwijder Product
                 </DangerButton>
             </template>

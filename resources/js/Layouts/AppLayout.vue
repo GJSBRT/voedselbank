@@ -52,8 +52,12 @@ const logout = () => {
                                     Leveringen
                                 </NavLink>
 
-                                <NavLink :href="route('product.index')" :active="route().current('product.*')">
-                                    Products
+                                <NavLink :href="route('products.index')" :active="route().current('products.*')">
+                                    Producten
+                                </NavLink>
+
+                                <NavLink v-if="hasPermission('quantity-products.index')" :href="route('quantity-products.index')" :active="route().current('quantity-products.*')">
+                                    Voorraad
                                 </NavLink>
 
                                 <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
@@ -62,6 +66,10 @@ const logout = () => {
 
                                 <NavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.*')">
                                     Voedsel Pakketten
+                                </NavLink>
+
+                                <NavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.*')">
+                                    Categorieën
                                 </NavLink>
 
                                 <NavLink v-if="hasPermission('users:read')" :href="route('users.index')" :active="route().current('users.*')">
@@ -164,6 +172,10 @@ const logout = () => {
                             Voedselpakketten
                         </ResponsiveNavLink>
 
+                        <ResponsiveNavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.index')">
+                            Categorieën
+                        </ResponsiveNavLink>
+
                         <ResponsiveNavLink v-if="hasPermission('suppliers:read')" :href="route('suppliers.index')" :active="route().current('supplier.*')">
                             Leveranciers
                         </ResponsiveNavLink>
@@ -188,7 +200,7 @@ const logout = () => {
                             Voorraad Producten
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('product.index')" :active="route().current('product.index')">
+                        <ResponsiveNavLink :href="route('products.index')" :active="route().current('products.index')">
                             Producten
                         </ResponsiveNavLink>
                     </div>
@@ -229,13 +241,23 @@ const logout = () => {
             </nav>
 
             <!-- Page Heading -->
-            <header v-if="$slots.header" class="bg-white shadow">
+            <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex">
+                    <div>
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                            {{ breadcrumbs[breadcrumbs.length -1].title }}
+                        </h2>
+
+                        <div class="flex text-yellow-500 text-sm">
+                            <Link v-for="(breadcrumb, key) of breadcrumbs" :href="breadcrumb.href" class="flex flex-row mb-4 m-1">
+                                {{ breadcrumb.title }}
+                                <p v-if="key != breadcrumbs.length -1" :class="key != breadcrumbs.length && 'ml-1'"> > </p>
+                            </Link>
+                        </div>
+                    </div>
                     <slot name="header"/>
                 </div>
-                <div class="flex flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-yellow-500 text-sm">
-                    <Link v-for="breadcrumb in breadcrumbs" :href="breadcrumb.href" class="flex flex-row m-1">{{ breadcrumb.title }} > </Link>
-                </div>
+
             </header>
 
             <Banner/>

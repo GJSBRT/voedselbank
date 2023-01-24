@@ -28,24 +28,22 @@ defineProps({
             href: route('dashboard'),
         },
         {
-            title: 'Producten Overzicht',
-            href: route('product.index'),
+            title: 'Producten overzicht',
+            href: route('products.index'),
         }
     ]" >
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Producten
-            </h2>
+
             <div class="ml-auto">
-                <PrimaryButton class="flex text-white p-2 rounded" @click="Inertia.visit(route('product.add'))">Toevoegen</PrimaryButton>
+                <PrimaryButton class="flex text-white p-2 rounded" @click="Inertia.visit(route('products.new'))">Toevoegen</PrimaryButton>
             </div>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <Table :headers="['ID', 'Naam', 'EAN nummer', 'Product Categorie', 'Voorraad']" >
-                    <tr @click="Inertia.visit(route('product.edit', productItem.id ))" class="hover:bg-gray-50 cursor-pointer" v-for="productItem in products.data" :key="products.id">
+                    <tr @click="Inertia.visit(route('products.view', productItem.id ))" class="hover:bg-gray-50 cursor-pointer" v-for="productItem in products.data" :key="products.id">
                         <TableData>{{ productItem.id }}</TableData>
                         <TableData>{{ productItem.name }}</TableData>
                         <TableData>{{ productItem.ean_number }}</TableData>
