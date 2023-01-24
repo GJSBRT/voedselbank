@@ -41,7 +41,7 @@ function sort(state){
                 <div class="mb-5 flex">
                     <Dropdown align="left" width="48">
                         <template #trigger>
-                            <span class="inline-flex rounded-md border shadow-sm">
+                            <span class="inline-flex rounded-md border border-gray-300 shadow-sm">
                                 <button type="button" class="inline-flex items-center w-44 px-4 py-3 my-auto border border-transparent leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
                                     Aangemaakt Op
                                     <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -61,7 +61,7 @@ function sort(state){
                         </template>
                     </Dropdown>
                     
-                    <TableSearch route="users.index" placeholder="Zoeken op voornaam of email" class="w-full ml-4" />
+                    <TableSearch route="users.index" placeholder="Zoeken op voornaam of email" class="w-full ml-4 my-auto" />
                 </div>
 
                 <Table :headers="['Naam', 'Email', '2FA Ingeschakeld Op', 'Geblokkeerd op', 'Aangemaakt Op']" >
