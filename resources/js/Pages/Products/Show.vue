@@ -32,37 +32,37 @@ function sort(state){
     ]" >
 
         <template #header>
-
-            <div class="ml-auto my-auto">
-                <PrimaryButton v-if="hasPermission('products:create')" class="flex text-white p-2 rounded" @click="Inertia.visit(route('products.new'))">Toevoegen</PrimaryButton>
-            </div>
+            <PrimaryButton v-if="hasPermission('products:create')" class="flex text-white p-2 rounded" @click="Inertia.visit(route('products.new'))">
+                Toevoegen
+            </PrimaryButton>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <TableSearch route="products.index" placeholder="Zoeken op naam of ean nummer" class="my-5" />
+                <div class="my-5 flex">
+                    <Dropdown align="left" width="48">
+                        <template #trigger>
+                            <span class="inline-flex rounded-md border shadow-sm">
+                                <button type="button" class="inline-flex items-center px-4 py-3 my-auto border border-transparent leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                    Voorraad
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                                </button>
+                            </span>
+                        </template>
 
-                <Dropdown class="my-5" align="left" width="48">
-                    <template #trigger>
-                        <span class="inline-flex rounded-md">
-                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
-                                Voorraad
-                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                </svg>
-                            </button>
-                        </span>
-                    </template>
+                        <template #content>
+                            <DropdownLink @click="sort(true)">
+                                Sorteer op de meeste
+                            </DropdownLink>
 
-                    <template #content>
-                        <DropdownLink @click="sort(true)">
-                            Sorteer op de meeste
-                        </DropdownLink>
+                            <DropdownLink @click="sort(false)">
+                                Sorteer op de minste
+                            </DropdownLink>
+                        </template>
+                    </Dropdown>
 
-                        <DropdownLink @click="sort(false)">
-                            Sorteer op de minste
-                        </DropdownLink>
-                    </template>
-                </Dropdown>
+                    <TableSearch route="products.index" placeholder="Zoeken op naam of ean nummer" class="ml-4 w-full" />
+                </div>
 
                 <Table :headers="['#', 'Naam', 'EAN nummer', 'Product Categorie', 'Voorraad']" >
                     <tr @click="Inertia.visit(route('products.view', productItem.id ))" class="hover:bg-gray-50 cursor-pointer" v-for="productItem in products.data" :key="products.id">

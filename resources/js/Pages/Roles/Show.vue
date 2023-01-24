@@ -25,13 +25,9 @@ defineProps({
         }
     ]">
         <template #header>
-
-
-            <div class="ml-auto my-auto">
-                <PrimaryButton v-if="hasPermission('roles:create')" @click="() => Inertia.visit(route('roles.new'))">
-                    Nieuwe Rol
-                </PrimaryButton>
-            </div>
+            <PrimaryButton v-if="hasPermission('roles:create')" @click="() => Inertia.visit(route('roles.new'))">
+                Nieuwe Rol
+            </PrimaryButton>
         </template>
 
         <div class="py-12">

@@ -19,6 +19,7 @@ const showingNavigationDropdown = ref(false);
 const logout = () => {
     Inertia.post(route('logout'));
 };
+
 </script>
 
 <template>
@@ -43,7 +44,7 @@ const logout = () => {
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
+                                <NavLink v-if="hasPermission('customers:read')" :href="route('customers.index')" :active="route().current('customers.*')">
                                     Klanten
                                 </NavLink>
 
@@ -282,7 +283,7 @@ const logout = () => {
 
             <!-- Page Heading -->
             <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex">
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row">
                     <div class="my-auto">
                         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                             {{ breadcrumbs[breadcrumbs.length -1].title }}
@@ -295,7 +296,10 @@ const logout = () => {
                             </Link>
                         </div>
                     </div>
-                    <slot name="header"/>
+
+                    <div class="mr-auto sm:ml-auto sm:mr-0 mt-4 sm:mt-auto sm:mb-auto w-fit">
+                        <slot name="header"/>
+                    </div>
                 </div>
 
             </header>
