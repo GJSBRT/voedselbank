@@ -107,6 +107,7 @@ class CustomerController extends Controller
     {
         $permission = Role::checkPermission($request->user(), 'customers:update');
         if ($permission) { return $permission; }
+
         //Updates every column of costumer
         $customer = Customer::where('id', $customerId,)->firstOrFail();
         $input = $request->all();
