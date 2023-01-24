@@ -19,6 +19,7 @@ const showingNavigationDropdown = ref(false);
 const logout = () => {
     Inertia.post(route('logout'));
 };
+
 </script>
 
 <template>
@@ -43,7 +44,7 @@ const logout = () => {
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
+                                <NavLink v-if="hasPermission('customers:read')" :href="route('customers.index')" :active="route().current('customers.*')">
                                     Klanten
                                 </NavLink>
 
