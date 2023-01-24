@@ -34,8 +34,7 @@ class CustomerController extends Controller
         });
 
         $customers = QueryBuilder::for(Customer::class)
-            ->allowedSorts(['first_name', 'last_name', 'phone_number'])
-            ->allowedFilters(['first_name', 'last_name', 'phone_number', $globalSearch])
+            ->allowedFilters([$globalSearch])
             ->where('first_name', '!=', 'deleted')
             ->paginate()
             ->withQueryString();
