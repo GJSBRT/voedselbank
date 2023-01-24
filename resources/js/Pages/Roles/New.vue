@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { toRefs } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import Checkbox from '@/Components/Checkbox.vue';
+import InputError from '@/Components/InputError.vue'
 
 const props = defineProps({
     available_permissions: Array,
@@ -62,6 +63,7 @@ const handleSubmit = () => {
                             <div class="col-span-6">
                                 <InputLabel for="name" value="Naam" />
                                 <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" />
+                                <InputError :message="form.errors.name" class="mt-2" />
                             </div>
                             
                             <div v-if="available_permissions.length > 0" class="col-span-6">
@@ -75,6 +77,8 @@ const handleSubmit = () => {
                                         </label>
                                     </div>
                                 </div>
+
+                                <InputError :message="form.errors.permissions" class="mt-2" />
                             </div>
                         </template>
 
