@@ -38,13 +38,9 @@ function setShowDelivered(){
         }
     ]">
         <template #header>
-
-
-            <div class="ml-auto my-auto">
-                <PrimaryButton v-if="hasPermission('deliveries:create')" @click="() => Inertia.visit(route('deliveries.new'))">
-                    Plan een nieuwe levering in
-                </PrimaryButton>
-            </div>
+            <PrimaryButton v-if="hasPermission('deliveries:create')" @click="() => Inertia.visit(route('deliveries.new'))">
+                Plan een nieuwe levering in
+            </PrimaryButton>
         </template>
 
         <div class="py-12">

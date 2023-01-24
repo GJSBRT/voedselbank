@@ -26,11 +26,9 @@ defineProps({
         }
     ]">
         <template #header>
-            <div class="ml-auto my-auto">
-                <primary-button v-if="hasPermission('customers:create')" @click="() => Inertia.visit(route('customers.new'))">
-                    Maak een klant aan
-                </primary-button>
-            </div>
+            <primary-button v-if="hasPermission('customers:create')" @click="() => Inertia.visit(route('customers.new'))">
+                Maak een klant aan
+            </primary-button>
         </template>
 
         <div class="py-12">

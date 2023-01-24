@@ -31,13 +31,9 @@ function sort(state){
         }
     ]">
         <template #header>
-
-
-            <div class="ml-auto my-auto">
-                <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('users.new'))">
-                    Nieuwe Medewerker
-                </PrimaryButton>
-            </div>
+            <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('users.new'))">
+                Nieuwe Medewerker
+            </PrimaryButton>
         </template>
 
         <div class="py-12">

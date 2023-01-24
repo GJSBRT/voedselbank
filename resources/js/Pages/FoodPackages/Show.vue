@@ -33,13 +33,9 @@ function sort(state){
     ]">
 
         <template #header>
-
-
-            <div class="ml-auto my-auto">
-                <PrimaryButton v-if="hasPermission('food-packages:create')" @click="() => Inertia.visit(route('food-packages.new'))">
-                    Nieuw Pakket
-                </PrimaryButton>
-            </div>
+            <PrimaryButton v-if="hasPermission('food-packages:create')" @click="() => Inertia.visit(route('food-packages.new'))">
+                Nieuw Pakket
+            </PrimaryButton>
         </template>
 
         <div class="py-12">

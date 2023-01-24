@@ -103,6 +103,7 @@ async function onScan(scan) {
                             <div class="col-span-6">
                                 <InputLabel for="customerId" value="Klant" />
                                 <CustomerSearch id="customerId" :callback="setCustomerId" class="my-auto" />
+                                <InputError :message="form.errors.customer" class="mt-2" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-4 w-full">
@@ -174,6 +175,7 @@ async function onScan(scan) {
                                         </div>
                                     </div>
 
+                                    <InputError :message="form.errors.products" class="mt-2" />
                                 </div>
                             </div>
                         </template>
