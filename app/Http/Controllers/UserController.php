@@ -50,12 +50,13 @@ class UserController extends Controller
         return Inertia::render('Users/New');
     }
 
-    public function view(Request $request, int $userId)
+    public function view(Request $request, $userId)
     {
         $permission = Role::checkPermission($request->user(), 'users:read');
         if ($permission) { return $permission; }
 
-        $user = User::with('role')->find($userId);
+        // Try to get the user, else gives a 404 back instead of a 500 error.
+        $user = User::with('role')->where('id', $userId)->firstOrFail();
 
         return Inertia::render('Users/View', [
             'user' => $user,
@@ -86,20 +87,17 @@ class UserController extends Controller
         return redirect()->route('users.index')->banner("{$firstName} is successvol toegevoeged als medewerker!");
     }
 
-    public function update(UpdateUserRequest $request, int $userId)
+    public function update(UpdateUserRequest $request, $userId)
     {
         $permission = Role::checkPermission($request->user(), 'users:update');
         if ($permission) { return $permission; }
 
-        $user = User::find($userId);
-        $newUser = $request->input('user') ?? null;
+        // Try to get the user, else gives a 404 back instead of a 500 error.
+        $user = User::where('id', $userId)->firstOrFail();
+
         $twoFactorEnabled = $request->input('two_factor_enabled') ?? null;
         $suspended = $request->input('suspended')? Carbon::now() : null;
         $user->suspended_at = $suspended;
-
-        if ($newUser) {
-            $user->update($newUser);
-        }
 
         if ($twoFactorEnabled != ($user->two_factor_confirmed_at ? true : false)) {
             if (!$twoFactorEnabled) {
@@ -110,15 +108,21 @@ class UserController extends Controller
             }
         }
 
+        $input = $request->all();
+
+        $request->input();
+        $user->fill($input)->save();
+
         return redirect()->route('users.index')->banner('Mederwerker is successvol aangepast!');
     }
 
-    public function delete(Request $request, int $userId)
+    public function delete(Request $request, $userId)
     {
         $permission = Role::checkPermission($request->user(), 'users:delete');
         if ($permission) { return $permission; }
 
-        $user = User::find($userId);
+        // Try to get the user, else gives a 404 back instead of a 500 error.
+        $user = User::where('id', $userId)->firstOrFail();
         $user->delete();
 
         return redirect()->route('users.index')->banner('Mederwerker is successvol verwijdered!');
@@ -128,7 +132,8 @@ class UserController extends Controller
         $permission = Role::checkPermission($request->user(), 'users:update');
         if ($permission) { return $permission; }
 
-        $user = User::find($userId);
+        // Try to get the user, else gives a 404 back instead of a 500 error.
+        $user = User::where('id', $userId)->firstOrFail();
 
         if ($request->get('suspended')){
             $user->suspended_at = null;
