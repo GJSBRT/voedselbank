@@ -52,7 +52,11 @@ class ProductController extends Controller
         $permission = Role::checkPermission($request->user(), 'products:create');
         if ($permission) { return $permission; }
 
-        return Inertia::render('Products/New');
+        $productCategories = ProductCategory::whereNot('name', 'deleted')->get();
+
+        return Inertia::render('Products/New',[
+            'product_categories' => $productCategories,
+        ]);
     }
 
     // Create a new product
@@ -79,7 +83,7 @@ class ProductController extends Controller
 
         // Try to get the product, else gives a 404 back instead of a 500 error.
         $products = Product::where('id', $productId)->firstOrFail();
-        $productCategories = ProductCategory::all();
+        $productCategories = ProductCategory::whereNot('name', 'deleted')->get();
 
         return Inertia::render('Products/View', [
             'products' => $products,
