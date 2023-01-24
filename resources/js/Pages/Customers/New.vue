@@ -49,7 +49,6 @@ const handleSubmit = () => {
             href: '#',
         }
     ]">
-
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
         <FormSection>
@@ -175,6 +174,7 @@ const handleSubmit = () => {
                 </PrimaryButton>
             </template>
         </FormSection>
+
             </div>
         </div>
     </AppLayout>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Classes\Role as ClassRole;
 use App\Http\Requests\CreateRoleRequest;
 use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Searchable\Search;
@@ -18,7 +17,7 @@ class RoleController extends Controller
         if ($permission) { return $permission; }
 
         return Inertia::render('Roles/Show', [
-            'roles' => Role::paginate(),
+            'roles' => Role::with('users')->paginate(),
         ]);
     }
 
@@ -53,7 +52,7 @@ class RoleController extends Controller
 
         Role::create([
             'name' => $name,
-            'permissions' => $permissions,
+            'permissions' => json_encode($permissions),
         ]);
 
         return redirect()->route('roles.index')->banner("De rol {$name} is successvol toegevoeged!");

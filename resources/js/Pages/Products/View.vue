@@ -12,10 +12,11 @@ import { toRefs } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { ref } from 'vue';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
-
+import { hasPermission } from '@/utils';
 
 const props = defineProps({
     products: Object,
+    product_categories: Object,
 });
 
 const { products } = toRefs(props)
@@ -35,8 +36,6 @@ const EditProduct = () => {
 }
 
 const confirmingDelete = ref(false);
-
-
 
 </script>
 
@@ -63,7 +62,7 @@ const confirmingDelete = ref(false);
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
                 <div>
-                    <FormSection @submitted="updateProfileInformation">
+                    <FormSection>
                         <template #title>
                             Product informatie
                         </template>
@@ -86,11 +85,13 @@ const confirmingDelete = ref(false);
                                 <InputError :message="form.errors.ean_number" class="mt-2" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-4">
-                                <InputLabel for="product_category_id" value="Product Categorie" />
-                                <TextInput id="product_category_id" v-model="form.product_category_id" type="number"
-                                    class="mt-1 block w-full" />
-                                <InputError :message="form.errors.product_category_id" class="mt-2" />
+                            <div class="col-span-6 sm:col-span-4 w-full">
+                                <InputLabel for="product_category_id" value="Categorie"/>
+                                <select id="product_category_id" v-model="form.product_category_id" class="border-gray-300 focus:border-primary-300 focus:ring w-full sfocus:ring-primary-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                                    <option v-for="product_category in product_categories" :value="product_category.id">
+                                        {{ product_category.name }}
+                                    </option>
+                                </select>
                             </div>
 
                             <div class="col-span-6 sm:col-span-4">
@@ -102,10 +103,10 @@ const confirmingDelete = ref(false);
 
                         </template>
                         <template #actions>
-                            <PrimaryButton @click="EditProduct">
+                            <PrimaryButton v-if="hasPermission('products:update')" @click="EditProduct">
                                 Opslaan
                             </PrimaryButton>
-                            <DangerButton @click="confirmingDelete = true" class="ml-4">
+                            <DangerButton v-if="hasPermission('products:delete')" @click="confirmingDelete = true" class="ml-4">
                                 Verwijderen
                             </DangerButton>
                         </template>

@@ -12,15 +12,18 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { toRefs, ref } from 'vue';
 import BarcodeScanner from '@/Components/BarcodeScanner.vue'
 import TextInput from '@/Components/TextInput.vue';
+import { hasPermission } from '@/utils';
 
 const props = defineProps({
     foodPackage: Object,
-    notes: '',
-    customer: null,
-    products: [],
+    notes: String,
+    customer: Object,
+    products: Array,
 });
 
 const { foodPackage, notes, customer, products } = toRefs(props);
+
+console.log(products.value)
 
 // Set the retrieved_at date to the current date and time if retrived_at is set.
 let now = null;
@@ -115,7 +118,7 @@ async function onScan(scan) {
                         <template #form>
                             <div class="col-span-6">
                                 <InputLabel for="customerId" value="Klant" />
-                                <CustomerSearch id="customerId" :callback="setCustomerId"/>
+                                <CustomerSearch id="customerId" :callback="setCustomerId" :value="customer.first_name + ' ' + customer.last_name"/>
                             </div>
 
                             <div class="col-span-6">
@@ -144,7 +147,7 @@ async function onScan(scan) {
 
                         <template #form>
                             <div class="col-span-6">
-                                <InputLabel for="productId" value="Add product" />
+                                <InputLabel for="productId" value="Product toevoegen" />
                                 <div class="flex">
                                     <div class="w-full">
                                         <ProductSearch id="productId" :callback="addProduct"/>
@@ -165,7 +168,7 @@ async function onScan(scan) {
                             </div>
 
                             <div class="col-span-6">
-                                <InputLabel for="products" value="Product List" />
+                                <InputLabel for="products" value="Producten lijst" />
                                 <div id="products">
                                     <div v-if="form.products.length == 0" class="w-full mt-1 border-gray-300 text-gray-500 border rounded-md shadow-sm p-2">
                                         Nog geen producten toegevoegd
@@ -220,7 +223,7 @@ async function onScan(scan) {
                             </div>
                         </template>
 
-                        <template #actions>
+                        <template v-if="hasPermission('food-packages:update')" #actions>
                             <PrimaryButton @click="handleSubmit">
                                 Pakket Opslaan
                             </PrimaryButton>

@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import {ref} from "vue";
+import { hasPermission } from '@/utils';
 
 let props = defineProps({
     deliveries: Array,
@@ -39,8 +40,8 @@ function setShowDelivered(){
         <template #header>
 
 
-            <div class="ml-auto">
-                <PrimaryButton @click="() => Inertia.visit(route('deliveries.new'))">
+            <div class="ml-auto my-auto">
+                <PrimaryButton v-if="hasPermission('deliveries:create')" @click="() => Inertia.visit(route('deliveries.new'))">
                     Plan een nieuwe levering in
                 </PrimaryButton>
             </div>
@@ -49,7 +50,7 @@ function setShowDelivered(){
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="sm:mb-10 mb-2">
-                    <div class="ml-auto">
+                    <div class="ml-auto my-auto">
                         <SecondaryButton v-if="!show_delivered" @click="setShowDelivered">
                             Toon geleverde leveringen
                         </SecondaryButton>

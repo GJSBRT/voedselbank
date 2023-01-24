@@ -5,6 +5,8 @@ import TableData from '@/Components/TableData.vue';
 import Pagination from '@/Components/Pagination.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
+import TableSearch from "@/Components/Search/TableSearch.vue";
+import { hasPermission } from '@/utils';
 
 defineProps({
     suppliers: Object,
@@ -26,8 +28,8 @@ defineProps({
         <template #header>
 
 
-            <div class="ml-auto">
-                <PrimaryButton @click="() => Inertia.visit(route('suppliers.new'))">
+            <div class="ml-auto my-auto">
+                <PrimaryButton v-if="hasPermission('suppliers:create')" @click="() => Inertia.visit(route('suppliers.new'))">
                     Nieuwe leverancier
                 </PrimaryButton>
             </div>
@@ -35,6 +37,8 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <TableSearch route="suppliers.index" placeholder="Zoeken op bedrijfsnaam, telefoonnummer of contactpersoon" class="my-5" />
+
                 <Table :headers="['#', 'Bedrijfsnaam', 'Telefoonnummer', 'Contact persoon', 'Volgende levering']">
                     <tr class="hover:bg-gray-50 cursor-pointer" v-for="supplier in suppliers.data" :key="suppliers.id"
                         @click="Inertia.visit(route('suppliers.view', supplier.id))">
@@ -43,7 +47,8 @@ defineProps({
                         <TableData>{{ supplier.phone_number }}</TableData>
                         <TableData>{{ supplier.contact_name }}</TableData>
                         <TableData>
-                            <span v-if="!supplier.next_deliveries[0] || !supplier.next_deliveries[0].expected_at" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-md bg-red-100 text-red-800">
+                            <span v-if="!supplier.next_deliveries[0] || !supplier.next_deliveries[0].expected_at"
+                                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-md bg-red-100 text-red-800">
                                 Geen verwachte levering
                             </span>
                             <span v-else>

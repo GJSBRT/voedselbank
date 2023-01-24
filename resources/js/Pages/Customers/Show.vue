@@ -3,17 +3,14 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Table from '@/Components/Table.vue';
 import TableData from '@/Components/TableData.vue';
 import Pagination from '@/Components/Pagination.vue';
-import {Link} from "@inertiajs/inertia-vue3";
+import TableSearch from "@/Components/Search/TableSearch.vue";
 import {Inertia} from '@inertiajs/inertia';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import {ref} from "vue";
-
+import { hasPermission } from '@/utils';
 
 defineProps({
     customers: Object,
 });
-
-const confirmDelete = ref(null);
 
 </script>
 
@@ -31,8 +28,8 @@ const confirmDelete = ref(null);
         <template #header>
 
 
-            <div class="ml-auto">
-                <primary-button @click="() => Inertia.visit(route('customers.new'))">
+            <div class="ml-auto my-auto">
+                <primary-button v-if="hasPermission('customers:create')" @click="() => Inertia.visit(route('customers.new'))">
                     Maak een klant aan
                 </primary-button>
             </div>
@@ -42,7 +39,8 @@ const confirmDelete = ref(null);
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow sm:rounded-lg ">
+                <TableSearch route="customers.index" placeholder="Zoeken op voornaam, achternaam of telefoonnummer" class="my-5" />
+
                     <Table
                         :headers="['#','Naam', 'Achternaam', 'Volwassenen', 'Kinderen', 'Babies', 'Telefoonnummer']">
                         <tr @click="Inertia.visit(route('customers.view', customerData.id))" class="hover:bg-gray-50 cursor-pointer" v-for="customerData in customers.data"
@@ -56,7 +54,6 @@ const confirmDelete = ref(null);
                             <TableData>{{ customerData.phone_number }}</TableData>
                         </tr>
                     </Table>
-                </div>
                 <Pagination class="mt-6" :links="customers.links"/>
             </div>
         </div>

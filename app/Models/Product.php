@@ -27,6 +27,6 @@ class Product extends Model implements Searchable
 
     public function getSearchResult(): SearchResult
     {       
-        return new SearchResult($this, "{$this->name} ({$this->ean_number})");
+        return new SearchResult($this, "{$this->quantity}x {$this->name} ({$this->ean_number})");
     }
 }
