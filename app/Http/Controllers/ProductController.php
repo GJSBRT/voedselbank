@@ -22,6 +22,7 @@ class ProductController extends Controller
         $permission = Role::checkPermission($request->user(), 'products:read');
         if ($permission) { return $permission; }
 
+        // Return the products depending on the queries.
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
@@ -71,12 +72,13 @@ class ProductController extends Controller
     }
 
     // Get the products find them by id and Make the edit page accesible in vue
-    public function view(Request $request, int $productId)
+    public function view(Request $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
         if ($permission) { return $permission; }
 
-        $products = Product::all()->find($productId);
+        // Try to get the product, else gives a 404 back instead of a 500 error.
+        $products = Product::where('id', $productId)->firstOrFail();
         $productCategories = ProductCategory::all();
 
         return Inertia::render('Products/View', [
@@ -86,11 +88,12 @@ class ProductController extends Controller
     }
 
     // Edit a product
-    public function update(EditProductRequest $request, int $productId)
+    public function update(EditProductRequest $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:update');
         if ($permission) { return $permission; }
 
+        // Try to get the product, else gives a 404 back instead of a 500 error.
         $products = Product::where('id', $productId)->firstOrFail();
         $products->name = $request->input('name');
         $products->ean_number = $request->input('ean_number');
@@ -103,12 +106,13 @@ class ProductController extends Controller
     }
 
     // Find a product by id and delete that product
-    public function delete(Request $request, int $productId)
+    public function delete(Request $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:delete');
         if ($permission) { return $permission; }
 
-        $product = Product::find($productId);
+        // Try to get the product, else gives a 404 back instead of a 500 error.
+        $product = Product::where('id', $productId)->firstOrFail();
 
         try {
             $product->delete();
