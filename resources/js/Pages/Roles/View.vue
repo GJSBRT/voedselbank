@@ -67,7 +67,7 @@ const handleSubmit = () => {
                             </div>
 
                             <div v-if="available_permissions.length > 0" class="col-span-6">
-                                <InputLabel for="permissions" value="Permissions" />
+                                <InputLabel for="permissions" value="Permissies" />
 
                                 <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div v-for="permission in available_permissions" :key="permission">
