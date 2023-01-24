@@ -28,7 +28,7 @@ defineProps({
         <template #header>
 
 
-            <div class="ml-auto">
+            <div class="ml-auto my-auto">
                 <primary-button v-if="hasPermission('customers:create')" @click="() => Inertia.visit(route('customers.new'))">
                     Maak een klant aan
                 </primary-button>

@@ -33,7 +33,7 @@ function sort(state){
         <template #header>
 
 
-            <div class="ml-auto">
+            <div class="ml-auto my-auto">
                 <PrimaryButton v-if="hasPermission('users:create')" @click="() => Inertia.visit(route('users.new'))">
                     Nieuwe Medewerker
                 </PrimaryButton>
@@ -69,7 +69,6 @@ function sort(state){
 
                 <Table :headers="['#', 'Naam', 'Email', '2FA Ingeschakeld Op', 'Geblokkeerd op', 'Aangemaakt Op']" >
                     <tr @click="Inertia.visit(route('users.view', user.id))" class="hover:bg-gray-50 cursor-pointer" v-for="user in users.data" :key="user.id">
-                        <TableData>{{ user.id }}</TableData>
                         <TableData>{{ user.first_name }} {{ user.last_name }}</TableData>
                         <TableData>{{ user.email }}</TableData>
                         <TableData>

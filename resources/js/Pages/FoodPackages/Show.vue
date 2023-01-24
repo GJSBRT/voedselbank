@@ -35,7 +35,7 @@ function sort(state){
         <template #header>
 
 
-            <div class="ml-auto">
+            <div class="ml-auto my-auto">
                 <PrimaryButton v-if="hasPermission('food-packages:create')" @click="() => Inertia.visit(route('food-packages.new'))">
                     Nieuw Pakket
                 </PrimaryButton>
@@ -69,17 +69,17 @@ function sort(state){
                 <Table :headers="['#', 'Klant', 'Aantal Producten', 'Opgehaald Op', 'Samengesteld Op']" >
                     <tr @click="Inertia.visit(route('food-packages.view', packageItem.id))" class="hover:bg-gray-50 cursor-pointer" v-for="packageItem in packages.data" :key="packages.id">
                         <TableData>{{ packageItem.id }}</TableData>
-                        <TableData>{{ packageItem.customer.first_name }}</TableData>
+                        <TableData>{{ packageItem.customer.first_name }} {{ packageItem.customer.last_name }}</TableData>
                         <TableData>{{ packageItem.items.length }}</TableData>
                         <TableData>
                             <span v-if="packageItem.retrieved_at == null" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-md bg-red-100 text-red-800">
                                 Nog niet opgehaald
                             </span>
                             <span v-else>
-                                {{ new Date(packageItem.retrieved_at).toLocaleDateString() }}
+                                {{ new Date(packageItem.retrieved_at).toLocaleString() }}
                             </span>
                         </TableData>
-                        <TableData>{{ new Date(packageItem.created_at).toLocaleDateString() }}</TableData>
+                        <TableData>{{ new Date(packageItem.created_at).toLocaleString() }}</TableData>
                     </tr>
                 </Table>
                 <Pagination class="mt-6" :links="packages.links" />
