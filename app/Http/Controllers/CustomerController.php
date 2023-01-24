@@ -90,6 +90,7 @@ class CustomerController extends Controller
         return response()->json($results);
     }
 
+    // Returns a PDF of the user data
     public function export($customerId)
     {
         $customer = Customer::where('id', $customerId)->firstOrFail();

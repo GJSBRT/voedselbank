@@ -71,8 +71,6 @@ const logout = () => {
                                 <NavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                                     Rollen
                                 </NavLink>
-
-
                             </div>
                         </div>
 
@@ -98,7 +96,7 @@ const logout = () => {
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            Beheer Account
                                         </div>
 
                                         <DropdownLink :href="route('profile.show')">
