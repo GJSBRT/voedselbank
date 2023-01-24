@@ -12,6 +12,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import {Inertia} from "@inertiajs/inertia";
 import {ref, toRefs} from 'vue';
 import { hasPermission } from '@/utils';
+import TextField from '@/Components/TextField.vue';
 
 const props = defineProps({
     customer: Object,
@@ -184,14 +185,9 @@ const confirmDelete = () => {
                                 <InputError :message="form.errors.baby_amount" class="mt-2"/>
                             </div>
 
-                            <div class="col-span-6 sm:col-span-4">
+                            <div class="col-span-6 sm:col-span-4 w-full">
                                 <InputLabel for="notes" value="Notities"/>
-                                <TextInput
-                                    id="notes"
-                                    v-model="form.notes"
-                                    type="text"
-                                    class="mt-1 block w-full"
-                                />
+                                <TextField id="notes" v-model="form.notes" type="text" class="mt-1 block w-full"/>
                                 <InputError :message="form.errors.notes" class="mt-2"/>
                             </div>
                         </template>
