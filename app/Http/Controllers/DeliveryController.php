@@ -78,7 +78,8 @@ class DeliveryController extends Controller
         $permission = Role::checkPermission($request->user(), 'deliveries:read');
         if ($permission) { return $permission; }
 
-        $delivery = Delivery::with('supplier')->find($id);
+        // Try to get the delivery, else gives a 404 back instead of a 500 error.
+        $delivery = Delivery::with('supplier')->where('id', $id)->firstOrFail();
         $suppliers = Supplier::all();
 
         return Inertia::render('Deliveries/View', [
@@ -92,15 +93,9 @@ class DeliveryController extends Controller
         $permission = Role::checkPermission($request->user(), 'deliveries:update');
         if ($permission) { return $permission; }
 
-        $request->validate([
-            'supplier_id' => 'required',
-            'expected_at' => 'required',
-        ], [
-            'supplier_id.required' => 'Dit is een verplicht veld.',
-            'expected_at.required' => 'Het is verplicht om een verwachte bezorgdatum in te voeren.',
-        ]);
+        // Try to get the delivery, else gives a 404 back instead of a 500 error.
+        $delivery = Delivery::where('id', $id)->firstOrFail();
 
-        $delivery = Delivery::find($id);
         $supplier = $delivery->supplier()->first();
 
         $delivery->supplier_id = $request->get('supplier_id');
@@ -122,7 +117,9 @@ class DeliveryController extends Controller
         $permission = Role::checkPermission($request->user(), 'deliveries:delete');
         if ($permission) { return $permission; }
 
-        $delivery = Delivery::find($id);
+        // Try to get the delivery, else gives a 404 back instead of a 500 error.
+        $delivery = Delivery::where('id', $id)->firstOrFail();
+
         $delivery->delete();
 
         return redirect()->route('deliveries.index')->banner('De levering is succesvol geannuleerd!');

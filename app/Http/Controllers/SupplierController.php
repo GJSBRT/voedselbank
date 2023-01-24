@@ -19,6 +19,7 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:read');
         if ($permission) { return $permission; }
 
+        // Return the suppliers depending on the queries.
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
@@ -74,7 +75,9 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:read');
         if ($permission) { return $permission; }
 
-        $supplier = Supplier::with('deliveries')->find($id);
+        // Try to get the supplier, else gives a 404 back instead of a 500 error.
+        $supplier = Supplier::with('deliveries')->where('id', $id)->firstOrFail();
+
         $deliveries = $supplier->deliveries()
             ->orderBy('expected_at', 'desc')
             ->paginate(5);
@@ -90,7 +93,8 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:update');
         if ($permission) { return $permission; }
 
-        $supplier = Supplier::find($id);
+        // Try to get the supplier, else gives a 404 back instead of a 500 error.
+        $supplier = Supplier::where('id', $id)->firstOrFail();
 
         $input = $request->all();
         $supplier->fill($input)->save();
@@ -103,7 +107,9 @@ class SupplierController extends Controller
         $permission = Role::checkPermission($request->user(), 'suppliers:delete');
         if ($permission) { return $permission; }
 
-        $supplier = Supplier::find($id);
+        // Try to get the supplier, else gives a 404 back instead of a 500 error.
+        $supplier = Supplier::where('id', $id)->firstOrFail();
+
         $company_name = $supplier->company_name;
         $supplier->delete();
 
