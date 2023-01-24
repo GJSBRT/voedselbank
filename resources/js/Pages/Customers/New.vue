@@ -64,7 +64,7 @@ const handleSubmit = () => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
-                <FormSection @submitted="updateProfileInformation" class="flex justify-center items-center">
+                <FormSection class="flex justify-center items-center">
                     <template #title>
                         Klant Informatie
                     </template>
@@ -98,7 +98,6 @@ const handleSubmit = () => {
                             <InputError :message="form.errors.last_name" class="mt-2"/>
                         </div>
 
-                        <!-- Email -->
                         <div class="col-span-6 sm:col-span-4">
                             <InputLabel for="email" value="Email Adres"/>
                             <TextInput
