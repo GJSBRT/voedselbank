@@ -9,6 +9,7 @@ import TextInput from '@/Components/TextInput.vue';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import TextField from '@/Components/TextField.vue';
 import {Inertia} from "@inertiajs/inertia";
 import {ref, toRefs} from 'vue';
 
@@ -184,7 +185,7 @@ const confirmDelete = () => {
 
                             <div class="col-span-6 sm:col-span-4">
                                 <InputLabel for="notes" value="Notities"/>
-                                <TextInput
+                                <TextField
                                     id="notes"
                                     v-model="form.notes"
                                     type="text"

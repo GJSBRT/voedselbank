@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import {useForm} from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import TextField from '@/Components/TextField.vue';
 
 const props = defineProps({
     customer: Object,
@@ -157,7 +158,7 @@ const handleSubmit = () => {
 
                 <div class="col-span-6 sm:col-span-4">
                     <InputLabel for="notes" value="Notities"/>
-                    <TextInput
+                    <TextField
                         id="notes"
                         v-model="form.notes"
                         type="text"

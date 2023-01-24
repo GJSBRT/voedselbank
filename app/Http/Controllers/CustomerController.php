@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Searchable\Search;
 
+
 class CustomerController extends Controller
 {
     //Get a full list of all customers
