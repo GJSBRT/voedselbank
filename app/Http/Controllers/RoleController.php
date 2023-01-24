@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Classes\Role as ClassRole;
 use App\Http\Requests\CreateRoleRequest;
 use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Searchable\Search;

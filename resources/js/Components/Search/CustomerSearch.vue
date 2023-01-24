@@ -49,7 +49,7 @@ export default {
         },
         value: {
             type: String,
-            default: 'Search',
+            default: 'Zoeken',
             required: false,
         },
         callback: {

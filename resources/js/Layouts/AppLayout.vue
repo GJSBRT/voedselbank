@@ -48,7 +48,7 @@ const logout = () => {
                                 </NavLink>
 
                                 <NavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.*')">
-                                    Voedsel Pakketten
+                                    Pakketten
                                 </NavLink>
                             </div>
 
@@ -161,7 +161,7 @@ const logout = () => {
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            Beheer Account
                                         </div>
 
                                         <DropdownLink :href="route('profile.show')">
@@ -220,7 +220,7 @@ const logout = () => {
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.*')">
-                            Voedselpakketten
+                            Pakketten
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.index')">
@@ -245,10 +245,6 @@ const logout = () => {
 
                         <ResponsiveNavLink v-if="hasPermission('roles:read')" :href="route('roles.index')" :active="route().current('roles.*')">
                             Rollen
-                        </ResponsiveNavLink>
-
-                        <ResponsiveNavLink :href="route('quantity-products.index')" :active="route().current('quantity-products.index')">
-                            Voorraad Producten
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink :href="route('products.index')" :active="route().current('products.index')">

@@ -19,7 +19,7 @@ import InputError from '@/Components/InputError.vue';
 const props = defineProps({
     user: Object,
     two_factor_enabled: Boolean,
-    suspended: Boolean
+    suspended: Boolean,
 });
 
 const { user, two_factor_enabled, suspended } = toRefs(props);
@@ -79,7 +79,6 @@ const deleteUser = () => {
             </DangerButton>
         </template>
     </ConfirmationModal>
-
 
     <AppLayout title="Medewerker bewerken" :breadcrumbs="[
         {
@@ -156,7 +155,7 @@ const deleteUser = () => {
                                 Medewerker Verwijderen
                             </DangerButton>
 
-                            <PrimaryButton @click="handleSubmit">
+                            <PrimaryButton v-if="hasPermission('users:update')" @click="handleSubmit">
                                 Medewerker Opslaan
                             </PrimaryButton>
                         </template>
