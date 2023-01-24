@@ -81,11 +81,22 @@ const deleteUser = () => {
     </ConfirmationModal>
 
 
-    <AppLayout title="Medewerker Beheer">
+    <AppLayout title="Medewerker bewerken" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Medewerkers overzicht',
+            href: route('users.index'),
+        },
+        {
+            title: 'Medewerkers Bewerken',
+            href: '#',
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ form.user.first_name }} {{ form.user.last_name }}
-            </h2>
+
         </template>
 
         <div class="py-12">

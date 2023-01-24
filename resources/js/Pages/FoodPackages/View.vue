@@ -82,11 +82,22 @@ async function onScan(scan) {
 </script>
 
 <template>
-    <AppLayout title="Food Packages">
+    <AppLayout title="Voedselpakketten bewerken" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Voedselpakketten overzicht',
+            href: route('food-packages.index'),
+        },
+        {
+            title: 'Voedselpakketten Wijzigen',
+            href: '#',
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Voedsel Pakket #{{ foodPackage.id }} voor {{ form.customer.first_name }} {{ form.customer.last_name }}
-            </h2>
+
         </template>
 
         <div class="py-12">

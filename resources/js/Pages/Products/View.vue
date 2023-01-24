@@ -41,13 +41,13 @@ const confirmingDelete = ref(false);
 </script>
 
 <template>
-    <AppLayout title="Producten Overzicht" :breadcrumbs="[
+    <AppLayout title="Producten Bewerken" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),
         },
         {
-            title: 'Producten Overzicht',
+            title: 'Producten overzicht',
             href: route('products.index'),
         },
         {
@@ -57,9 +57,7 @@ const confirmingDelete = ref(false);
     ]" >
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Details van het product {{ products.name }}
-            </h2>
+
         </template>
 
         <div class="py-12">

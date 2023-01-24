@@ -21,18 +21,25 @@ const confirmDelete = ref(null);
 </script>
 
 <template>
-    <AppLayout title="Categorie overzicht">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Categorieën overzicht
-            </h2>
+    <AppLayout title="Categorie overzicht" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Categorieën overzicht',
+            href: route('categories.index')
+        }
+    ]">
 
+        <template #header>
             <div class="ml-auto">
                 <primary-button @click="() => Inertia.visit(route('categories.new'))">
                     Maak een nieuw product categorie aan
                 </primary-button>
             </div>
         </template>
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg ">

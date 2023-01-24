@@ -30,13 +30,13 @@ const AddProduct = () => {
 </script>
 
 <template>
-    <AppLayout title="Producten Overzicht" :breadcrumbs="[
+    <AppLayout title="Producten Toevoegen" :breadcrumbs="[
         {
             title: 'Dashboard',
             href: route('dashboard'),
         },
         {
-            title: 'Producten Overzicht',
+            title: 'Producten overzicht',
             href: route('products.index'),
         },
         {
@@ -46,9 +46,7 @@ const AddProduct = () => {
     ]" >
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Maak een nieuwe product aan
-            </h2>
+
         </template>
 
         <div class="py-12">
@@ -92,10 +90,12 @@ const AddProduct = () => {
                             </div>
 
                         </template>
-                        <template #actions>
-                            <PrimaryButton @click="AddProduct">
-                                Opslaan
-                            </PrimaryButton>
+                        <template #actions >
+                            <div class="col-span-6 sm:col-span-4 w-full">
+                                <PrimaryButton @click="AddProduct" class="col-span-6 sm:col-span-4 float-left">
+                                  Opslaan
+                                </PrimaryButton>
+                            </div>
                         </template>
                     </FormSection>
                 </div>

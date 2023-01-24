@@ -22,11 +22,22 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Nieuwe Rol">
+    <AppLayout title="Nieuwe Rol" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Rollen overzicht',
+            href: route('roles.index'),
+        },
+        {
+            title: 'Rollen Toevoegen',
+            href: '#',
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Nieuwe Medewerker
-            </h2>
+
         </template>
 
         <div class="py-12">
@@ -64,7 +75,7 @@ const handleSubmit = () => {
                                 <TextInput id="password" v-model="form.password" type="password" class="mt-1 block w-full"/>
                             </div>
                         </template>
-                        
+
                         <template #actions>
                             <PrimaryButton @click="handleSubmit">
                                 Medewerker Toevoegen

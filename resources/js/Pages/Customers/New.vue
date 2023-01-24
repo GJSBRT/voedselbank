@@ -33,7 +33,20 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Customer Overview">
+    <AppLayout title="Klanten toevoegen" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Klant overzicht',
+            href: route('customers.index'),
+        },
+        {
+            title: 'Klanten Toevoegen',
+            href: '#',
+        }
+    ]">
         <FormSection @submitted="updateProfileInformation" class="flex justify-center items-center">
 
             <template #form>

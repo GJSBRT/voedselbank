@@ -27,11 +27,22 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Supplier details">
+    <AppLayout title="Details van leveranciers" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Leveranciers overzicht',
+            href: route('suppliers.index'),
+        },
+        {
+            title: 'leveranciers Toevoegen',
+            href: '#',
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Nieuwe leverancier aanmaken
-            </h2>
+
         </template>
 
         <div class="py-12">
