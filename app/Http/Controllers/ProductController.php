@@ -12,7 +12,12 @@ use Spatie\Searchable\Search;
 
 class ProductController extends Controller
 {
-        // Get all products
+
+        //===============================================================================
+
+        // Get all products and render them in the Show page in vue
+
+        //===============================================================================
         public function index() 
         {
             $products = Product::with('category')->paginate();
@@ -22,14 +27,23 @@ class ProductController extends Controller
             ]);
         }
 
+        //===============================================================================
+
         // This is a get function for the products
-        // This makes you able to navigate to the add page in vue
+        // This makes you able to navigate to the new ( create product ) page in vue
+
+        //===============================================================================
         public function new()
         {
             return Inertia::render('Products/New');
         }
+        
+        //===============================================================================
 
-        // Create a new product
+        // Validate the inputs of the fields by the requests
+        // Then create the following product and redirect to the main products page with a banner message succes
+        
+        //===============================================================================
         public function create(CreateProductRequest $request)
         {
   
@@ -43,7 +57,12 @@ class ProductController extends Controller
                 return redirect()->route('products.index')->banner('Product opgeslagen!');
         }
 
-        // Get the products find them by id and Make the edit page accesible in vue
+        //===============================================================================
+
+        // Get all the products, then find the specific product by its ID
+        // Then render ( bring ) the product to the Update page in vue
+
+        //===============================================================================
         public function view(int $productId)
         {
             $products = Product::all()->find($productId);
@@ -53,7 +72,14 @@ class ProductController extends Controller
             ]);
         }
 
-        // Edit a product
+        //===============================================================================
+
+        // Get the specific product by its ID otherwise fail the request
+        // Validate all fields by the requests
+        // Change the original field text to the input that has been filled and submitted
+        // Redirect to the main page of products with a banner message succes
+
+        //===============================================================================
         Public function update(EditProductRequest $request, int $productId)
         {
             $products = Product::where('id', $productId)->firstOrFail();
@@ -67,7 +93,13 @@ class ProductController extends Controller
 
         }
 
-        // Find a product by id and delete that product
+        //===============================================================================
+
+        // Get the specific product by its ID using the find function
+        // Try to delete the product, if not possible then redirect to main page products with banner message why it failed
+        // If try deleting succesfull then delete the product and proceed to the main page products with banner message succes
+
+        //===============================================================================
         Public function delete(Request $request, int $productId)
         {
 
