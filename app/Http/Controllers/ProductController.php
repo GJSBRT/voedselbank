@@ -16,15 +16,28 @@ use Spatie\Searchable\Search;
 
 class ProductController extends Controller
 {
-    // Get all products
+
+   //================================================================================
+
+   // Check the role of the user
+   // If user does not have the right role for this action redirect to dashboard with banner message unauthorized
+   // If user does have the right role for this action then render the page with products in vue
+
+   //================================================================================
     public function index(Request $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
-        if ($permission) { return $permission; }
+        if ($permission) 
+        { 
+            return $permission; 
+        }
 
-        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
-            $query->where(function ($query) use ($value) {
-                Collection::wrap($value)->each(function ($value) use ($query) {
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) 
+        {
+            $query->where(function ($query) use ($value) 
+            {
+                Collection::wrap($value)->each(function ($value) use ($query) 
+                {
                     $query
                         ->orWhere('name', 'LIKE', "%{$value}%")
                         ->orWhere('ean_number', 'LIKE', "%{$value}%");
@@ -44,17 +57,33 @@ class ProductController extends Controller
         ]);
     }
 
-    // This is a get function for the products
-    // This makes you able to navigate to the add page in vue
+   //================================================================================
+
+   // Check the role of the user
+   // If the user does have the right role for this action, redirect to the create page in vue and get all product categories
+   // If the user does not have the right role for this action, redirect to dashboard with banner message unauthorized
+
+   //================================================================================
     public function new(Request $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:create');
         if ($permission) { return $permission; }
 
-        return Inertia::render('Products/New');
+        $productCategories = ProductCategory::all();
+
+        return Inertia::render('Products/New', [
+            'product_categories' => $productCategories,
+        ]);
     }
 
-    // Create a new product
+   //================================================================================
+
+   // Check the role of the user
+   // If user does not have the right role for this action redirect to dashboard with banner message
+   // If user does have the right role for this action then create the product thats filled in the field and submitted
+   // After succesfully creating a product redirect to the main page of products with banner message succes
+
+   //================================================================================
     public function create(CreateProductRequest $request)
     {
         $permission = Role::checkPermission($request->user(), 'products:create');
@@ -70,7 +99,16 @@ class ProductController extends Controller
         return redirect()->route('products.index')->banner('Product opgeslagen!');
     }
 
-    // Get the products find them by id and Make the edit page accesible in vue
+   //================================================================================
+
+   // Check the role of the user
+   // If user does not have the right role for this action redirect to dashboard with banner message
+   // If user does have the right role for this continue
+   // Get all products and find the specific product by its ID using find function
+   // Get all the product categories
+   // Render all the specific product and all the categories in the edit page in vue
+
+   //================================================================================
     public function view(Request $request, int $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
@@ -85,7 +123,17 @@ class ProductController extends Controller
         ]);
     }
 
-    // Edit a product
+   //================================================================================
+
+   // Check the role of the user
+   // If user does not have the right role for this action redirect to dashboard with banner message
+   // If user does have the right role for this action then continue
+   // Get the specific product by its ID, otherwise stop / fail the request
+   // If succesfull getting the product continue
+   // Get the original products value and change it to the new value thats filled in the input fields
+   // After submitting redirect to main page with banner message succes
+
+   //================================================================================
     public function update(EditProductRequest $request, int $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:update');
@@ -102,7 +150,17 @@ class ProductController extends Controller
 
     }
 
-    // Find a product by id and delete that product
+   //================================================================================
+
+   // Check the role of the user
+   // If user does not have the right role for this action redirect to dashboard with banner message
+   // If user does have the right role for this action then continue
+   // Find the specific product by its ID using find function
+   // Try to delete that specific product
+   // If succes then redirect to main products page with banner message succesfully deleted
+   // If failed then redirect to main products page with banner message why it failed using Exception method ( avoids for example internal error 500 )
+
+   //================================================================================
     public function delete(Request $request, int $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:delete');
