@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Role;
 use App\Http\Requests\RegisterCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
-use App\Models\Supplier;
-use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
@@ -17,8 +16,11 @@ use Spatie\Searchable\Search;
 class CustomerController extends Controller
 {
     //Get a full list of all customers
-    public function index()
+    public function index(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:read');
+        if ($permission) { return $permission; }
+
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
@@ -43,16 +45,21 @@ class CustomerController extends Controller
     }
 
     //This function sends you straight to the register form for creating customers
-    public function new()
+    public function new(Request $request)
     {
-        return Inertia::render("Customers/New");
+        $permission = Role::checkPermission($request->user(), 'customers:create');
+        if ($permission) { return $permission; }
 
+        return Inertia::render("Customers/New");
     }
 
     //This function let's you create a customer
     public function create(RegisterCustomerRequest $request)
     {
-        $customer = Customer::create([
+        $permission = Role::checkPermission($request->user(), 'customers:create');
+        if ($permission) { return $permission; }
+
+        Customer::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
@@ -68,8 +75,11 @@ class CustomerController extends Controller
 
     }
 
-    public function delete(int $customerId)
+    public function delete(Request $request, int $customerId)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:delete');
+        if ($permission) { return $permission; }
+
         //search the customer you want to delete
         $customer = Customer::all()->find($customerId);
         $customer->update([
@@ -80,8 +90,11 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->banner('Klant is succesvol verwijderd');
     }
 
-    public function view(int $customerId)
+    public function view(Request $request, int $customerId)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:read');
+        if ($permission) { return $permission; }
+
         $customer = Customer::all()->find($customerId);
 
         return Inertia::render('Customers/View', [
@@ -92,14 +105,14 @@ class CustomerController extends Controller
     //Update customers in the same form as the register function
     public function update(UpdateCustomerRequest $request, int $customerId)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:update');
+        if ($permission) { return $permission; }
         //Updates every column of costumer
         $customer = Customer::where('id', $customerId,)->firstOrFail();
         $input = $request->all();
         $customer->fill($input)->save();
 
         return redirect()->route('customers.index')->banner('Klant gewijzigd');
-
-
     }
 
     public function search(Request $request)
@@ -111,8 +124,11 @@ class CustomerController extends Controller
         return response()->json($results);
     }
 
-    public function export($customerId)
+    public function export(Request $request, $customerId)
     {
+        $permission = Role::checkPermission($request->user(), 'customers:read');
+        if ($permission) { return $permission; }
+
         $customer = Customer::where('id', $customerId)->firstOrFail();
 
         $pdf = app('dompdf.wrapper');

@@ -12,6 +12,7 @@ import DangerButton from "@/Components/DangerButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import ConfirmationModal from "@/Components/ConfirmationModal.vue";
 import {Inertia} from '@inertiajs/inertia';
+import { hasPermission } from '@/utils';
 
 const props = defineProps({
     delivery: Object,
@@ -70,8 +71,8 @@ function destroy(id) {
 
                         <template #form>
                             <div class="col-span-6 sm:col-span-4 w-full">
-                                <InputLabel for="supplied_id" value="Leverancier"/>
-                                <select id="supplied_id" v-model="form.supplier_id" class="border-gray-300 focus:border-primary-300 focus:ring w-full sfocus:ring-primary-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                                <InputLabel for="supplier_id" value="Leverancier"/>
+                                <select id="supplier_id" v-model="form.supplier_id" class="border-gray-300 focus:border-primary-300 focus:ring w-full sfocus:ring-primary-200 focus:ring-opacity-50 rounded-md shadow-sm">
                                     <option v-for="supplier in suppliers" :value="supplier.id">
                                         {{ supplier.company_name }}
                                     </option>
@@ -97,7 +98,7 @@ function destroy(id) {
                             </div>
                         </template>
 
-                        <template #actions>
+                        <template v-if="hasPermission('deliveries:update')" #actions>
                             <div class="col-span-6 sm:col-span-4 w-full">
                                 <DangerButton v-if="!delivery.delivered_at" class="mr-4" @click="confirmCancelDelivery">
                                     Levering annuleren

@@ -90,7 +90,7 @@ async function onScan(scan) {
 
                         <template #form>
                             <div class="col-span-6">
-                                <InputLabel for="customerId" value="Customer" />
+                                <InputLabel for="customerId" value="Klant" />
                                 <CustomerSearch id="customerId" :callback="setCustomerId" class="my-auto" />
                             </div>
 
@@ -115,7 +115,7 @@ async function onScan(scan) {
 
                         <template #form>
                             <div class="col-span-6">
-                                <InputLabel for="productId" value="Add product" />
+                                <InputLabel for="productId" value="Product toevoegen" />
                                 <div class="flex">
                                     <div class="w-full my-auto">
                                         <ProductSearch id="productId" :callback="addProduct" />
@@ -136,7 +136,7 @@ async function onScan(scan) {
                             </div>
 
                             <div class="col-span-6">
-                                <InputLabel for="products" value="Product List" />
+                                <InputLabel for="products" value="Producten lijst" />
                                 <div id="products">
                                     <div v-if="form.products.length == 0"
                                          class="w-full mt-1 border-gray-300 text-gray-500 border rounded-md shadow-sm p-2">

@@ -15,6 +15,7 @@ import {Inertia} from '@inertiajs/inertia';
 import {ref, toRefs} from 'vue';
 import TextInput from "@/Components/TextInput.vue";
 import TextField from '@/Components/TextField.vue';
+import { hasPermission } from '@/utils';
 
 const props = defineProps({
     supplier: Object,
@@ -111,18 +112,18 @@ function destroy(id) {
 
                         <template #actions>
                             <div class="col-span-6 sm:col-span-4 w-full">
-                                <DangerButton class="mr-4" @click="confirmSupplierDeletion">
-                                    Leverancier verwijderen
-                                </DangerButton>
-                                <PrimaryButton @click="handleSubmit">
+                                <PrimaryButton v-if="hasPermission('suppliers:update')" class="mr-4" @click="handleSubmit">
                                     Gegevens wijzigen
                                 </PrimaryButton>
+                                <DangerButton v-if="hasPermission('suppliers:delete')" @click="confirmSupplierDeletion">
+                                    Leverancier verwijderen
+                                </DangerButton>
                             </div>
                         </template>
                     </FormSection>
                 </div>
 
-                <div class="sm:mt-10 mt-2">
+                <div v-if="hasPermission('deliveries:read')" class="sm:mt-10 mt-2">
                     <FormSection>
                         <template #title>
                             Leveringen

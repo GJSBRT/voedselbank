@@ -3,14 +3,13 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Table from '@/Components/Table.vue';
 import TableData from '@/Components/TableData.vue';
 import Pagination from '@/Components/Pagination.vue';
-import {Link} from "@inertiajs/inertia-vue3";
 import {Inertia} from '@inertiajs/inertia';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import {ref} from "vue";
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-
+import { hasPermission } from '@/utils';
 
 defineProps({
     category: Object,
@@ -28,7 +27,7 @@ const confirmDelete = ref(null);
             </h2>
 
             <div class="ml-auto">
-                <primary-button @click="() => Inertia.visit(route('categories.new'))">
+                <primary-button v-if="hasPermission('categories:create')" @click="() => Inertia.visit(route('categories.new'))">
                     Maak een nieuw product categorie aan
                 </primary-button>
             </div>
@@ -48,25 +47,5 @@ const confirmDelete = ref(null);
                 <Pagination class="mt-6" :links="category.links"/>
             </div>
         </div>
-
-        <ConfirmationModal :show="confirmDelete" @close="confirmDelete = null">
-            <template #title>
-                Verwijder Product
-            </template>
-
-            <template #content>
-                Weet je het zeker dat je deze klant wil verwijderen? De klant zal permanent verwijderd worden.
-            </template>
-
-            <template #footer>
-                <SecondaryButton @click.native="confirmDelete = null">
-                    Nee
-                </SecondaryButton>
-                <DangerButton class="ml-2"
-                              @click.native="Inertia.delete(route('categories.delete', confirmDelete)); confirmDelete = null">
-                    Verwijder categorie
-                </DangerButton>
-            </template>
-        </ConfirmationModal>
     </AppLayout>
 </template>

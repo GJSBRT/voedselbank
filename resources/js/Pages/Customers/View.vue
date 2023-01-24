@@ -11,6 +11,7 @@ import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import {Inertia} from "@inertiajs/inertia";
 import {ref, toRefs} from 'vue';
+import { hasPermission } from '@/utils';
 
 const props = defineProps({
     customer: Object,
@@ -44,7 +45,8 @@ const exportPdf = () => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'account_gegevens_' + customer.value.first_name + '_' + customer.value.id + '.pdf');
+        let fileName = 'account_gegevens_' + customer.value.first_name + '_' + customer.value.id + '.pdf';
+        link.setAttribute('download', fileName.toLowerCase());
         document.body.appendChild(link);
         link.click();
     });
@@ -183,15 +185,14 @@ const confirmDelete = () => {
                             </div>
                         </template>
 
-
                         <template #actions>
                             <SecondaryButton class="mr-4" @click="exportPdf">
                                 Exporteer als PDF
                             </SecondaryButton>
-                            <PrimaryButton @click="handleSubmit">
+                            <PrimaryButton v-if="hasPermission('customers:update')" @click="handleSubmit">
                                 Opslaan
                             </PrimaryButton>
-                            <DangerButton @click="confirmDelete" class="ml-4 ">
+                            <DangerButton v-if="hasPermission('customers:delete')" @click="confirmDelete" class="ml-4 ">
                                 Verwijderen
                             </DangerButton>
                         </template>

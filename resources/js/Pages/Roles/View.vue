@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { toRefs } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import Checkbox from '@/Components/Checkbox.vue';
+import { hasPermission } from '@/utils';
 
 const props = defineProps({
     role: Object,
@@ -53,7 +54,7 @@ const handleSubmit = () => {
                                 <InputLabel for="name" value="Naam" />
                                 <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" />
                             </div>
-                            
+
                             <div v-if="available_permissions.length > 0" class="col-span-6">
                                 <InputLabel for="permissions" value="Permissions" />
 
@@ -69,7 +70,7 @@ const handleSubmit = () => {
                         </template>
 
                         <template #actions>
-                            <PrimaryButton @click="handleSubmit">
+                            <PrimaryButton v-if="hasPermission('roles:update')" @click="handleSubmit">
                                 Rol Opslaan
                             </PrimaryButton>
                         </template>

@@ -6,7 +6,7 @@ import Pagination from '@/Components/Pagination.vue';
 import TableSearch from "@/Components/Search/TableSearch.vue";
 import {Inertia} from '@inertiajs/inertia';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import {ref} from "vue";
+import { hasPermission } from '@/utils';
 
 defineProps({
     customers: Object,
@@ -22,7 +22,7 @@ defineProps({
             </h2>
 
             <div class="ml-auto">
-                <primary-button @click="() => Inertia.visit(route('customers.new'))">
+                <primary-button v-if="hasPermission('customers:create')" @click="() => Inertia.visit(route('customers.new'))">
                     Maak een klant aan
                 </primary-button>
             </div>

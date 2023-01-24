@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Classes\Role;
 use App\Http\Requests\CreateSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
-use App\Models\Delivery;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Collection;
-use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -18,6 +16,9 @@ class SupplierController extends Controller
 {
     public function index(Request $request)
     {
+        $permission = Role::checkPermission($request->user(), 'suppliers:read');
+        if ($permission) { return $permission; }
+
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
@@ -31,8 +32,7 @@ class SupplierController extends Controller
 
         $suppliers = QueryBuilder::for(Supplier::class)
             ->with('nextDeliveries')
-            ->allowedSorts(['company_name', 'phone_number', 'contact_name'])
-            ->allowedFilters(['company_name', 'phone_number', 'contact_name', $globalSearch])
+            ->allowedFilters($globalSearch)
             ->paginate()
             ->withQueryString();
 
@@ -41,15 +41,7 @@ class SupplierController extends Controller
 
         return Inertia::render('Suppliers/Show', [
             'suppliers' => $suppliers
-        ])->table(function (InertiaTable $table) {
-            $table->withGlobalSearch()
-                ->column(key: 'id', label: '#', searchable: true, sortable: true)
-                ->column(key: 'company_name', label: 'Bedrijfsnaam', searchable: true, sortable: true)
-                ->column(key: 'phone_number', label: 'Telefoonnummer', searchable: true, sortable: true)
-                ->column(key: 'contact_name', label: 'Contact persoon', searchable: true, sortable: true)
-                ->column(key: 'email', label: 'E-mailadres', searchable: true, sortable: true)
-                ->column(key: 'next_deliveries', label: 'Volgende levering' );
-        });
+        ]);
     }
 
     public function new(Request $request)

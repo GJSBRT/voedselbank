@@ -40,7 +40,7 @@ const logout = () => {
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink v-if="hasPermission('dashboard:read')" :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
 
@@ -52,19 +52,19 @@ const logout = () => {
                                     Leveringen
                                 </NavLink>
 
-                                <NavLink :href="route('products.index')" :active="route().current('products.*')">
+                                <NavLink v-if="hasPermission('products:read')" :href="route('products.index')" :active="route().current('products.*')">
                                     Producten
                                 </NavLink>
 
-                                <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
+                                <NavLink v-if="hasPermission('customers:read')" :href="route('customers.index')" :active="route().current('customers.*')">
                                     Klanten
                                 </NavLink>
 
                                 <NavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.*')">
-                                    Voedsel Pakketten
+                                    Pakketten
                                 </NavLink>
 
-                                <NavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.index')">
+                                <NavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.*')">
                                     Categorieën
                                 </NavLink>
 
@@ -165,7 +165,7 @@ const logout = () => {
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink v-if="hasPermission('food-packages:read')" :href="route('food-packages.index')" :active="route().current('food-packages.*')">
-                            Voedselpakketten
+                            Pakketten
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink v-if="hasPermission('categories:read')" :href="route('categories.index')" :active="route().current('categories.index')">

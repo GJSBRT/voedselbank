@@ -63,9 +63,7 @@ class UserController extends Controller
         ]);
     }
 
-
     public function create(CreateUserRequest $request)
-
     {
         $permission = Role::checkPermission($request->user(), 'users:create');
         if ($permission) { return $permission; }
@@ -92,15 +90,19 @@ class UserController extends Controller
         $permission = Role::checkPermission($request->user(), 'users:update');
         if ($permission) { return $permission; }
 
+        $request->validate([
+            'user.first_name' => 'required|string|max:100',
+            'user.last_name' => 'required|string|max:100',
+            'user.email' => 'required|email|max:100',
+            'user.password' => 'required|string|max:100',
+            'user.role_id' => 'required|int',
+        ]);
+
         $user = User::find($userId);
         $newUser = $request->input('user') ?? null;
         $twoFactorEnabled = $request->input('two_factor_enabled') ?? null;
         $suspended = $request->input('suspended')? Carbon::now() : null;
         $user->suspended_at = $suspended;
-
-        $request->validate([
-            'user' => 'required',
-        ]);
 
         if ($newUser) {
             $user->update($newUser);

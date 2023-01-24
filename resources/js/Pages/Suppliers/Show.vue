@@ -6,6 +6,7 @@ import Pagination from '@/Components/Pagination.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Inertia } from '@inertiajs/inertia';
 import TableSearch from "@/Components/Search/TableSearch.vue";
+import { hasPermission } from '@/utils';
 
 defineProps({
     suppliers: Object,
@@ -21,7 +22,7 @@ defineProps({
             </h2>
 
             <div class="ml-auto">
-                <PrimaryButton @click="() => Inertia.visit(route('suppliers.new'))">
+                <PrimaryButton v-if="hasPermission('suppliers:create')" @click="() => Inertia.visit(route('suppliers.new'))">
                     Nieuwe leverancier
                 </PrimaryButton>
             </div>

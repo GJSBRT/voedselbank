@@ -9,6 +9,7 @@ use App\Models\FoodPackageItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class FoodPackageController extends Controller
 {
@@ -17,8 +18,12 @@ class FoodPackageController extends Controller
         $permission = Role::checkPermission($request->user(), 'food-packages:read');
         if ($permission) { return $permission; }
 
-
-        $packages = FoodPackage::with(['customer', 'items'])->orderBy('retrieved_at')->paginate();
+        $packages = QueryBuilder::for(FoodPackage::class)
+            ->with(['customer', 'items'])
+            ->allowedSorts(['created_at'])
+            ->orderBy('retrieved_at')
+            ->paginate()
+            ->withQueryString();
 
         return Inertia::render('FoodPackages/Show', [
             'packages' => $packages,
@@ -64,7 +69,6 @@ class FoodPackageController extends Controller
         $products = $request->input('products');
 
         $request->validate([
-            'notes' => 'string',
             'customer' => 'required',
             'products' => 'required',
         ]);
@@ -97,10 +101,6 @@ class FoodPackageController extends Controller
         $notes = $request->input('notes') ?? null;
         $customer = $request->input('customer') ?? null;
         $items = $request->input('products') ?? null;
-
-        $request->validate([
-            'notes' => 'string',
-        ]);
 
         if ($notes) {
             $foodPackage->notes = $notes;

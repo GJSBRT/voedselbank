@@ -11,6 +11,7 @@ import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import {Inertia} from "@inertiajs/inertia";
 import {ref, toRefs} from 'vue';
+import { hasPermission } from '@/utils';
 
 const props = defineProps({
     category: Object,
@@ -42,7 +43,7 @@ const confirmDelete = () => {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
                 <div>
-                    <FormSection @submitted="UpdateCategorie">
+                    <FormSection>
                         <template #title>
                             Categorie informatie
                         </template>
@@ -66,10 +67,10 @@ const confirmDelete = () => {
 
 
                         <template #actions>
-                            <PrimaryButton @click="handleSubmit">
+                            <PrimaryButton v-if="hasPermission('categories:update')" @click="handleSubmit">
                                 Opslaan
                             </PrimaryButton>
-                            <DangerButton @click="confirmDelete" class="ml-4 ">
+                            <DangerButton v-if="hasPermission('categories:delete')" @click="confirmDelete" class="ml-4 ">
                                 Verwijderen
                             </DangerButton>
                         </template>
