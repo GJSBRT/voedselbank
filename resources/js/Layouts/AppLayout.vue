@@ -292,13 +292,23 @@ const logout = () => {
             </nav>
 
             <!-- Page Heading -->
-            <header v-if="$slots.header" class="bg-white shadow">
+            <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex">
+                    <div>
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                            {{ breadcrumbs[breadcrumbs.length -1].title }}
+                        </h2>
+
+                        <div class="flex text-yellow-500 text-sm">
+                            <Link v-for="(breadcrumb, key) of breadcrumbs" :href="breadcrumb.href" class="flex flex-row mb-4 m-1">
+                                {{ breadcrumb.title }}
+                                <p v-if="key != breadcrumbs.length -1" :class="key != breadcrumbs.length && 'ml-1'"> > </p>
+                            </Link>
+                        </div>
+                    </div>
                     <slot name="header"/>
                 </div>
-                <div class="flex flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-yellow-500 text-sm">
-                    <Link v-for="breadcrumb in breadcrumbs" :href="breadcrumb.href" class="flex flex-row m-1">{{ breadcrumb.title }} > </Link>
-                </div>
+
             </header>
 
             <Banner/>

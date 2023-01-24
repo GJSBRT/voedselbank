@@ -18,11 +18,18 @@ const confirmDelete = ref(null);
 </script>
 
 <template>
-    <AppLayout title="Klanten overzicht">
+    <AppLayout title="Klanten overzicht" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Klanten overzicht',
+            href: route('customers.index'),
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Klanten overzicht
-            </h2>
+
 
             <div class="ml-auto">
                 <primary-button @click="() => Inertia.visit(route('customers.new'))">

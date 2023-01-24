@@ -14,11 +14,18 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Rollen">
+    <AppLayout title="Rollen" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Rollen overzicht',
+            href: route('roles.index'),
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Rollen Beheer
-            </h2>
+
 
             <div class="ml-auto">
                 <PrimaryButton v-if="hasPermission('roles:create')" @click="() => Inertia.visit(route('roles.new'))">

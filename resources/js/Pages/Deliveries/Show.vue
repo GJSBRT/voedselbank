@@ -26,11 +26,18 @@ function setShowDelivered(){
 </script>
 
 <template>
-    <AppLayout title="Leveringen">
+    <AppLayout title="leveringen" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Leveringen overzicht',
+            href: route('deliveries.index'),
+        }
+    ]">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Leveringen
-            </h2>
+
 
             <div class="ml-auto">
                 <PrimaryButton @click="() => Inertia.visit(route('deliveries.new'))">
