@@ -17,7 +17,7 @@ class RoleController extends Controller
         if ($permission) { return $permission; }
 
         return Inertia::render('Roles/Show', [
-            'roles' => Role::paginate(),
+            'roles' => Role::with('users')->paginate(),
         ]);
     }
 
@@ -31,13 +31,16 @@ class RoleController extends Controller
         ]);
     }
 
-    public function view(Request $request, int $roleId)
+    public function view(Request $request, $roleId)
     {
         $permission = ClassRole::checkPermission($request->user(), 'roles:read');
         if ($permission) { return $permission; }
 
+        // Try to get the role, else gives a 404 back instead of a 500 error.
+        $role = Role::where('id', $roleId)->firstOrFail();
+
         return Inertia::render('Roles/View', [
-            'role' => Role::find($roleId),
+            'role' => $role,
             'available_permissions' => ClassRole::$permissions,
         ]);
     }
@@ -52,18 +55,20 @@ class RoleController extends Controller
 
         Role::create([
             'name' => $name,
-            'permissions' => $permissions,
+            'permissions' => json_encode($permissions),
         ]);
 
         return redirect()->route('roles.index')->banner("De rol {$name} is successvol toegevoeged!");
     }
 
-    public function update(Request $request, int $roleId)
+    public function update(Request $request, $roleId)
     {
         $permission = ClassRole::checkPermission($request->user(), 'roles:update');
         if ($permission) { return $permission; }
 
-        $role = Role::find($roleId);
+        // Try to get the role, else gives a 404 back instead of a 500 error.
+        $role = Role::where('id', $roleId)->firstOrFail();
+
         $role->name = $request->input('name');
         $role->permissions = $request->input('permissions');
         $role->save();

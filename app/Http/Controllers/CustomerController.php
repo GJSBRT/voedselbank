@@ -21,6 +21,7 @@ class CustomerController extends Controller
         $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
+        // Return the costumers depending on the queries.
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
@@ -33,8 +34,7 @@ class CustomerController extends Controller
         });
 
         $customers = QueryBuilder::for(Customer::class)
-            ->allowedSorts(['first_name', 'last_name', 'phone_number'])
-            ->allowedFilters(['first_name', 'last_name', 'phone_number', $globalSearch])
+            ->allowedFilters([$globalSearch])
             ->where('first_name', '!=', 'deleted')
             ->paginate()
             ->withQueryString();
@@ -75,13 +75,13 @@ class CustomerController extends Controller
 
     }
 
-    public function delete(Request $request, int $customerId)
+    public function delete(Request $request, $customerId)
     {
         $permission = Role::checkPermission($request->user(), 'customers:delete');
         if ($permission) { return $permission; }
 
         //search the customer you want to delete
-        $customer = Customer::all()->find($customerId);
+        $customer = Customer::where('id', $customerId)->firstOrFail();
         $customer->update([
             'first_name' => 'Deleted',
             'last_name' => 'Deleted',
@@ -90,12 +90,13 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->banner('Klant is succesvol verwijderd');
     }
 
-    public function view(Request $request, int $customerId)
+    public function view(Request $request, $customerId)
     {
         $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
-        $customer = Customer::find($customerId);
+        // Try to get the customer, else gives a 404 back instead of a 500 error.
+        $customer = Customer::where('id', $customerId)->firstOrFail();
 
         return Inertia::render('Customers/View', [
             'customer' => $customer
@@ -103,13 +104,15 @@ class CustomerController extends Controller
     }
 
     //Update customers in the same form as the register function
-    public function update(UpdateCustomerRequest $request, int $customerId)
+    public function update(UpdateCustomerRequest $request, $customerId)
     {
         $permission = Role::checkPermission($request->user(), 'customers:update');
         if ($permission) { return $permission; }
 
-        //Updates every column of costumer
+        // Try to get the customer, else gives a 404 back instead of a 500 error.
         $customer = Customer::where('id', $customerId,)->firstOrFail();
+
+        // Updates the customer
         $input = $request->all();
         $customer->fill($input)->save();
 
@@ -131,6 +134,7 @@ class CustomerController extends Controller
         $permission = Role::checkPermission($request->user(), 'customers:read');
         if ($permission) { return $permission; }
 
+        // Try to get the customer, else gives a 404 back instead of a 500 error.
         $customer = Customer::where('id', $customerId)->firstOrFail();
 
         $pdf = app('dompdf.wrapper');

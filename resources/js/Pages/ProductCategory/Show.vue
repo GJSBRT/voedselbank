@@ -32,18 +32,15 @@ const confirmDelete = ref(null);
     ]">
 
         <template #header>
-            <div class="ml-auto">
-                <primary-button v-if="hasPermission('categories:create')" @click="() => Inertia.visit(route('categories.new'))">
-                    Maak een nieuw product categorie aan
-                </primary-button>
-            </div>
+            <primary-button v-if="hasPermission('categories:create')" @click="() => Inertia.visit(route('categories.new'))">
+                Maak een nieuw product categorie aan
+            </primary-button>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg ">
-                    <Table
-                        :headers="['Naam']">
+                    <Table :headers="['Naam']">
                         <tr @click="Inertia.visit(route('categories.view', categoryData.id))"
                             class="hover:bg-gray-50 cursor-pointer" v-for="categoryData in category.data"
                             :key="categoryData.id">

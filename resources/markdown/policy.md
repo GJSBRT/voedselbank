@@ -1,3 +1,3 @@
-# Privacy Policy
+# Gegevens verwerking
 
-Edit this file to define the privacy policy for your application.
+Wij, zijn verantwoordelijk voor de verwerking van uw persoonlijke gegevens. Wij verzamelen en gebruiken uw gegevens alleen voor specifieke doeleinden, zoals het verbeteren van onze diensten en het personaliseren van uw gebruikerservaring. Uw gegevens worden veilig opgeslagen en beschermd tegen ongeoorloofde toegang of gebruik. U heeft het recht om uw persoonlijke gegevens op te vragen, te wijzigen of te verwijderen. Als u vragen heeft over de verwerking van uw gegevens, kunt u contact met ons opnemen via een lid van onze directie.

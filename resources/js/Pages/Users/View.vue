@@ -26,7 +26,10 @@ const { user, two_factor_enabled, suspended } = toRefs(props);
 
 const form = useForm({
     _method: 'PATCH',
-    user: user.value,
+    first_name: user.value.first_name,
+    last_name: user.value.last_name,
+    email: user.value.email,
+    role_id: user.value.role_id,
     two_factor_enabled: two_factor_enabled.value,
     suspended: suspended.value
 });
@@ -38,7 +41,7 @@ const handleSubmit = () => {
 }
 
 const setRole = (role) => {
-    form.user.role_id = role.id
+    form.role_id = role.id
 }
 
 const confirmingUserDeletion = ref(false);
@@ -114,20 +117,20 @@ const deleteUser = () => {
                             <div class="col-span-6 grid grid-cols-2 gap-4">
                                 <div>
                                     <InputLabel for="first_name" value="Voornaam" />
-                                    <TextInput id="first_name" v-model="form.user.first_name" type="text" class="mt-1 block w-full"/>
+                                    <TextInput id="first_name" v-model="form.first_name" type="text" class="mt-1 block w-full"/>
                                     <InputError :message="form.errors.first_name" class="mt-2"/>
                                 </div>
 
                                 <div>
                                     <InputLabel for="last_name" value="Achternaam" />
-                                    <TextInput id="last_name" v-model="form.user.last_name" type="text" class="mt-1 block w-full"/>
+                                    <TextInput id="last_name" v-model="form.last_name" type="text" class="mt-1 block w-full"/>
                                     <InputError :message="form.errors.last_name" class="mt-2"/>
                                 </div>
                             </div>
 
                             <div class="col-span-6">
                                 <InputLabel for="email" value="Email" />
-                                <TextInput id="email" v-model="form.user.email" type="text" class="mt-1 block w-full"/>
+                                <TextInput id="email" v-model="form.email" type="text" class="mt-1 block w-full"/>
                                 <InputError :message="form.errors.email" class="mt-2"/>
                             </div>
 

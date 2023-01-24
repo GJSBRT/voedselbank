@@ -23,12 +23,20 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <AppLayout title="Customer Overview">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Categorie toevoegen
-            </h2>
-        </template>
+    <AppLayout title="Categorie overzicht" :breadcrumbs="[
+        {
+            title: 'Dashboard',
+            href: route('dashboard'),
+        },
+        {
+            title: 'Categorieën overzicht',
+            href: route('categories.index')
+        },
+        {
+            title: 'Categorie toevoegen',
+            href: route('categories.create')
+        }
+    ]">
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">

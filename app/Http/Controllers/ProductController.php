@@ -32,12 +32,19 @@ class ProductController extends Controller
             return $permission; 
         }
 
+
         $globalSearch = AllowedFilter::callback('global', function ($query, $value) 
         {
             $query->where(function ($query) use ($value) 
             {
                 Collection::wrap($value)->each(function ($value) use ($query) 
                 {
+
+        // Return the products depending on the queries.
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
+                
                     $query
                         ->orWhere('name', 'LIKE', "%{$value}%")
                         ->orWhere('ean_number', 'LIKE', "%{$value}%");
@@ -105,6 +112,7 @@ class ProductController extends Controller
         return redirect()->route('products.index')->banner('Product opgeslagen!');
     }
 
+
    //================================================================================
 
    // Check the role of the user
@@ -115,7 +123,9 @@ class ProductController extends Controller
    // Render all the specific product and all the categories in the edit page in vue
 
    //================================================================================
-    public function view(Request $request, int $productId)
+
+
+    public function view(Request $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:read');
         if ($permission) 
@@ -123,7 +133,8 @@ class ProductController extends Controller
             return $permission; 
         }
 
-        $products = Product::all()->find($productId);
+        // Try to get the product, else gives a 404 back instead of a 500 error.
+        $products = Product::where('id', $productId)->firstOrFail();
         $productCategories = ProductCategory::all();
 
         return Inertia::render('Products/View', [
@@ -131,6 +142,7 @@ class ProductController extends Controller
             'product_categories' => $productCategories,
         ]);
     }
+
 
    //================================================================================
 
@@ -143,7 +155,9 @@ class ProductController extends Controller
    // After submitting redirect to main page with banner message succes
 
    //================================================================================
-    public function update(EditProductRequest $request, int $productId)
+
+    public function update(EditProductRequest $request, $productId)
+
     {
         $permission = Role::checkPermission($request->user(), 'products:update');
         if ($permission) 
@@ -151,6 +165,7 @@ class ProductController extends Controller
             return $permission; 
         }
 
+        // Try to get the product, else gives a 404 back instead of a 500 error.
         $products = Product::where('id', $productId)->firstOrFail();
         $products->name = $request->input('name');
         $products->ean_number = $request->input('ean_number');
@@ -161,6 +176,7 @@ class ProductController extends Controller
         return redirect()->route('products.index')->banner('Product Veranderd!');
 
     }
+
 
    //================================================================================
 
@@ -173,7 +189,8 @@ class ProductController extends Controller
    // If failed then redirect to main products page with banner message why it failed using Exception method ( avoids for example internal error 500 )
 
    //================================================================================
-    public function delete(Request $request, int $productId)
+
+    public function delete(Request $request, $productId)
     {
         $permission = Role::checkPermission($request->user(), 'products:delete');
         if ($permission) 
@@ -181,7 +198,8 @@ class ProductController extends Controller
             return $permission; 
         }
 
-        $product = Product::find($productId);
+        // Try to get the product, else gives a 404 back instead of a 500 error.
+        $product = Product::where('id', $productId)->firstOrFail();
 
         try 
         {
